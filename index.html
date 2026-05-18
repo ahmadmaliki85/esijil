@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automasi E-Sijil — Panduan Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e0e12;
+  --ink2: #3a3a4a;
+  --ink3: #7a7a90;
+  --surface: #f5f4f0;
+  --card: #ffffff;
+  --border: rgba(14,14,18,0.08);
+  --accent: #1a56db;
+  --accent2: #0ea06b;
+  --accent3: #e05c2a;
+  --accent4: #7c3aed;
+
+  --design-clr: #e05c2a;
+  --generate-clr: #1a56db;
+  --form-clr: #0ea06b;
+
+  --r: 16px;
+  --r-sm: 10px;
+  --shadow: 0 2px 16px rgba(14,14,18,0.07), 0 0 0 0.5px rgba(14,14,18,0.06);
+  --shadow-hover: 0 8px 32px rgba(14,14,18,0.13), 0 0 0 0.5px rgba(14,14,18,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--surface);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 5rem 0 3.5rem;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--card); border: 0.5px solid var(--border);
+  border-radius: 999px; padding: 5px 14px;
+  font-size: 12px; font-weight: 500; color: var(--ink2);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  animation: fadeUp 0.5s ease both;
+}
+.hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); display: block; }
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  animation: fadeUp 0.5s 0.1s ease both;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--design-clr), var(--generate-clr));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 1.05rem; color: var(--ink3); margin-top: 1rem; font-weight: 300;
+  max-width: 520px; margin-inline: auto;
+  animation: fadeUp 0.5s 0.2s ease both;
+  line-height: 1.7;
+}
+
+/* ─── PIPELINE ─── */
+.pipeline {
+  display: flex; align-items: center; justify-content: center; gap: 0;
+  margin: 3rem 0 4rem;
+  flex-wrap: wrap;
+  animation: fadeUp 0.5s 0.3s ease both;
+}
+.pipe-step {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 14px 20px;
+  background: var(--card);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r-sm);
+  min-width: 110px;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+.pipe-step .step-num {
+  font-size: 10px; font-weight: 600; color: var(--ink3); font-family: 'Syne', sans-serif;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.pipe-step .step-name {
+  font-size: 12px; font-weight: 500; color: var(--ink); text-align: center;
+}
+.pipe-step .step-dot { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; }
+.pipe-arr {
+  font-size: 18px; color: var(--ink3); padding: 0 2px; flex-shrink: 0;
+}
+.sd { background: rgba(224,92,42,0.12); }
+.sg { background: rgba(26,86,219,0.12); }
+.sf { background: rgba(14,160,107,0.12); }
+.se { background: rgba(124,58,237,0.12); }
+
+/* ─── SECTION HEADERS ─── */
+.sec-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.sec-pill {
+  height: 36px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 0 14px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 13px;
+  letter-spacing: -0.01em;
+}
+.sec-pill svg { width: 16px; height: 16px; }
+.sec-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem; font-weight: 700; color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.sec-desc { font-size: 0.875rem; color: var(--ink3); margin-top: 2px; }
+
+.section { margin-bottom: 4rem; }
+
+/* ─── PLATFORM GRID ─── */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.pcard {
+  background: var(--card);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.pcard::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.pcard:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+.pcard:hover::after { opacity: 1; }
+
+.pcard-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 0.9rem;
+  font-size: 24px;
+  position: relative;
+}
+.pcard-icon img { width: 28px; height: 28px; object-fit: contain; }
+.pcard-icon svg { width: 28px; height: 28px; }
+
+.pcard-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 0.95rem;
+  color: var(--ink); margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.pcard-type {
+  font-size: 11px; font-weight: 500; color: var(--ink3);
+  margin-bottom: 0.75rem;
+}
+.pcard-tags {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  margin-bottom: 0.75rem;
+}
+.tag {
+  font-size: 10px; font-weight: 500;
+  padding: 2px 7px; border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink2);
+  border: 0.5px solid var(--border);
+}
+.tag.green { background: #e8f8f1; color: #0a6644; border-color: rgba(14,160,107,0.2); }
+.tag.orange { background: #fdf0e8; color: #7a2c0a; border-color: rgba(224,92,42,0.2); }
+.tag.blue { background: #eaf0fd; color: #1034a0; border-color: rgba(26,86,219,0.2); }
+.tag.purple { background: #f3eefe; color: #5b21b6; border-color: rgba(124,58,237,0.2); }
+.tag.red { background: #feecec; color: #991b1b; border-color: rgba(220,38,38,0.2); }
+
+.pcard-note {
+  font-size: 11.5px; color: var(--ink3); line-height: 1.5;
+  border-top: 0.5px solid var(--border);
+  padding-top: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* Design section accent */
+.design-card::after { background: var(--design-clr); }
+.design-card .pcard-icon { background: rgba(224,92,42,0.1); }
+
+/* Generate section accent */
+.generate-card::after { background: var(--generate-clr); }
+.generate-card .pcard-icon { background: rgba(26,86,219,0.1); }
+
+/* Form section accent */
+.form-card::after { background: var(--form-clr); }
+.form-card .pcard-icon { background: rgba(14,160,107,0.1); }
+
+/* ─── INTEGRATION DIAGRAM ─── */
+.integ-section {
+  background: var(--card);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 4rem;
+}
+.integ-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 1.1rem;
+  color: var(--ink); margin-bottom: 0.4rem;
+}
+.integ-sub { font-size: 0.85rem; color: var(--ink3); margin-bottom: 1.5rem; }
+
+.integ-rows { display: flex; flex-direction: column; gap: 12px; }
+.integ-row {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  flex-wrap: wrap;
+}
+.integ-from {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 500; font-size: 13px; min-width: 130px;
+}
+.integ-from .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.integ-via {
+  flex: 1; display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap;
+}
+.via-pill {
+  font-size: 11px; font-weight: 500;
+  padding: 3px 10px; border-radius: 999px;
+  background: var(--card);
+  border: 0.5px solid var(--border);
+  color: var(--ink2);
+}
+.integ-arrow { color: var(--ink3); font-size: 14px; }
+.integ-to {
+  font-size: 13px; font-weight: 500; color: var(--ink);
+  display: flex; align-items: center; gap: 6px;
+}
+.integ-issue {
+  font-size: 11px; color: #c0392b;
+  background: #feecec; border: 0.5px solid rgba(220,38,38,0.15);
+  border-radius: 6px; padding: 2px 8px;
+  margin-left: auto;
+}
+
+/* ─── COMPARE TABLE ─── */
+.compare-wrap {
+  background: var(--card);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 4rem;
+}
+.compare-wrap table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px;
+}
+.compare-wrap th {
+  background: var(--surface);
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--ink3);
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 0.5px solid var(--border);
+}
+.compare-wrap td {
+  padding: 11px 16px;
+  border-bottom: 0.5px solid var(--border);
+  vertical-align: middle;
+}
+.compare-wrap tr:last-child td { border-bottom: none; }
+.compare-wrap tr:hover td { background: var(--surface); }
+.badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 11px; font-weight: 500;
+  padding: 2px 8px; border-radius: 5px;
+}
+.b-yes { background: #e8f8f1; color: #0a6644; }
+.b-no  { background: #feecec; color: #991b1b; }
+.b-partial { background: #fdf0e8; color: #7a2c0a; }
+.b-low { background: #eaf0fd; color: #1034a0; }
+.b-med { background: #fdf0e8; color: #7a2c0a; }
+.b-high { background: #feecec; color: #991b1b; }
+.row-cat {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 6px 16px;
+  color: white;
+}
+.cat-design { background: var(--design-clr); }
+.cat-gen { background: var(--generate-clr); }
+.cat-form { background: var(--form-clr); }
+
+/* ─── WORKFLOW ─── */
+.workflow {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 4rem;
+}
+.wf-step {
+  background: var(--card);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.1rem;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.wf-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px; font-weight: 800; color: var(--ink3);
+  margin-bottom: 0.5rem;
+}
+.wf-icon {
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; margin-bottom: 0.6rem;
+}
+.wf-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 0.85rem;
+  color: var(--ink); margin-bottom: 3px;
+}
+.wf-tool { font-size: 11px; color: var(--ink3); }
+
+/* ─── FOOTER ─── */
+.footer {
+  border-top: 0.5px solid var(--border);
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 12px; color: var(--ink3);
+  margin-top: 2rem;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.section { animation: fadeUp 0.5s ease both; }
+.section:nth-child(2) { animation-delay: 0.1s; }
+.section:nth-child(3) { animation-delay: 0.2s; }
+.section:nth-child(4) { animation-delay: 0.3s; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 600px) {
+  .pipeline { gap: 4px; }
+  .pipe-step { min-width: 80px; padding: 10px 12px; }
+  .pipe-arr { font-size: 14px; }
+  .integ-issue { margin-left: 0; margin-top: 4px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="wrap">
+<div class="hero">
+  <div class="hero-badge"><span></span> Modul Pengajaran Digital</div>
+  <h1>Automasi<br><em>E-Sijil</em> Moden</h1>
+  <p class="hero-sub">Panduan lengkap platform reka bentuk, penjanaan automatik, dan borang online untuk sistem sijil digital.</p>
+</div>
+
+<!-- PIPELINE -->
+<div class="pipeline">
+  <div class="pipe-step">
+    <div class="step-dot sd">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#e05c2a" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+    </div>
+    <div class="step-num">01</div>
+    <div class="step-name">Reka Bentuk Sijil</div>
+  </div>
+  <div class="pipe-arr">→</div>
+  <div class="pipe-step">
+    <div class="step-dot sf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0ea06b" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+    </div>
+    <div class="step-num">02</div>
+    <div class="step-name">Borang Online</div>
+  </div>
+  <div class="pipe-arr">→</div>
+  <div class="pipe-step">
+    <div class="step-dot sd">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#e05c2a" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    </div>
+    <div class="step-num">03</div>
+    <div class="step-name">Google Sheets</div>
+  </div>
+  <div class="pipe-arr">→</div>
+  <div class="pipe-step">
+    <div class="step-dot sg">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1a56db" stroke-width="2"><path d="M10 20l4-16M4 9l16 0M4 15l16 0" stroke-linecap="round"/></svg>
+    </div>
+    <div class="step-num">04</div>
+    <div class="step-name">Auto-Generate</div>
+  </div>
+  <div class="pipe-arr">→</div>
+  <div class="pipe-step">
+    <div class="step-dot se">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+    </div>
+    <div class="step-num">05</div>
+    <div class="step-name">Hantar E-mel</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 1: REKA BENTUK
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-pill" style="background:#fdf0e8; color:#7a2c0a;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      Lapisan 1
+    </div>
+    <div>
+      <div class="sec-title">Platform Reka Bentuk Sijil</div>
+      <div class="sec-desc">Alat untuk mereka bentuk template sijil yang menarik dan profesional</div>
+    </div>
+  </div>
+
+  <div class="platform-grid">
+
+    <!-- Adobe Photoshop -->
+    <div class="pcard design-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#001e36"/>
+          <text x="8" y="36" font-size="28" font-weight="900" fill="#31a8ff" font-family="Arial Black">Ps</text>
+        </svg>
+      </div>
+      <div class="pcard-name">Adobe Photoshop</div>
+      <div class="pcard-type">Perisian Desktop</div>
+      <div class="pcard-tags">
+        <span class="tag orange">Berbayar</span>
+        <span class="tag blue">PNG/PDF</span>
+        <span class="tag red">Tiada Automasi</span>
+      </div>
+      <div class="pcard-note">Terbaik untuk sijil berkualiti cetak tinggi. Tidak menyokong automasi secara langsung — perlu export manual.</div>
+    </div>
+
+    <!-- Canva -->
+    <div class="pcard design-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#7d2ae8"/>
+          <text x="8" y="38" font-size="30" font-weight="900" fill="white" font-family="Arial Black">C</text>
+        </svg>
+      </div>
+      <div class="pcard-name">Canva</div>
+      <div class="pcard-type">Web-Based Designer</div>
+      <div class="pcard-tags">
+        <span class="tag green">Freemium</span>
+        <span class="tag blue">PDF/PNG</span>
+        <span class="tag orange">Semi-Auto</span>
+      </div>
+      <div class="pcard-note">Mesra pengguna dengan template cantik. Boleh integrasi via Zapier untuk automasi terhad.</div>
+    </div>
+
+    <!-- PowerPoint -->
+    <div class="pcard design-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#d04526"/>
+          <text x="7" y="36" font-size="26" font-weight="900" fill="white" font-family="Arial Black">Pp</text>
+        </svg>
+      </div>
+      <div class="pcard-name">PowerPoint</div>
+      <div class="pcard-type">Microsoft Office</div>
+      <div class="pcard-tags">
+        <span class="tag orange">Berbayar</span>
+        <span class="tag blue">PPTX/PDF</span>
+        <span class="tag orange">Terhad</span>
+      </div>
+      <div class="pcard-note">Mudah untuk reka bentuk. Mail Merge boleh digunakan tetapi tidak seintuitif Google Slides.</div>
+    </div>
+
+    <!-- Google Docs -->
+    <div class="pcard design-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#4285f4"/>
+          <path d="M14 12h15l9 9v17H14V12z" fill="white" opacity="0.9"/>
+          <path d="M29 12v9h9" fill="#c9d8fb"/>
+          <path d="M18 26h14M18 30h14M18 34h10" stroke="#4285f4" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="pcard-name">Google Docs</div>
+      <div class="pcard-type">Google Workspace</div>
+      <div class="pcard-tags">
+        <span class="tag green">Percuma</span>
+        <span class="tag blue">PDF/DOCX</span>
+        <span class="tag green">AutoCrat ✓</span>
+      </div>
+      <div class="pcard-note">Sesuai untuk sijil berasaskan teks. Boleh digunakan dengan AutoCrat untuk automasi penuh.</div>
+    </div>
+
+    <!-- Google Slides -->
+    <div class="pcard design-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#fbbc04"/>
+          <rect x="9" y="14" width="32" height="22" rx="2" fill="white"/>
+          <rect x="12" y="17" width="26" height="13" fill="#fbbc04" opacity="0.4"/>
+          <rect x="20" y="33" width="10" height="3" fill="white" opacity="0.8"/>
+          <rect x="23" y="36" width="4" height="2" fill="white" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="pcard-name">Google Slides</div>
+      <div class="pcard-type">Google Workspace</div>
+      <div class="pcard-tags">
+        <span class="tag green">Percuma</span>
+        <span class="tag green">Automasi Penuh</span>
+        <span class="tag blue">PDF/PNG</span>
+      </div>
+      <div class="pcard-note">⭐ PILIHAN TERBAIK untuk automasi. Sangat serasi dengan AutoCrat dan Apps Script via placeholder tag.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 2: AUTO-GENERATE
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-pill" style="background:#eaf0fd; color:#1034a0;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20l4-16M4 9l16 0M4 15l16 0" stroke-linecap="round"/></svg>
+      Lapisan 2
+    </div>
+    <div>
+      <div class="sec-title">Platform Auto-Generate</div>
+      <div class="sec-desc">Enjin yang menjana sijil secara automatik dari data spreadsheet</div>
+    </div>
+  </div>
+
+  <div class="platform-grid">
+
+    <!-- AutoCrat -->
+    <div class="pcard generate-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#1a56db"/>
+          <text x="6" y="36" font-size="22" font-weight="900" fill="white" font-family="Arial Black">AC</text>
+        </svg>
+      </div>
+      <div class="pcard-name">Google AutoCrat</div>
+      <div class="pcard-type">Google Sheets Add-on</div>
+      <div class="pcard-tags">
+        <span class="tag green">Percuma</span>
+        <span class="tag blue">No-Code</span>
+        <span class="tag green">E-mel Auto</span>
+      </div>
+      <div class="pcard-note">Add-on Google Sheets. Guna tag &lt;&lt;Nama&gt;&gt; dalam template. Sesuai untuk pemula — tanpa kod.</div>
+    </div>
+
+    <!-- Apps Script -->
+    <div class="pcard generate-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#0f9d58"/>
+          <path d="M12 18l8 7-8 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M24 32h14" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="pcard-name">Google Apps Script</div>
+      <div class="pcard-type">JavaScript Cloud Runtime</div>
+      <div class="pcard-tags">
+        <span class="tag green">Percuma</span>
+        <span class="tag orange">Perlu Kod</span>
+        <span class="tag blue">Fleksibel</span>
+      </div>
+      <div class="pcard-note">Kawalan penuh via JavaScript. Boleh jana sijil, simpan ke Drive, hantar e-mel — semua dalam satu skrip.</div>
+    </div>
+
+    <!-- Make.com -->
+    <div class="pcard generate-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#8e24aa"/>
+          <circle cx="17" cy="25" r="6" fill="none" stroke="white" stroke-width="2.5"/>
+          <circle cx="33" cy="25" r="6" fill="none" stroke="white" stroke-width="2.5"/>
+          <path d="M23 25h4" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="pcard-name">Make.com</div>
+      <div class="pcard-type">Automation Platform</div>
+      <div class="pcard-tags">
+        <span class="tag green">Freemium</span>
+        <span class="tag blue">Visual Flow</span>
+        <span class="tag purple">1K ops/bln</span>
+      </div>
+      <div class="pcard-note">No-code workflow visual. Sambung Tally → Sheets → Drive → Gmail dalam satu kanvas drag-and-drop.</div>
+    </div>
+
+    <!-- Certifier -->
+    <div class="pcard generate-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#0ea06b"/>
+          <path d="M25 10l4 8 9 1-6.5 6.5 1.5 9L25 30l-8 4.5 1.5-9L12 19l9-1 4-8z" fill="white"/>
+        </svg>
+      </div>
+      <div class="pcard-name">Certifier.io</div>
+      <div class="pcard-type">Platform Khusus Sijil</div>
+      <div class="pcard-tags">
+        <span class="tag orange">Berbayar</span>
+        <span class="tag green">All-in-One</span>
+        <span class="tag blue">LinkedIn Share</span>
+      </div>
+      <div class="pcard-note">Platform lengkap — reka bentuk, jana, hantar, dan track analytics. QR verification built-in.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 3: PLATFORM BORANG
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-pill" style="background:#e8f8f1; color:#0a6644;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+      Lapisan 3
+    </div>
+    <div>
+      <div class="sec-title">Platform Borang Online</div>
+      <div class="sec-desc">Mengumpul data peserta yang mengalir terus ke Google Sheets</div>
+    </div>
+  </div>
+
+  <div class="platform-grid">
+
+    <!-- Google Forms -->
+    <div class="pcard form-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#673ab7"/>
+          <rect x="11" y="10" width="28" height="30" rx="3" fill="white"/>
+          <rect x="16" y="16" width="18" height="3" rx="1.5" fill="#673ab7" opacity="0.5"/>
+          <circle cx="16" cy="26" r="2" fill="#673ab7" opacity="0.5"/>
+          <rect x="20" y="24.5" width="12" height="3" rx="1.5" fill="#673ab7" opacity="0.3"/>
+          <circle cx="16" cy="33" r="2" fill="#673ab7" opacity="0.5"/>
+          <rect x="20" y="31.5" width="10" height="3" rx="1.5" fill="#673ab7" opacity="0.3"/>
+        </svg>
+      </div>
+      <div class="pcard-name">Google Forms</div>
+      <div class="pcard-type">Google Workspace</div>
+      <div class="pcard-tags">
+        <span class="tag green">Percuma</span>
+        <span class="tag green">Native Sheets</span>
+        <span class="tag blue">Paling Mudah</span>
+      </div>
+      <div class="pcard-note">Integrasi paling mudah dengan Google Sheets — native, tanpa setup tambahan. Had pada jenis field dan reka bentuk.</div>
+    </div>
+
+    <!-- JotForm -->
+    <div class="pcard form-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#ff6100"/>
+          <text x="8" y="36" font-size="24" font-weight="900" fill="white" font-family="Arial Black">Jf</text>
+        </svg>
+      </div>
+      <div class="pcard-name">JotForm</div>
+      <div class="pcard-type">Form Builder Platform</div>
+      <div class="pcard-tags">
+        <span class="tag green">Freemium</span>
+        <span class="tag blue">Native Sheets</span>
+        <span class="tag green">Field Lanjutan</span>
+      </div>
+      <div class="pcard-note">Field lebih kaya (tandatangan, pembayaran, upload fail). Integrasi Google Sheets native tetapi ada had submission.</div>
+    </div>
+
+    <!-- Tally.so -->
+    <div class="pcard form-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#1a1a1a"/>
+          <text x="7" y="36" font-size="24" font-weight="900" fill="white" font-family="Arial Black">T.</text>
+        </svg>
+      </div>
+      <div class="pcard-name">Tally.so</div>
+      <div class="pcard-type">Modern Form Builder</div>
+      <div class="pcard-tags">
+        <span class="tag green">Freemium</span>
+        <span class="tag orange">Via Zapier/Make</span>
+        <span class="tag blue">UI Moden</span>
+      </div>
+      <div class="pcard-note">UI paling cantik dan moden. Integrasi Sheets memerlukan Zapier atau Make — satu langkah tambahan berbanding Forms.</div>
+    </div>
+
+    <!-- Typeform -->
+    <div class="pcard form-card">
+      <div class="pcard-icon">
+        <svg viewBox="0 0 50 50" width="30" height="30">
+          <rect width="50" height="50" rx="8" fill="#262627"/>
+          <text x="9" y="36" font-size="22" font-weight="900" fill="#ffffff" font-family="Arial Black">Tf</text>
+        </svg>
+      </div>
+      <div class="pcard-name">Typeform</div>
+      <div class="pcard-type">Conversational Form</div>
+      <div class="pcard-tags">
+        <span class="tag orange">Berbayar</span>
+        <span class="tag orange">Via Zapier</span>
+        <span class="tag blue">Pengalaman Unik</span>
+      </div>
+      <div class="pcard-note">Borang gaya perbualan satu-soalan-sekaligus. Cantik tapi premium. Integrasi Sheets memerlukan pihak ketiga.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     INTEGRATION ISSUES
+════════════════════════════════════════════ -->
+<div class="integ-section">
+  <div class="integ-title">⚡ Isu Integrasi Platform → Google Sheets</div>
+  <div class="integ-sub">Masalah biasa yang perlu diketahui sebelum membina sistem automasi</div>
+  <div class="integ-rows">
+
+    <div class="integ-row">
+      <div class="integ-from">
+        <div class="dot" style="background:#0ea06b"></div>
+        Google Forms
+      </div>
+      <div class="integ-arrow">→</div>
+      <div class="integ-via"><span class="via-pill">Native (Terus)</span></div>
+      <div class="integ-arrow">→</div>
+      <div class="integ-to">Google Sheets</div>
+      <span class="integ-issue">⚠ Tiada logik bersyarat</span>
+    </div>
+
+    <div class="integ-row">
+      <div class="integ-from">
+        <div class="dot" style="background:#ff6100"></div>
+        JotForm
+      </div>
+      <div class="integ-arrow">→</div>
+      <div class="integ-via"><span class="via-pill">Native Integration</span></div>
+      <div class="integ-arrow">→</div>
+      <div class="integ-to">Google Sheets</div>
+      <span class="integ-issue">⚠ Limit 100 submission/bln (free)</span>
+    </div>
+
+    <div class="integ-row">
+      <div class="integ-from">
+        <div class="dot" style="background:#1a1a1a"></div>
+        Tally.so
+      </div>
+      <div class="integ-arrow">→</div>
+      <div class="integ-via">
+        <span class="via-pill">Zapier</span>
+        <span style="font-size:11px;color:var(--ink3)">atau</span>
+        <span class="via-pill">Make.com</span>
+        <span style="font-size:11px;color:var(--ink3)">atau</span>
+        <span class="via-pill">Webhook</span>
+      </div>
+      <div class="integ-arrow">→</div>
+      <div class="integ-to">Google Sheets</div>
+      <span class="integ-issue">⚠ Perlukan akaun pihak ketiga</span>
+    </div>
+
+    <div class="integ-row">
+      <div class="integ-from">
+        <div class="dot" style="background:#262627"></div>
+        Typeform
+      </div>
+      <div class="integ-arrow">→</div>
+      <div class="integ-via">
+        <span class="via-pill">Zapier</span>
+        <span style="font-size:11px;color:var(--ink3)">atau</span>
+        <span class="via-pill">Make.com</span>
+      </div>
+      <div class="integ-arrow">→</div>
+      <div class="integ-to">Google Sheets</div>
+      <span class="integ-issue">⚠ Plan berbayar untuk integrasi lanjutan</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     COMPARISON TABLE
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-title">Jadual Perbandingan Lengkap</div>
+  </div>
+  <div class="compare-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Percuma?</th>
+          <th>Integrasi Sheets</th>
+          <th>Boleh Automate?</th>
+          <th>Kemahiran</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="5" class="row-cat cat-design">🎨 Reka Bentuk Sijil</td></tr>
+        <tr>
+          <td><strong>Adobe Photoshop</strong></td>
+          <td><span class="badge b-no">✕ Berbayar</span></td>
+          <td><span class="badge b-no">✕ Tidak</span></td>
+          <td><span class="badge b-no">✕ Manual</span></td>
+          <td><span class="badge b-high">Tinggi</span></td>
+        </tr>
+        <tr>
+          <td><strong>Canva</strong></td>
+          <td><span class="badge b-partial">~ Freemium</span></td>
+          <td><span class="badge b-partial">~ Via Zapier</span></td>
+          <td><span class="badge b-partial">~ Terhad</span></td>
+          <td><span class="badge b-low">Rendah</span></td>
+        </tr>
+        <tr>
+          <td><strong>PowerPoint</strong></td>
+          <td><span class="badge b-no">✕ Berbayar</span></td>
+          <td><span class="badge b-no">✕ Tidak</span></td>
+          <td><span class="badge b-partial">~ Mail Merge</span></td>
+          <td><span class="badge b-low">Rendah</span></td>
+        </tr>
+        <tr>
+          <td><strong>Google Docs</strong></td>
+          <td><span class="badge b-yes">✓ Percuma</span></td>
+          <td><span class="badge b-yes">✓ Native</span></td>
+          <td><span class="badge b-yes">✓ AutoCrat</span></td>
+          <td><span class="badge b-low">Rendah</span></td>
+        </tr>
+        <tr>
+          <td><strong>Google Slides ⭐</strong></td>
+          <td><span class="badge b-yes">✓ Percuma</span></td>
+          <td><span class="badge b-yes">✓ Native</span></td>
+          <td><span class="badge b-yes">✓ Penuh</span></td>
+          <td><span class="badge b-low">Rendah</span></td>
+        </tr>
+
+        <tr><td colspan="5" class="row-cat cat-gen">⚙️ Auto-Generate</td></tr>
+        <tr>
+          <td><strong>AutoCrat</strong></td>
+          <td><span class="badge b-yes">✓ Percuma</span></td>
+          <td><span class="badge b-yes">✓ Native</span></td>
+          <td><span class="badge b-yes">✓ Penuh</span></td>
+          <td><span class="badge b-low">Rendah</span></td>
+        </tr>
+        <tr>
+          <td><strong>Apps Script</strong></td>
+          <td><span class="badge b-yes">✓ Percuma</span></td>
+          <td><span class="badge b-yes">✓ Native</span></td>
+          <td><span class="badge b-yes">✓ Penuh</span></td>
+          <td><span class="badge b-high">Tinggi</span></td>
+        </tr>
+        <tr>
+          <td><strong>Make.com</strong></td>
+          <td><span class="badge b-partial">~ 1K ops/bln</span></td>
+          <td><span class="badge b-yes">✓ Ya</span></td>
+          <td><span class="badge b-yes">✓ Visual Flow</span></td>
+          <td><span class="badge b-med">Sederhana</span></td>
+        </tr>
+
+        <tr><td colspan="5" class="row-cat cat-form">📝 Borang Online</td></tr>
+        <tr>
+          <td><strong>Google Forms</strong></td>
+          <td><span class="badge b-yes">✓ Percuma</span></td>
+          <td><span class="badge b-yes">✓ Native</span></td>
+          <td><span class="badge b-yes">✓ Trigger Auto</span></td>
+          <td><span class="badge b-low">Rendah</span></td>
+        </tr>
+        <tr>
+          <td><strong>JotForm</strong></td>
+          <td><span class="badge b-partial">~ 100 sub/bln</span></td>
+          <td><span class="badge b-yes">✓ Native</span></td>
+          <td><span class="badge b-yes">✓ Ya</span></td>
+          <td><span class="badge b-low">Rendah</span></td>
+        </tr>
+        <tr>
+          <td><strong>Tally.so</strong></td>
+          <td><span class="badge b-yes">✓ Percuma</span></td>
+          <td><span class="badge b-partial">~ Via Zapier/Make</span></td>
+          <td><span class="badge b-partial">~ Perlu Setup</span></td>
+          <td><span class="badge b-med">Sederhana</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     WORKFLOW STEPS
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-title">Aliran Kerja Sistem E-Sijil</div>
+    <div class="sec-desc" style="margin-left:auto;font-size:13px;color:var(--ink3);">Dari borang hingga e-mel peserta</div>
+  </div>
+  <div class="workflow">
+    <div class="wf-step">
+      <div class="wf-num">LANGKAH 01</div>
+      <div class="wf-icon" style="background:#e8f8f1;">📋</div>
+      <div class="wf-name">Peserta Isi Borang</div>
+      <div class="wf-tool">Tally.so / JotForm / Google Forms</div>
+    </div>
+    <div class="wf-step">
+      <div class="wf-num">LANGKAH 02</div>
+      <div class="wf-icon" style="background:#e8f8f1;">📊</div>
+      <div class="wf-name">Data Masuk Sheets</div>
+      <div class="wf-tool">Google Sheets (auto atau via Zapier)</div>
+    </div>
+    <div class="wf-step">
+      <div class="wf-num">LANGKAH 03</div>
+      <div class="wf-icon" style="background:#eaf0fd;">⚡</div>
+      <div class="wf-name">Trigger Penciptaan</div>
+      <div class="wf-tool">AutoCrat / Apps Script / Make</div>
+    </div>
+    <div class="wf-step">
+      <div class="wf-num">LANGKAH 04</div>
+      <div class="wf-icon" style="background:#fdf0e8;">🎨</div>
+      <div class="wf-name">Isi Template Sijil</div>
+      <div class="wf-tool">Google Slides template dengan placeholder</div>
+    </div>
+    <div class="wf-step">
+      <div class="wf-num">LANGKAH 05</div>
+      <div class="wf-icon" style="background:#fdf0e8;">💾</div>
+      <div class="wf-name">Simpan ke Drive</div>
+      <div class="wf-tool">Google Drive (PDF format)</div>
+    </div>
+    <div class="wf-step">
+      <div class="wf-num">LANGKAH 06</div>
+      <div class="wf-icon" style="background:#f3eefe;">📧</div>
+      <div class="wf-name">E-mel Automatik</div>
+      <div class="wf-tool">Gmail via AutoCrat / Apps Script</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Modul Pengajaran — Automasi E-Sijil Menggunakan AI &amp; Platform Digital &nbsp;·&nbsp; Disediakan untuk NotebookLM</p>
+</div>
+
+</div><!-- /wrap -->
+</body>
+</html>
