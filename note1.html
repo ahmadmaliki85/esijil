@@ -197,37 +197,39 @@
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1'); // Pastikan nama sheet betul
   const data = sheet.getDataRange().getValues();
   
-  // ⚠️ GANTIKAN ID di bawah dengan ID folder & template DOC anda ⚠️
-  const DOC_ID = '1Iy4XCmRz4y7K7MUyvlhOAaUEIGT1taq87KgRh4OEvxs'; // ID Google Docs template
-  const FOLDER_ID = '1VQaMPsO-QJRN99pWcQu9rGucX2ajI0Zg';        // ID folder Google Drive
+  // ⚠️ GANTIKAN ID DI BAWAH DENGAN ID TEMPLATE SLIDES & FOLDER DRIVE ANDA SEBENAR ⚠️
+  const SLIDES_ID = '1AbCdEfGhIjKlMnOpQrStUvWxYz1234567890abcdefg'; // ID Google Slides template (Telah diganti)
+  const FOLDER_ID = '1aBcDeFgHiJkLmNoPqRsTuVwXyZ098765';         // ID folder Google Drive (Telah diganti)
   
-  const template = DriveApp.getFileById(DOC_ID);
+  const template = DriveApp.getFileById(SLIDES_ID);
   const folderPenyimpanan = DriveApp.getFolderById(FOLDER_ID);
 
   // Mula baca data dari baris ke-2 (baris 1 adalah tajuk)
-  for (let i = 1; i &lt; data.length; i++) {
+  for (let i = 1; i < data.length; i++) {
     let [id, nama, program, tarikh, linkSijil] = data[i];
 
     // Kalau dah ada link, skip (tak nak generate dua kali)
     if (linkSijil !== "") continue;
 
-    // 1. Buat salinan template Docs
+    // 1. Buat salinan template Slides
     let salinan = template.makeCopy(`Sijil - ${nama}`, folderPenyimpanan);
-    let docSalinan = DocumentApp.openById(salinan.getId());
-    let isiDoc = docSalinan.getBody();
+    let slideSalinan = SlidesApp.openById(salinan.getId());
+    
+    // Google Slides menggunakan konsep 'Presentation' dan mempunyai 'Slides'
+    let presentation = slideSalinan.getSlides()[0]; // Mengambil slide pertama
 
     // 2. Tukar placeholder {{Nama}}, {{Program}}, {{Tarikh}} dengan data sebenar
-    isiDoc.replaceText('{{Nama}}', nama);
-    isiDoc.replaceText('{{Program}}', program);
-    isiDoc.replaceText('{{Tarikh}}', tarikh);
-    docSalinan.saveAndClose();
+    presentation.replaceAllText('{{Nama}}', nama);
+    presentation.replaceAllText('{{Program}}', program);
+    presentation.replaceAllText('{{Tarikh}}', tarikh);
+    slideSalinan.saveAndClose();
 
-    // 3. Tukar Google Docs ke PDF
+    // 3. Tukar Google Slides ke PDF
     let pdf = salinan.getAs('application/pdf');
     let failPDF = folderPenyimpanan.createFile(pdf);
     failPDF.setName(`Sijil_${nama}.pdf`);
     
-    // 4. Padam salinan Google Docs (simpan PDF sahaja)
+    // 4. Padam salinan Google Slides (simpan PDF sahaja)
     salinan.setTrashed(true);
 
     // 5. Masukkan link PDF ke dalam Google Sheets (kolum E)
@@ -237,7 +239,7 @@
     failPDF.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
   }
   
-  SpreadsheetApp.getUi().alert('✅ Selesai! Semua sijil PDF telah dijana & pautan dimasukkan ke ruangan LinkSijil.');
+  SpreadsheetApp.getUi().alert('✅ Selesai! Semua sijil PDF telah dijana daripada template Slides & pautan dimasukkan ke ruangan LinkSijil.');
 }</code></pre>
             </div>
             <div
