@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk Generate PDF Sijil | Apps Script + Google Sheets | Automasi Lengkap</title>
+    <!-- TailwindCSS + Font Awesome + Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-mono-code {
+            font-family: 'Fira Code', monospace;
+        }
+
+        pre {
+            background: #0f172a;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            overflow-x: auto;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+        }
+
+        .copy-btn {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .step-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.3);
+        }
+
+        .badge-int {
+            background: #1e293b;
+            color: #94a3b8;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-200">
+
+    <!-- Header / Hero -->
+    <div class="relative overflow-hidden">
+        <div class="absolute top-0 -right-32 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 -left-32 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl"></div>
+        <div class="max-w-6xl mx-auto px-6 py-12 md:py-16 relative z-10">
+            <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-700 pb-6 mb-8">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-file-pdf text-3xl text-red-400"></i>
+                    <span class="bg-slate-800/80 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-mono-code"><i
+                            class="fas fa-code-branch mr-1"></i> Bulk Generator · Google Apps Script</span>
+                </div>
+                <div class="text-sm text-slate-400"><i class="fas fa-copy mr-1"></i> Copy-paste ready · Auto PDF + Link
+                </div>
+            </div>
+            <div class="text-center md:text-left">
+                <h1
+                    class="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 bg-clip-text text-transparent">
+                    janaSijilAutomatik()</h1>
+                <p class="text-xl text-slate-300 max-w-2xl mt-4">jana beramai-ramai (bulk) sijil PDF daripada Google
+                    Docs template — terus dapatkan pautan <span class="text-emerald-400">dalam Google Sheets</span>.
+                    Sesuai untuk integrasi JotForm, Tally.so, atau Google Forms.</p>
+                <div class="flex flex-wrap gap-3 mt-6">
+                    <span class="bg-indigo-500/20 px-4 py-1.5 rounded-full text-sm"><i class="fab fa-google"></i> Google
+                        Drive</span>
+                    <span class="bg-indigo-500/20 px-4 py-1.5 rounded-full text-sm"><i class="fas fa-table"></i> Google
+                        Sheets</span>
+                    <span class="bg-indigo-500/20 px-4 py-1.5 rounded-full text-sm"><i class="fas fa-file-alt"></i>
+                        Google Docs Template</span>
+                    <span class="bg-emerald-500/20 px-4 py-1.5 rounded-full text-sm"><i class="fas fa-link"></i> Auto
+                        Link Column</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 pb-20">
+        <!-- INFO PENTING: I NTEGRASI BORANG KE SHEETS -->
+        <div class="bg-gradient-to-r from-slate-800/60 to-slate-800/20 rounded-2xl p-6 border border-slate-700 mb-10">
+            <div class="flex items-center gap-3 mb-3"><i class="fab fa-wpforms text-2xl text-cyan-400"></i>
+                <h2 class="text-2xl font-bold"><span
+                        class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Integrasi
+                        Borang → Google Sheets</span></h2>
+            </div>
+            <p class="text-slate-300">Sistem ini berfungsi dengan mana-mana borang yang menghantar data ke Google
+                Sheets. Pilih salah satu:</p>
+            <div class="grid md:grid-cols-3 gap-4 mt-5">
+                <div class="bg-slate-900/50 rounded-xl p-4 border-l-4 border-blue-500"><i
+                        class="fab fa-google text-blue-400 mr-2"></i><span class="font-semibold">Google Forms</span>
+                    <p class="text-xs text-slate-400 mt-1">Integrasi native, terus ke Sheets tanpa setup.</p>
+                </div>
+                <div class="bg-slate-900/50 rounded-xl p-4 border-l-4 border-orange-500"><i
+                        class="fab fa-wpforms text-orange-400 mr-2"></i><span class="font-semibold">JotForm</span>
+                    <p class="text-xs text-slate-400">Integrasi terus → Google Sheets (pilih sheet sedia ada).</p>
+                </div>
+                <div class="bg-slate-900/50 rounded-xl p-4 border-l-4 border-purple-500"><i
+                        class="fas fa-chart-line text-purple-400 mr-2"></i><span class="font-semibold">Tally.so</span>
+                    <p class="text-xs text-slate-400">Guna Zapier/Make sambung ke Sheets — data akan masuk dalam baris
+                        baru.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3 LANGKAH UTAMA BERSERTA CARD -->
+        <div class="grid md:grid-cols-3 gap-6 mb-14">
+            <!-- Langkah 1 -->
+            <div class="step-card bg-slate-800/40 backdrop-blur-sm rounded-2xl border border-slate-700 p-6">
+                <div
+                    class="w-12 h-12 rounded-full bg-indigo-600/30 flex items-center justify-center text-2xl font-black text-indigo-300 mb-4">
+                    1</div>
+                <i class="fab fa-google-drive text-3xl text-blue-400 mb-3"></i>
+                <h3 class="text-xl font-bold">Siapkan Folder & Template</h3>
+                <ul class="space-y-2 text-sm text-slate-300 mt-3 list-disc pl-4">
+                    <li>Buka <span class="font-mono-code bg-slate-900 px-1 rounded">drive.google.com</span> & buat
+                        <strong>folder baru</strong> (contoh: "Sijil_Bulk_Output")</li>
+                    <li>Buat <strong>Google Docs</strong> sebagai template sijil. Guna placeholder: <code
+                            class="bg-slate-900 px-1 rounded">{{Nama}}</code> , <code
+                            class="bg-slate-900 px-1 rounded">{{Program}}</code> , <code
+                            class="bg-slate-900 px-1 rounded">{{Tarikh}}</code></li>
+                    <li>Dapatkan <strong>ID Folder</strong> & <strong>ID Docs Template</strong> dari URL (lihat contoh
+                        dalam kod).</li>
+                </ul>
+                <div class="mt-4 text-xs text-slate-500 bg-slate-900/50 p-2 rounded"><i class="fas fa-info-circle"></i>
+                    ID contoh: <span class="font-mono">1VQaMPsO-QJRN99pWcQu9rGucX2ajI0Zg</span></div>
+            </div>
+
+            <!-- Langkah 2 -->
+            <div class="step-card bg-slate-800/40 backdrop-blur-sm rounded-2xl border border-slate-700 p-6">
+                <div
+                    class="w-12 h-12 rounded-full bg-indigo-600/30 flex items-center justify-center text-2xl font-black text-indigo-300 mb-4">
+                    2</div>
+                <i class="fas fa-edit text-3xl text-emerald-400 mb-3"></i>
+                <h3 class="text-xl font-bold">Sediakan Borang + Google Sheets</h3>
+                <ul class="space-y-2 text-sm text-slate-300 mt-3 list-disc pl-4">
+                    <li>Buat borang (Google Forms / JotForm / Tally.so) dengan medan: <strong>Nama, Program,
+                            Tarikh</strong>.</li>
+                    <li>Integrasikan borang ke <strong>Google Sheets</strong>. Pastikan sheet mengandungi <strong>5
+                            kolum asas</strong>: <span class="font-mono">A:Nama | B:Program | C:Tarikh | D:(kosong) |
+                            E:LinkSijil</span></li>
+                    <li>Rename sheet kepada <code class="bg-slate-900 px-1 rounded">Sheet1</code> atau sesuaikan dalam
+                        kod Apps Script.</li>
+                </ul>
+            </div>
+
+            <!-- Langkah 3 -->
+            <div class="step-card bg-slate-800/40 backdrop-blur-sm rounded-2xl border border-slate-700 p-6">
+                <div
+                    class="w-12 h-12 rounded-full bg-indigo-600/30 flex items-center justify-center text-2xl font-black text-indigo-300 mb-4">
+                    3</div>
+                <i class="fas fa-cogs text-3xl text-amber-400 mb-3"></i>
+                <h3 class="text-xl font-bold">Generate Sijil & Dapatkan Link</h3>
+                <ul class="space-y-2 text-sm text-slate-300 mt-3 list-disc pl-4">
+                    <li>Buka <strong>Extensions → Apps Script</strong> dalam Google Sheets.</li>
+                    <li>Padam kod sedia ada & <strong>copy-paste</strong> skrip di bawah.</li>
+                    <li>Tetapkan <strong>Trigger</strong> (On form submit / manual). Tekan Run — setiap peserta akan
+                        dapat PDF + link di kolum E.</li>
+                </ul>
+                <div class="mt-3 bg-green-900/20 p-2 rounded text-green-300 text-xs"><i class="fas fa-check-circle"></i>
+                    Hasil: Setiap baris menerima pautan PDF awam.</div>
+            </div>
+        </div>
+
+        <!-- KOD APPS SCRIPT LENGKAP (COPY-PASTE) -->
+        <div class="bg-slate-900 rounded-2xl border border-indigo-500/40 shadow-2xl overflow-hidden mb-14">
+            <div
+                class="bg-slate-800 px-5 py-4 flex flex-wrap justify-between items-center gap-3 border-b border-slate-700">
+                <div class="flex items-center gap-2"><i class="fab fa-google text-2xl text-green-400"></i><span
+                        class="font-bold text-lg">Apps Script: janaSijilAutomatik()</span><span
+                        class="badge-int ml-2"><i class="fas fa-code"></i> Google Apps Script (ES5/ES6)</span></div>
+                <button id="copyScriptBtn"
+                    class="copy-btn bg-slate-700 hover:bg-indigo-600 text-white px-4 py-1.5 rounded-lg text-sm transition-all flex items-center gap-2"><i
+                        class="fas fa-copy"></i> Salin Kod</button>
+            </div>
+            <div class="p-0 relative">
+                <pre id="appsScriptCode" class="text-sm font-mono-code leading-relaxed overflow-x-auto p-6 m-0"><code>function janaSijilAutomatik() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1'); // Pastikan nama sheet betul
+  const data = sheet.getDataRange().getValues();
+  
+  // ⚠️ GANTIKAN ID di bawah dengan ID folder & template DOC anda ⚠️
+  const DOC_ID = '1Iy4XCmRz4y7K7MUyvlhOAaUEIGT1taq87KgRh4OEvxs'; // ID Google Docs template
+  const FOLDER_ID = '1VQaMPsO-QJRN99pWcQu9rGucX2ajI0Zg';        // ID folder Google Drive
+  
+  const template = DriveApp.getFileById(DOC_ID);
+  const folderPenyimpanan = DriveApp.getFolderById(FOLDER_ID);
+
+  // Mula baca data dari baris ke-2 (baris 1 adalah tajuk)
+  for (let i = 1; i &lt; data.length; i++) {
+    let [id, nama, program, tarikh, linkSijil] = data[i];
+
+    // Kalau dah ada link, skip (tak nak generate dua kali)
+    if (linkSijil !== "") continue;
+
+    // 1. Buat salinan template Docs
+    let salinan = template.makeCopy(`Sijil - ${nama}`, folderPenyimpanan);
+    let docSalinan = DocumentApp.openById(salinan.getId());
+    let isiDoc = docSalinan.getBody();
+
+    // 2. Tukar placeholder {{Nama}}, {{Program}}, {{Tarikh}} dengan data sebenar
+    isiDoc.replaceText('{{Nama}}', nama);
+    isiDoc.replaceText('{{Program}}', program);
+    isiDoc.replaceText('{{Tarikh}}', tarikh);
+    docSalinan.saveAndClose();
+
+    // 3. Tukar Google Docs ke PDF
+    let pdf = salinan.getAs('application/pdf');
+    let failPDF = folderPenyimpanan.createFile(pdf);
+    failPDF.setName(`Sijil_${nama}.pdf`);
+    
+    // 4. Padam salinan Google Docs (simpan PDF sahaja)
+    salinan.setTrashed(true);
+
+    // 5. Masukkan link PDF ke dalam Google Sheets (kolum E)
+    sheet.getRange(i + 1, 5).setValue(failPDF.getUrl());
+    
+    // 6. Set kebenaran supaya sesiapa dengan link boleh view (untuk JotForm/Tally)
+    failPDF.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  }
+  
+  SpreadsheetApp.getUi().alert('✅ Selesai! Semua sijil PDF telah dijana & pautan dimasukkan ke ruangan LinkSijil.');
+}</code></pre>
+            </div>
+            <div
+                class="bg-slate-800/60 px-5 py-3 border-t border-slate-700 text-xs text-slate-400 flex justify-between flex-wrap gap-2">
+                <span><i class="fas fa-lightbulb text-yellow-500"></i> Petua: Tukar <code
+                        class="bg-slate-900 px-1">Sheet1</code> jika nama sheet berlainan.</span>
+                <span><i class="fas fa-key"></i> Pastikan kebenaran Apps Script untuk akses Drive & Docs
+                    diberikan.</span>
+            </div>
+        </div>
+
+        <!-- PANDUAN STEP-BY-STEP LENGKAP (dengan highlight integrasi) -->
+        <div class="bg-slate-800/30 rounded-2xl p-6 border border-slate-700 mb-10">
+            <div class="flex items-center gap-3 border-b border-slate-700 pb-3 mb-5"><i
+                    class="fas fa-list-check text-2xl text-emerald-400"></i>
+                <h2 class="text-2xl font-bold">📌 Panduan Lengkap: Dari Borang ke PDF Bulk</h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-slate-900/50 rounded-xl p-5">
+                    <div class="flex items-center gap-3 text-indigo-300"><span class="font-bold text-lg">1️⃣</span><i
+                            class="fas fa-folder-open"></i>
+                        <h3 class="font-bold text-lg">Persediaan Google Drive & Template</h3>
+                    </div>
+                    <ul class="ml-8 space-y-2 text-slate-300 mt-2 list-decimal">
+                        <li>Buka <strong>Google Drive</strong> → <span class="bg-slate-700 px-2 py-0.5 rounded">Baru →
+                                Folder</span> (nama: "Output Sijil Bulk"). <i
+                                class="fas fa-link text-xs text-slate-400"></i> Dapatkan <strong>ID folder</strong> dari
+                            URL: <code
+                                class="bg-black/30 px-1 rounded">drive.google.com/drive/folders/<span class="text-emerald-300">INIfolderID</span></code>
+                        </li>
+                        <li>Buat <strong>Google Docs</strong> sebagai template. Tulis teks sijil, masukkan placeholder
+                            seperti <code class="bg-slate-700 px-1 rounded">{{Nama}}</code>, <code
+                                class="bg-slate-700 px-1 rounded">{{Program}}</code>, <code
+                                class="bg-slate-700 px-1 rounded">{{Tarikh}}</code>. Jangan lupa logo & reka bentuk.
+                        </li>
+                        <li>Dapatkan <strong>ID Docs template</strong> dari URL dokumen: <code
+                                class="bg-black/30 px-1 rounded">docs.google.com/document/d/<span class="text-emerald-300">INIadalahIDdoc</span>/edit</code>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-900/50 rounded-xl p-5">
+                    <div class="flex items-center gap-3 text-indigo-300"><span class="font-bold text-lg">2️⃣</span><i
+                            class="fas fa-wpforms"></i>
+                        <h3 class="font-bold text-lg">Sediakan Borang & Google Sheets (Integrasi)</h3>
+                    </div>
+                    <ul class="ml-8 space-y-2 text-slate-300 mt-2 list-decimal">
+                        <li><span class="font-semibold text-white">Google Forms:</span> Buat borang baru → Klik
+                            <strong>Responses → Google Sheets</strong> → Pilih spreadsheet baru. Nama sheet akan menjadi
+                            "Sheet1".</li>
+                        <li><span class="font-semibold text-white">JotForm:</span> Dalam Settings → Integrations → Pilih
+                            Google Sheets → Sambung & pilih spreadsheet yang sama. Data akan ditambah ke baris baru
+                            secara automatik.</li>
+                        <li><span class="font-semibold text-white">Tally.so:</span> Guna Zapier/Make.com: Trigger "New
+                            Submission" → Action "Google Sheets - Add Row". Map medan (Nama, Program, Tarikh) ke kolum
+                            A,B,C.</li>
+                        <li>Pastikan sheet mengandungi <strong>5 kolum</strong> dengan susunan: <strong>A:Nama |
+                                B:Program | C:Tarikh | D:(biarkan kosong) | E:LinkSijil</strong>. Apps Script akan
+                            mengisi kolum E.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-900/50 rounded-xl p-5">
+                    <div class="flex items-center gap-3 text-indigo-300"><span class="font-bold text-lg">3️⃣</span><i
+                            class="fas fa-cog"></i>
+                        <h3 class="font-bold text-lg">Pasang Apps Script & Generate Sijil</h3>
+                    </div>
+                    <ul class="ml-8 space-y-2 text-slate-300 mt-2 list-decimal">
+                        <li>Buka Google Sheets (yang terintegrasi borang tadi) → <strong>Extensions → Apps
+                                Script</strong>.</li>
+                        <li>Tampal skrip <code>janaSijilAutomatik()</code> yang diberikan di atas. <strong>Gantikan
+                                DOC_ID & FOLDER_ID</strong> dengan ID anda.</li>
+                        <li>Klik <strong>Run ▶️</strong> → Beri kebenaran (Allow akses ke Drive, Docs, Sheets).</li>
+                        <li>Skrip akan membaca semua baris, menghasilkan PDF untuk setiap peserta, dan menulis pautan
+                            PDF di kolum E. Jika ada baris baru daripada borang, anda boleh <strong>set Trigger
+                                automatik</strong>: Klik ikon jam di Apps Script → <strong>Add Trigger</strong> → pilih
+                            fungsi <code>janaSijilAutomatik</code> → Event: "On form submit" atau "Time-driven".</li>
+                        <li>✅ Keputusan: Setiap peserta mempunyai <strong>pautan sijil PDF</strong> dalam sheet. Boleh
+                            gunakan pautan itu untuk hantar e-mel atau papar dalam JotForm autoresponder.</li>
+                    </ul>
+                    <div class="mt-4 bg-indigo-950/40 rounded-lg p-3 text-sm border border-indigo-800/60">
+                        <i class="fas fa-magic text-indigo-400 mr-2"></i> <strong>Hasil Akhir:</strong> Google Sheets
+                        kini mengandungi <strong>link PDF unik</strong> untuk setiap peserta. Anda boleh guna data ini
+                        untuk penghantaran e-mel (Gmail/Apps Script MailApp) atau integrasi dengan platform lain.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTOH STRUKTUR SHEETS + HIGHLIGHT INTEGRASI BORANG -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-slate-800/40 rounded-xl p-5 border border-slate-700">
+                <i class="fas fa-table me-2 text-blue-300"></i><span class="font-bold text-lg">Struktur Google Sheets
+                    (wajib)</span>
+                <div class="overflow-x-auto mt-3">
+                    <table class="min-w-full text-sm border border-slate-600 rounded-lg">
+                        <thead class="bg-slate-700">
+                            <tr>
+                                <th class="p-2">Kolum A</th>
+                                <th class="p-2">B</th>
+                                <th class="p-2">C</th>
+                                <th class="p-2">D</th>
+                                <th class="p-2">E (output)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-slate-700">
+                                <td class="p-2">Nama Peserta</td>
+                                <td>Program</td>
+                                <td>Tarikh</td>
+                                <td>(kosong)</td>
+                                <td class="text-emerald-300">Link PDF Sijil</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2">Ahmad Bin Ali</td>
+                                <td>AI & Automasi</td>
+                                <td>18 Mei 2026</td>
+                                <td></td>
+                                <td class="text-xs">https://drive.google.com/...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs text-slate-400 mt-3"><i class="fab fa-google"></i> Data dari borang akan mengisi kolum
+                    A,B,C secara automatik, Apps Script akan mengisi kolum E.</p>
+            </div>
+            <div class="bg-slate-800/40 rounded-xl p-5 border border-slate-700">
+                <i class="fas fa-link text-cyan-400 mr-2"></i><span class="font-bold text-lg">Cara Hantar Link Sijil ke
+                    Peserta</span>
+                <p class="mt-2 text-slate-300 text-sm">Selepas Apps Script menjana PDF, anda boleh:</p>
+                <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+                    <li>Guna <strong>MailApp.sendEmail()</strong> dalam skrip yang sama untuk e-mel automatik.</li>
+                    <li>Guna <strong>AutoCrat</strong> atau <strong>JotForm Autoresponder</strong> dengan merge tag
+                        <code>{{LinkSijil}}</code>.</li>
+                    <li>Eksport senarai link dan gunakan platform seperti Mailchimp / WhatsApp Business API.</li>
+                </ul>
+                <div class="mt-3 bg-slate-900/60 p-2 rounded text-xs"><i class="fas fa-graduation-cap"></i> Tip: Setelah
+                    PDF dijana, peserta boleh mengakses sijil mereka melalui pautan awam (tidak perlu log masuk).</div>
+            </div>
+        </div>
+
+        <!-- NOTA PENTING TROUBLESHOOTING -->
+        <div class="bg-slate-800/40 rounded-2xl p-6 border border-amber-700/50">
+            <div class="flex items-center gap-2"><i class="fas fa-exclamation-triangle text-amber-400 text-xl"></i>
+                <h3 class="font-bold text-lg">Penyelesaian Masalah & Nota Penting</h3>
+            </div>
+            <div class="grid md:grid-cols-2 gap-3 mt-3 text-sm">
+                <div><i class="fas fa-key text-indigo-400 mr-1"></i> <strong>Kebenaran Apps Script:</strong> Pastikan
+                    semasa pertama kali run, anda izinkan akses ke Google Drive & Dokumen.</div>
+                <div><i class="fas fa-file-word text-indigo-400 mr-1"></i> <strong>Placeholder sensitif:</strong>
+                    Gunakan <code>{{Nama}}</code> sama persis dengan di template Docs.</div>
+                <div><i class="fas fa-chart-line text-indigo-400 mr-1"></i> <strong>Had harian:</strong> Apps Script
+                    boleh generate ratusan PDF, tetapi ada had kuota (biasanya mencukupi untuk kebanyakan program).
+                </div>
+                <div><i class="fas fa-sync-alt text-indigo-400 mr-1"></i> <strong>Trigger auto:</strong> Untuk setiap
+                    borang baru, anda boleh set "onFormSubmit" trigger supaya skrip jalan sendiri.</div>
+            </div>
+        </div>
+
+        <!-- FOOTER & COPYRIGHT -->
+        <div class="mt-16 pt-6 text-center border-t border-slate-800 text-slate-500 text-xs">
+            <i class="far fa-copyright"></i> Bulk Generate PDF Sijil — Apps Script + Google Workspace. Sesuai untuk
+            integrasi JotForm, Tally.so, Google Forms. <i class="fas fa-code-branch ml-2"></i> Kod sedia untuk
+            copy-paste.
+        </div>
+    </div>
+
+    <!-- Script untuk salin kod ke clipboard -->
+    <script>
+        const copyBtn = document.getElementById('copyScriptBtn');
+        const codeElement = document.getElementById('appsScriptCode');
+
+        copyBtn.addEventListener('click', async () => {
+            // Dapatkan teks dari dalam <pre> <code>
+            const codeText = codeElement.innerText;
+            try {
+                await navigator.clipboard.writeText(codeText);
+                // Feedback visual
+                const originalHtml = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Disalin!';
+                copyBtn.classList.remove('bg-slate-700', 'hover:bg-indigo-600');
+                copyBtn.classList.add('bg-emerald-600');
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHtml;
+                    copyBtn.classList.add('bg-slate-700', 'hover:bg-indigo-600');
+                    copyBtn.classList.remove('bg-emerald-600');
+                }, 2000);
+            } catch (err) {
+                alert('Gagal menyalin. Sila salin manual.');
+            }
+        });
+    </script>
+</body>
+
+</html>
