@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panduan AI Asas | Rekabentuk Background Sijil Gemini & ChatGPT</title>
+  
+  <!-- Fonts & Icon Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              950: '#020617',
+            },
+            brand: {
+              purple: '#a855f7',
+              indigo: '#6366f1',
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              rose: '#f43f5e'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Premium Custom Styling (Vanilla CSS) -->
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    /* Mesh Gradients */
+    .mesh-glow-1 {
+      background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.18) 0%, transparent 50%);
+    }
+    .mesh-glow-2 {
+      background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.12) 0%, transparent 60%);
+    }
+
+    /* Grid Overlay Pattern */
+    .grid-bg {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    /* Glassmorphism Styles */
+    .glass-nav {
+      background: rgba(2, 6, 23, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(168, 85, 247, 0.35);
+      box-shadow: 0 10px 30px -10px rgba(168, 85, 247, 0.15);
+      transform: translateY(-4px);
+    }
+
+    /* Simulated AI Canvas corner visual decorations */
+    .preview-corner {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-color: inherit;
+    }
+    .corner-tl { top: 12px; left: 12px; border-top: 2px solid; border-left: 2px solid; }
+    .corner-tr { top: 12px; right: 12px; border-top: 2px solid; border-right: 2px solid; }
+    .corner-bl { bottom: 12px; left: 12px; border-bottom: 2px solid; border-left: 2px solid; }
+    .corner-br { bottom: 12px; right: 12px; border-bottom: 2px solid; border-right: 2px solid; }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-200 font-sans antialiased overflow-x-hidden">
+
+  <!-- Glassmorphic Navigation -->
+  <nav class="sticky top-0 z-50 glass-nav">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple to-brand-indigo flex items-center justify-center shadow-lg shadow-purple-500/20 group-hover:scale-105 transition-transform">
+          <i class="fas fa-brain text-white text-lg"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-extrabold text-lg tracking-tight">e-Sijil<span class="bg-gradient-to-r from-brand-purple to-brand-indigo bg-clip-text text-transparent ml-1">Moden</span></span>
+          <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">Basic AI Guide</span>
+        </div>
+      </a>
+      
+      <!-- Nav Links -->
+      <div class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-brand-purple transition-colors"><i class="fas fa-home mr-1"></i> Utama</a>
+        <a href="note1.html" class="hover:text-brand-purple transition-colors">Skrip Bulk</a>
+        <a href="note2.html" class="hover:text-brand-purple transition-colors">PDF & Emel</a>
+        <a href="note3.html" class="hover:text-brand-purple transition-colors">Reka AI (Lanjutan)</a>
+        <a href="note_slides.html" class="hover:text-brand-purple transition-colors">Slides Sijil</a>
+        <a href="hebahan.html" class="hover:text-brand-purple transition-colors">Hebahan KPT/UUM</a>
+        <a href="#prompt-builder" class="hover:text-brand-purple transition-colors">Prompt Builder</a>
+      </div>
+
+      <!-- Action Button -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all flex items-center gap-1.5">
+          <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Announcement Banner -->
+  <header class="relative overflow-hidden pt-12 pb-16 lg:py-20 grid-bg border-b border-slate-900">
+    <div class="absolute top-20 right-[-10%] w-[500px] h-[500px] rounded-full mesh-glow-1 -z-10"></div>
+    <div class="absolute bottom-10 left-[-10%] w-[500px] h-[500px] rounded-full mesh-glow-2 -z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <span class="inline-flex items-center gap-2 bg-brand-purple/10 border border-brand-purple/30 px-4 py-2 rounded-full text-xs font-semibold text-brand-purple tracking-wider uppercase font-display mb-6">
+        <i class="fas fa-magic"></i> Reka Bentuk Background AI Asas
+      </span>
+      
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black font-display tracking-tight leading-[1.15] text-white max-w-5xl mx-auto">
+        Jana Latar Belakang Sijil Mewah<br>
+        <span class="bg-gradient-to-r from-brand-purple via-brand-indigo to-brand-cyan bg-clip-text text-transparent">Menggunakan ChatGPT & Gemini</span>
+      </h1>
+      
+      <p class="text-sm sm:text-base md:text-lg text-slate-400 mt-6 max-w-3xl mx-auto leading-relaxed">
+        Ketahui formula Prompt Engineering yang paling tepat untuk mengarahkan model AI perbualan menjana bingkai sijil kosong berkualiti tinggi tanpa ralat ejaan dan huruf bertindih.
+      </p>
+    </div>
+  </header>
+
+  <!-- Section 1: Spelling Pitfalls Playground Redesign -->
+  <section class="py-16 relative border-b border-slate-900">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <!-- LHS: Core Concept explanation -->
+        <div class="lg:col-span-6 space-y-6">
+          <span class="text-xs font-bold tracking-widest text-brand-purple font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+            <i class="fas fa-triangle-exclamation"></i> Kenapa Tiada Teks?
+          </span>
+          <h2 class="text-3xl font-extrabold font-display text-white tracking-tight">Ralat Tulisan AI: Cabaran Ejaan</h2>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Model AI perbualan sangat pintar melukis, namun mereka **sering gagal mengeja huruf**. Jika anda menyuruh AI menulis tajuk sijil, ia akan menghasilkan teks pelik atau bertindih. 
+          </p>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Gunakan widget pembanding di sebelah bagi melihat perbezaan kaedah menjana imej. **Doktrin Asas** ialah menjana **latar belakang kosong 100%**, lalu menindih teks menggunakan Google Slides!
+          </p>
+
+          <div class="bg-brand-purple/5 border border-brand-purple/20 rounded-2xl p-4.5 flex gap-3">
+            <i class="fas fa-circle-check text-brand-purple text-base mt-0.5 flex-shrink-0"></i>
+            <div class="text-xs text-slate-400 leading-relaxed">
+              <strong class="text-white block font-display">Prinsip Bingkai Kosong (Blank Workspace)</strong>
+              Prompt kami mengandungi arahan penafian ejaan yang sangat ketat seperti <code>"absolutely no text, no alphabet"</code> bagi memastikan bingkai kosong sempurna dijana.
+            </div>
+          </div>
+        </div>
+
+        <!-- RHS: Interactive Split Bad vs Good AI Visualizer -->
+        <div class="lg:col-span-6">
+          <div class="glass-card rounded-3xl p-6.5 bg-[#0b0f19] border border-slate-850 shadow-xl space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-900 pb-3">
+              <h3 class="font-display font-extrabold text-white text-sm flex items-center gap-2">
+                <i class="fas fa-eye-slash text-brand-rose"></i> Perbandingan Visual Reka Bentuk
+              </h3>
+              <!-- Toggle switch buttons -->
+              <div class="flex bg-slate-950 p-1 border border-slate-900 rounded-lg text-[10px] font-mono">
+                <button id="toggle-bad-ai" onclick="switchAIPitfall('bad')" class="px-3 py-1.5 bg-brand-rose/20 text-brand-rose font-bold rounded-md transition-all">AI Bermasalah</button>
+                <button id="toggle-good-ai" onclick="switchAIPitfall('good')" class="px-3 py-1.5 text-slate-400 hover:text-slate-200 rounded-md transition-all">AI Betul (Kosong)</button>
+              </div>
+            </div>
+
+            <!-- Interactive Split Screen simulator -->
+            <div class="relative overflow-hidden aspect-[4/3] bg-slate-950 border border-slate-900 rounded-2xl flex flex-col justify-between p-6 select-none shadow-inner">
+              
+              <!-- Frame Border representation -->
+              <div id="pitfall-border" class="absolute inset-3 border border-brand-rose/40 rounded-xl flex flex-col justify-between p-6 bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-950">
+                
+                <!-- Corner details representing messy vs clean -->
+                <div class="absolute top-2 left-2 text-[10px] text-brand-rose" id="pitfall-corner-tl"><i class="fas fa-circle-exclamation"></i></div>
+                <div class="absolute top-2 right-2 text-[10px] text-brand-rose" id="pitfall-corner-tr"><i class="fas fa-circle-exclamation"></i></div>
+
+                <!-- Top Header -->
+                <div class="text-center">
+                  <span id="pitfall-header-text" class="text-[8px] font-mono tracking-widest text-brand-rose/60 uppercase">GERTIFICATE OF APPRECATION</span>
+                </div>
+
+                <!-- Center recipient (Badly written text by AI) -->
+                <div class="text-center space-y-2 py-4" id="pitfall-center-text-block">
+                  <h4 class="text-xs font-mono text-slate-500">Awareded to:</h4>
+                  <h2 class="text-xl font-bold text-slate-200 tracking-tighter" style="font-family: serif;">Mhd B0b Smiht</h2>
+                  <p class="text-[8px] text-brand-rose font-mono">Ralat Ejaan & Huruf Terbakar!</p>
+                </div>
+
+                <!-- Empty space placeholder for Good AI representation (Hidden at start) -->
+                <div id="pitfall-empty-placeholder" class="hidden border border-dashed border-slate-800 rounded-xl p-6 text-center flex-1 flex flex-col justify-center items-center">
+                  <span class="text-brand-emerald text-lg mb-1"><i class="fas fa-circle-check"></i></span>
+                  <strong class="text-white text-xs font-display">Ruang Kosong Bersih</strong>
+                  <p class="text-[9px] text-slate-500 font-mono mt-0.5">Sedia ditindih teks dynamic di Google Slides.</p>
+                </div>
+
+                <!-- Bottom dummy footer info -->
+                <div class="flex justify-between items-end text-[7px] text-slate-600 font-mono">
+                  <span>Sign: Mssy Ink</span>
+                  <span id="pitfall-status-pill" class="bg-brand-rose/15 text-brand-rose px-1.5 py-0.5 rounded">Ralat AI</span>
+                  <span>Date: 2026-X</span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 2: Redesigned Interactive Prompt Builder & LIVE Background Visualizer -->
+  <section id="prompt-builder" class="py-16 relative bg-slate-900/10 border-b border-slate-900">
+    <div class="absolute inset-0 mesh-glow-2 opacity-35 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-bold tracking-widest text-brand-purple font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-wand-magic-sparkles"></i> Prompt Compiler v2
+        </span>
+        <h2 class="text-3xl font-extrabold font-display text-white mt-4 tracking-tight">Pembina Prompt & Visualizer Latar</h2>
+        <p class="text-slate-400 mt-2">Pilih tema dan warna. Papan pemuka di bawah akan menjana prompt berserta **visual simulasi latar belakang** secara langsung!</p>
+      </div>
+
+      <!-- Interactive Widget Grid (3 Cols for ultra-modern look) -->
+      <div class="grid lg:grid-cols-12 gap-8 max-w-6xl mx-auto items-stretch">
+        
+        <!-- LHS Selector Parameters (4 cols) -->
+        <div class="lg:col-span-4 glass-card rounded-3xl p-6.5 bg-[#0b0f19] border border-slate-850 flex flex-col justify-between gap-5">
+          <span class="text-[10px] text-slate-500 font-mono border-b border-slate-900 pb-2 block uppercase tracking-wide flex items-center gap-1.5"><i class="fas fa-sliders text-brand-purple"></i> Tetapan Reka Bentuk</span>
+          
+          <!-- Select Theme -->
+          <div class="flex flex-col gap-2">
+            <label class="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Tema Reka Bentuk</label>
+            <select id="select-ai-theme" onchange="compileAIPrompt()" class="w-full bg-slate-950 border border-slate-850 focus:border-brand-purple text-slate-200 text-xs rounded-xl py-3 px-4 outline-none cursor-pointer font-sans">
+              <option value="corporate">Corporate Elite (Eksklusif Korporat)</option>
+              <option value="classic">Classic Royal (Tradisi Klasik Mewah)</option>
+              <option value="modern">Modern Tech (Minimalist Futuristik)</option>
+              <option value="academic">Academic Prestige (Sijil Akademik Rasmi)</option>
+            </select>
+          </div>
+
+          <!-- Select Colors -->
+          <div class="flex flex-col gap-2">
+            <label class="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Palet Warna Utama</label>
+            <select id="select-ai-color" onchange="compileAIPrompt()" class="w-full bg-slate-950 border border-slate-850 focus:border-brand-purple text-slate-200 text-xs rounded-xl py-3 px-4 outline-none cursor-pointer font-sans">
+              <option value="gold">Navy Blue & Gold Accent (Biru & Emas)</option>
+              <option value="emerald">Deep Emerald & Silver (Hijau & Perak)</option>
+              <option value="purple">Regal Purple & Platinum (Ungu & Platinum)</option>
+              <option value="teal">Clean Teal & Charcoal (Teal & Kelabu)</option>
+            </select>
+          </div>
+
+          <!-- Select Engine Target -->
+          <div class="flex flex-col gap-2">
+            <label class="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Sasaran Enjin AI</label>
+            <select id="select-ai-engine" onchange="compileAIPrompt()" class="w-full bg-slate-950 border border-slate-850 focus:border-brand-purple text-slate-200 text-xs rounded-xl py-3 px-4 outline-none cursor-pointer font-sans">
+              <option value="chatgpt">ChatGPT (DALL-E 3 Optimized)</option>
+              <option value="gemini">Gemini (Imagen 3 Optimized)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CENTER Live Compiled Prompt Display (4 cols) -->
+        <div class="lg:col-span-4 flex flex-col">
+          <div class="w-full bg-[#070b13] border border-slate-850 rounded-3xl flex-1 flex flex-col justify-between overflow-hidden shadow-2xl p-6 flex-shrink-0">
+            
+            <div class="flex items-center justify-between border-b border-slate-900 pb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-brand-purple"></span>
+                <span id="output-engine-title" class="text-[11px] text-slate-400 font-mono font-bold">Target: ChatGPT</span>
+              </div>
+              <span class="text-[8px] bg-slate-900 border border-slate-800 text-slate-500 px-2 py-0.5 rounded font-mono">Landscape 4:3</span>
+            </div>
+
+            <!-- Scrollable code display area -->
+            <div class="py-4 flex-1 min-h-[140px] max-h-[180px] overflow-y-auto">
+              <p id="output-ai-prompt-content" class="text-[10px] font-mono text-slate-350 leading-relaxed select-all whitespace-pre-wrap">Loading prompt...</p>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="border-t border-slate-900 pt-4 flex items-center justify-between gap-4">
+              <button id="copy-ai-prompt-btn" onclick="copyAIPromptText()" class="w-full bg-[#1a2333] hover:bg-brand-purple border border-slate-850 hover:border-transparent text-slate-200 hover:text-white py-3.5 rounded-xl text-xs font-semibold tracking-wider transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-copy"></i> Salin Prompt Templat
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RHS: LIVE BACKGROUND PREVIEW SIMULATOR (4 cols) -->
+        <div class="lg:col-span-4 flex flex-col">
+          <div class="w-full bg-[#070b13] border border-slate-850 rounded-3xl flex-1 p-5 flex flex-col justify-between shadow-2xl">
+            <span class="text-[10px] text-slate-500 font-mono border-b border-slate-900 pb-2 block uppercase tracking-wide flex items-center justify-between">
+              <span><i class="fas fa-tv text-brand-cyan"></i> Reka Bentuk Terjana</span>
+              <span class="text-[8px] bg-brand-emerald/10 border border-brand-emerald/20 text-brand-emerald px-1.5 py-0.2 rounded font-mono font-bold">Pratinjau Master</span>
+            </span>
+
+            <!-- Live Background Canvas Container (Styled dynamically by JS) -->
+            <div id="live-visualizer-canvas" class="relative overflow-hidden aspect-[4/3] w-full border border-slate-800 rounded-xl my-4 flex flex-col justify-center items-center p-6 shadow-inner transition-all duration-500">
+              
+              <!-- Dynamic Corner visual items -->
+              <div id="decor-tl" class="preview-corner corner-tl"></div>
+              <div id="decor-tr" class="preview-corner corner-tr"></div>
+              <div id="decor-bl" class="preview-corner corner-bl"></div>
+              <div id="decor-br" class="preview-corner corner-br"></div>
+
+              <!-- Dummy empty frame workspace -->
+              <div class="border border-dashed border-white/10 rounded-lg p-4 text-center flex flex-col items-center justify-center pointer-events-none select-none bg-slate-950/20 backdrop-blur-[2px]">
+                <strong id="visualizer-theme-name" class="text-white text-[10px] font-display uppercase tracking-widest">Corporate</strong>
+                <span class="text-[7px] text-slate-400 font-mono mt-1 uppercase tracking-wider block">Blank Frame Overlay Area</span>
+              </div>
+
+            </div>
+
+            <div class="text-[9px] text-slate-500 leading-relaxed font-mono flex items-center gap-1.5 justify-center">
+              <i class="fas fa-circle-check text-brand-emerald"></i> Kemasan visual diselaraskan mengikut tona warna.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 3: Curated Prompt Engineering Secrets Panel -->
+  <section class="py-16 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-brand-purple font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-key"></i> Tips Lanjutan
+        </span>
+        <h2 class="text-3xl font-extrabold font-display text-white mt-4 tracking-tight">Kunci Rahsia Prompting Background</h2>
+        <p class="text-slate-400 mt-2">Gunakan istilah-istilah di bawah di dalam prompt anda untuk mendapatkan hasil tekstur mewah yang terbaik.</p>
+      </div>
+
+      <!-- Prompt tricks cards grid -->
+      <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <!-- Card 1 -->
+        <div class="glass-card rounded-2xl p-5 bg-[#0b0f19] border border-slate-850 flex flex-col justify-between">
+          <div>
+            <span class="text-[9px] font-mono text-brand-cyan tracking-wider uppercase font-bold bg-brand-cyan/10 px-2 py-0.5 rounded inline-block">Tekstur Kertas</span>
+            <h4 class="font-display font-extrabold text-white text-sm mt-3">"luxury paper texture"</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed mt-2">
+              Menghapuskan kesan imej digital rata dan menggantikannya dengan tekstur gentian kertas premium seperti sijil fizikal mewah.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-card rounded-2xl p-5 bg-[#0b0f19] border border-slate-850 flex flex-col justify-between">
+          <div>
+            <span class="text-[9px] font-mono text-brand-amber tracking-wider uppercase font-bold bg-brand-amber/10 px-2 py-0.5 rounded inline-block">Kemasan Emas</span>
+            <h4 class="font-display font-extrabold text-white text-sm mt-3">"gold foil embossing"</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed mt-2">
+              Memaksa enjin AI untuk menjana pantulan cahaya berkilat 3D pada bingkai corak bertekstur foil emas timbul.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-card rounded-2xl p-5 bg-[#0b0f19] border border-slate-850 flex flex-col justify-between">
+          <div>
+            <span class="text-[9px] font-mono text-brand-purple tracking-wider uppercase font-bold bg-brand-purple/10 px-2 py-0.5 rounded inline-block">Nisbah Cetakan</span>
+            <h4 class="font-display font-extrabold text-white text-sm mt-3">"aspect ratio 4:3"</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed mt-2">
+              Sangat penting untuk Gemini Imagen 3 bagi memastikan gambar dijana dalam mod landskap lebar dan bukannya potret atau segiempat sama.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="glass-card rounded-2xl p-5 bg-[#0b0f19] border border-slate-850 flex flex-col justify-between">
+          <div>
+            <span class="text-[9px] font-mono text-brand-rose tracking-wider uppercase font-bold bg-brand-rose/10 px-2 py-0.5 rounded inline-block">Sudut Bersih</span>
+            <h4 class="font-display font-extrabold text-white text-sm mt-3">"symmetrical vignette"</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed mt-2">
+              Membentuk keseimbangan seimbang di antara corak bucu kiri dan kanan, mewujudkan reka bentuk sijil yang sekata.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-slate-950 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto px-6 text-center text-xs text-slate-500">
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fas fa-brain"></i></span>
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fas fa-wand-magic-sparkles"></i></span>
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fas fa-lightbulb"></i></span>
+      </div>
+      <p class="mb-2">
+        <i class="far fa-copyright"></i> 2026 Reka Bentuk E-Sijil Digital — Modul Panduan Penggunaan AI Asas (Gemini & ChatGPT).
+      </p>
+      <p class="text-[10px] text-slate-600 leading-relaxed max-w-xl mx-auto">
+        ChatGPT, DALL-E, Gemini, dan Imagen adalah tanda dagangan berdaftar syarikat OpenAI Inc. dan Google LLC. Modul ini dibangunkan khas untuk kemudahan pembelajaran warga akademik KPT & UUM.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Embedded Premium Interactivity (Vanilla JS) -->
+  <script>
+    // Bad vs Good AI Pitfall Switcher
+    function switchAIPitfall(state) {
+      const toggleBad = document.getElementById('toggle-bad-ai');
+      const toggleGood = document.getElementById('toggle-good-ai');
+      
+      const borderEl = document.getElementById('pitfall-border');
+      const headerText = document.getElementById('pitfall-header-text');
+      const textBlock = document.getElementById('pitfall-center-text-block');
+      const emptyPlaceholder = document.getElementById('pitfall-empty-placeholder');
+      const statusPill = document.getElementById('pitfall-status-pill');
+
+      const cornerTl = document.getElementById('pitfall-corner-tl');
+      const cornerTr = document.getElementById('pitfall-corner-tr');
+
+      if (state === 'bad') {
+        toggleBad.className = "px-3 py-1.5 bg-brand-rose/20 text-brand-rose font-bold rounded-md transition-all";
+        toggleGood.className = "px-3 py-1.5 text-slate-400 hover:text-slate-200 rounded-md transition-all";
+        
+        // Update representation details to Messy Bad AI
+        borderEl.style.borderColor = "rgba(244, 63, 94, 0.4)";
+        headerText.innerText = "GERTIFICATE OF APPRECATION";
+        headerText.className = "text-[8px] font-mono tracking-widest text-brand-rose/60 uppercase";
+        
+        textBlock.classList.remove('hidden');
+        emptyPlaceholder.classList.add('hidden');
+        
+        statusPill.innerText = "Ralat AI";
+        statusPill.className = "bg-brand-rose/15 text-brand-rose px-1.5 py-0.5 rounded";
+
+        cornerTl.innerHTML = '<i class="fas fa-circle-exclamation text-brand-rose"></i>';
+        cornerTr.innerHTML = '<i class="fas fa-circle-exclamation text-brand-rose"></i>';
+      } else {
+        toggleGood.className = "px-3 py-1.5 bg-brand-emerald/20 text-brand-emerald font-bold rounded-md transition-all";
+        toggleBad.className = "px-3 py-1.5 text-slate-400 hover:text-slate-200 rounded-md transition-all";
+
+        // Update representation details to Good Clean AI
+        borderEl.style.borderColor = "rgba(16, 185, 129, 0.4)";
+        headerText.innerText = "NO TEXT - 100% CLEAN CANVA FRAME";
+        headerText.className = "text-[7px] font-mono tracking-widest text-brand-emerald/60 uppercase";
+        
+        textBlock.classList.add('hidden');
+        emptyPlaceholder.classList.remove('hidden');
+        
+        statusPill.innerText = "Latar Bersih";
+        statusPill.className = "bg-brand-emerald/15 text-brand-emerald px-1.5 py-0.5 rounded font-bold";
+
+        cornerTl.innerHTML = '<i class="fas fa-circle-check text-brand-emerald"></i>';
+        cornerTr.innerHTML = '<i class="fas fa-circle-check text-brand-emerald"></i>';
+      }
+    }
+
+    // Prompt databases
+    const promptDatabase = {
+      corporate: {
+        gold: "A high-resolution, professional blank corporate certificate background template. Horizontal landscape 4:3 orientation. Elegant dark navy blue backdrop with intricate glowing gold lines and modern abstract geometric wave patterns at the borders. Ornate golden corners with vector-like gold foil details. The entire center area must be completely empty, blank navy blue copy space with a subtle soft gradient. ABSOLUTELY NO TEXT, no letters, no words, no alphabet, no labels. Clean, empty frame background, professional vector design.",
+        emerald: "A high-resolution, premium blank executive certificate background template. Landscape 4:3 ratio. Deep charcoal gray and dark emerald green backdrop with metallic silver geometric lines and clean corporate vector borders. Elegant emerald green details with metallic silver ornaments at the corners. The absolute center of the image must be blank charcoal gray workspace. ABSOLUTELY NO TEXT, no words, no letters, no alphabet, no certificates borders. Pure blank clean background frame.",
+        purple: "A high-resolution, executive blank certificate frame backdrop. Landscape 4:3 orientation. Royal dark purple background combined with sleek platinum wave shapes and elegant metallic lines on the left and right borders. Polished abstract vector borders. The absolute center is clean empty purple workspace. ABSOLUTELY NO TEXT, no letters, no alphabets, no symbols. Clean frame backdrop template.",
+        teal: "A high-resolution, modern sleek blank corporate certificate background. Landscape 4:3 ratio. Minimalist charcoal gray canvas with clean deep teal abstract shapes and modern line patterns at the border margins. Sleek silver accents. The absolute center must be clean empty charcoal gray. ABSOLUTELY NO TEXT, no letters, no alphabet, no words. Empty frame backdrop."
+      },
+      classic: {
+        gold: "A classic royal blank traditional certificate frame template. Landscape 4:3 orientation. Vintage navy blue velvet backdrop with an elegant, heavy ornate classical gold border framing the entire image. Intricate baroque golden scrollwork and filigree corner decorations. The entire center of the certificate is empty blank navy blue with no elements. ABSOLUTELY NO TEXT, no letters, no words, no alphabet. Clean vintage blank border.",
+        emerald: "A luxurious traditional blank certificate backdrop. Landscape 4:3. Deep royal emerald green textured velvet background with classic ornate silver scrollwork borders and gothic filigree corner details. Vintage elegant style. The center of the canvas is completely clean empty dark green. ABSOLUTELY NO TEXT, no words, no letters, no alphabet. Clean blank traditional certificate frame.",
+        purple: "A classical royal blank certificate frame. Landscape 4:3 orientation. Rich textured dark amethyst purple backdrop with classical platinum filigree ornaments and royal scrollwork framing the borders. The entire center is blank purple velvet space. ABSOLUTELY NO TEXT, no letters, no words, no alphabets. Blank vintage frame template.",
+        teal: "A classic blank certificate backdrop. Landscape 4:3 ratio. Deep charcoal teal background with traditional elegant silver frame lines and baroque corner scrolls. The center is a clean, blank empty workspace. ABSOLUTELY NO TEXT, no letters, no words, no alphabet. Clean blank traditional frame."
+      },
+      modern: {
+        gold: "A modern creative minimalist blank certificate background. Landscape 4:3 ratio. Dark slate gray backdrop with futuristic glowing gold geometric thin wireframe lines and clean abstract poly-shapes at the corners. Sleek tech-art border. The center is completely blank slate gray. ABSOLUTELY NO TEXT, no letters, no alphabet, no words, blank copy space. Clean modern vector background.",
+        emerald: "A creative futuristic blank certificate template. Landscape 4:3. Deep forest green backdrop with dynamic abstract silver waves and glowing geometric poly-lines at the corners. Minimalist clean style. The center of the slide is clean empty gray. ABSOLUTELY NO TEXT, no words, no letters, no alphabet, blank copy space. Clean vector design.",
+        purple: "A modern sleek blank certificate frame. Landscape 4:3 ratio. Dark charcoal canvas with clean abstract purple cyber-mesh gradients and thin platinum vector borders. The absolute center must be blank dark purple. ABSOLUTELY NO TEXT, no letters, no words, no alphabet. Clean modern minimalist template.",
+        teal: "A creative tech blank certificate backdrop. Landscape 4:3 ratio. Slate charcoal background with vibrant modern teal mesh wave patterns and cybernetic line motifs at the margins. The center is completely blank copy space. ABSOLUTELY NO TEXT, no letters, no words, no alphabet. Clean tech frame."
+      },
+      academic: {
+        gold: "An academic prestigious blank graduation certificate border. Landscape 4:3 orientation. Navy blue luxury paper texture with a formal classical gold chain border and elegant academic seal outline at the bottom center border. Sophisticated vector frame. The absolute center of the certificate is blank empty navy blue. ABSOLUTELY NO TEXT, no letters, no words, no alphabet. Clean academic frame template.",
+        emerald: "A prestigious university blank formal certificate backdrop. Landscape 4:3. Deep forest emerald green backdrop with sophisticated silver filigree chain borders and academic laurel wreath details at the corners. The center of the page is completely blank. ABSOLUTELY NO TEXT, no letters, no words, no alphabet. Clean empty academic template.",
+        purple: "A prestigious formal blank certificate template. Landscape 4:3. Rich dark royal purple with formal platinum chain frames and academic star details at the borders. Sophisticated look. The center is clean purple workspace. ABSOLUTELY NO TEXT, no letters, no words, no alphabets. Clean academic frame.",
+        teal: "A prestigious academic blank certificate frame. Landscape 4:3 ratio. Deep charcoal teal background with formal academic silver borders and clean ribbon corner accents. The center is completely blank empty space. ABSOLUTELY NO TEXT, no letters, no words, no alphabet. Clean academic frame template."
+      }
+    };
+
+    // Compiler engine function with LIVE background style visualizer
+    function compileAIPrompt() {
+      const selectedTheme = document.getElementById('select-ai-theme').value;
+      const selectedColor = document.getElementById('select-ai-color').value;
+      const selectedEngine = document.getElementById('select-ai-engine').value;
+
+      const engineTitleEl = document.getElementById('output-engine-title');
+      const promptContentEl = document.getElementById('output-ai-prompt-content');
+
+      // 1. Fetch base prompt from database
+      let basePrompt = promptDatabase[selectedTheme][selectedColor];
+
+      // 2. Append specific prompt engineering tags based on AI target
+      if (selectedEngine === 'chatgpt') {
+        engineTitleEl.innerText = "Target: ChatGPT (DALL-E 3)";
+        basePrompt += "\n\n[DALL-E 3 Special Instruction: Do not render any typographic elements. The image is a background frame template only. Make the center area spacious and plain slate.]";
+      } else {
+        engineTitleEl.innerText = "Target: Gemini (Imagen 3)";
+        basePrompt += "\n\n[Imagen 3 Special Instruction: Aspect ratio landscape 4:3, no text rendering, negative prompts: text, typography, fonts, spelling, word, alphabet]";
+      }
+
+      promptContentEl.innerText = basePrompt;
+
+      // 3. UPDATE LIVE VISUALIZER CANVAS CSS DYNAMICALLY
+      const canvasEl = document.getElementById('live-visualizer-canvas');
+      const themeLabelEl = document.getElementById('visualizer-theme-name');
+      const decors = [
+        document.getElementById('decor-tl'),
+        document.getElementById('decor-tr'),
+        document.getElementById('decor-bl'),
+        document.getElementById('decor-br')
+      ];
+
+      // Apply dynamic colors based on color selection
+      let gradStart, gradEnd, borderCol, textCol, decorCol;
+      
+      if (selectedColor === 'gold') {
+        gradStart = '#020617'; gradEnd = '#0b1329'; borderCol = '#f59e0b'; textCol = '#f59e0b'; decorCol = '#f59e0b';
+      } else if (selectedColor === 'emerald') {
+        gradStart = '#022c22'; gradEnd = '#020617'; borderCol = '#cbd5e1'; textCol = '#10b981'; decorCol = '#cbd5e1';
+      } else if (selectedColor === 'purple') {
+        gradStart = '#1e1b4b'; gradEnd = '#020617'; borderCol = '#e2e8f0'; textCol = '#a855f7'; decorCol = '#e2e8f0';
+      } else if (selectedColor === 'teal') {
+        gradStart = '#020617'; gradEnd = '#0f172a'; borderCol = '#06b6d4'; textCol = '#06b6d4'; decorCol = '#06b6d4';
+      }
+
+      // Apply backgrounds
+      canvasEl.style.background = `radial-gradient(circle, ${gradStart} 0%, ${gradEnd} 100%)`;
+      canvasEl.style.borderColor = borderCol;
+      canvasEl.style.boxShadow = `0 10px 25px -10px ${textCol}40`;
+
+      // Set label text
+      themeLabelEl.innerText = selectedTheme.toUpperCase() + ' - ' + selectedColor.toUpperCase();
+      themeLabelEl.style.color = textCol;
+
+      // Set corner border visual style
+      decors.forEach(dec => {
+        dec.style.borderColor = decorCol;
+        if (selectedTheme === 'classic') {
+          dec.style.borderRadius = '50%'; // Curvy royal corner
+          dec.style.borderWidth = '3px';
+        } else if (selectedTheme === 'modern') {
+          dec.style.borderRadius = '0';
+          dec.style.borderWidth = '1px'; // Sleek thin wire
+        } else if (selectedTheme === 'academic') {
+          dec.style.borderRadius = '4px'; // Formal chain border
+          dec.style.borderWidth = '2px';
+        } else {
+          dec.style.borderRadius = '12px'; // Corporate smooth
+          dec.style.borderWidth = '2px';
+        }
+      });
+    }
+
+    // Copy compiled prompt to clipboard
+    function copyAIPromptText() {
+      const promptText = document.getElementById('output-ai-prompt-content').innerText;
+      const copyBtn = document.getElementById('copy-ai-prompt-btn');
+
+      navigator.clipboard.writeText(promptText).then(() => {
+        // Visual Copy Feedback
+        const originalHtml = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Disalin!';
+        copyBtn.classList.remove('bg-[#1a2333]', 'hover:bg-brand-purple');
+        copyBtn.classList.add('bg-brand-emerald', 'text-slate-950', 'border-transparent');
+        
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHtml;
+          copyBtn.classList.add('bg-[#1a2333]', 'hover:bg-brand-purple');
+          copyBtn.classList.remove('bg-brand-emerald', 'text-slate-950', 'border-transparent');
+        }, 2000);
+      }).catch(err => {
+        alert('Gagal menyalin prompt.');
+      });
+    }
+
+    // Initialize compilation on load
+    window.onload = function() {
+      compileAIPrompt();
+    };
+  </script>
+</body>
+
+</html>

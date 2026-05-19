@@ -1,441 +1,2003 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="ms" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automasi E-Sijil Moden | Nota Pengajaran Digital</title>
-  <!-- Tailwind CSS + Font Awesome + Google Fonts -->
+  <title>Automasi E-Sijil Moden | Portal Panduan & Rujukan Digital</title>
+  
+  <!-- Fonts & Icon Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              950: '#030712',
+            },
+            brand: {
+              purple: '#8b5cf6',
+              indigo: '#6366f1',
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              rose: '#f43f5e'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Premium Custom Styling (Vanilla CSS) -->
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030712;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
     }
 
-    h1,
-    h2,
-    h3,
-    .font-display {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+    /* Mesh Gradients */
+    .mesh-glow-1 {
+      background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+    }
+    .mesh-glow-2 {
+      background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.12) 0%, transparent 60%);
     }
 
-    .gradient-hero {
-      background: radial-gradient(circle at 20% 30%, #0B1120, #0F172A);
+    /* Grid Overlay Pattern */
+    .grid-bg {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+      background-size: 24px 24px;
     }
 
-    .card-glass {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(8px);
+    /* Logo Marquee Animation */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      animation: marquee 25s linear infinite;
+    }
+    .marquee-container:hover .animate-marquee {
+      animation-play-state: paused;
+    }
+
+    /* Glassmorphism Styles */
+    .glass-nav {
+      background: rgba(3, 7, 18, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(99, 102, 241, 0.35);
+      box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.15);
+      transform: translateY(-4px);
     }
 
-    .step-timeline {
-      background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+    /* Interactive Active Indicator for Flow lines */
+    .glow-line {
+      stroke-dasharray: 8;
+      animation: dash 30s linear infinite;
+    }
+    @keyframes dash {
+      to {
+        stroke-dashoffset: -1000;
+      }
+    }
+
+    /* Text Glow */
+    .glow-text-indigo {
+      text-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+    }
+    .glow-text-emerald {
+      text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
     }
   </style>
 </head>
 
-<body class="bg-slate-950 text-slate-200">
+<body class="bg-slate-950 text-slate-200 font-sans antialiased overflow-x-hidden">
 
-  <!-- Navbar / header ringkas -->
-  <div class="border-b border-slate-800/60 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-5 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center shadow-lg"><i
-            class="fas fa-certificate text-white text-sm"></i></div>
-        <span class="font-bold text-lg tracking-tight">e-Sijil<span class="text-indigo-400"> Moden</span></span>
+  <!-- Glassmorphic Navigation -->
+  <nav class="sticky top-0 z-50 glass-nav">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-indigo to-brand-purple flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+          <i class="fas fa-certificate text-white text-lg animate-pulse"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-extrabold text-lg tracking-tight">e-Sijil<span class="bg-gradient-to-r from-brand-indigo to-brand-cyan bg-clip-text text-transparent ml-1">Moden</span></span>
+          <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">Automasi Digital</span>
+        </div>
+      </a>
+      
+      <!-- Desktop Nav Links -->
+      <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#platform-section" class="hover:text-brand-indigo transition-colors">Pillar Sistem</a>
+        <a href="#integration-section" class="hover:text-brand-indigo transition-colors flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-brand-cyan animate-ping"></span> Penyemak Integrasi
+        </a>
+        <a href="#workflow-section" class="hover:text-brand-indigo transition-colors">Aliran Kerja</a>
+        <a href="#comparison-section" class="hover:text-brand-indigo transition-colors">Jadual Perbandingan</a>
       </div>
-      <div class="text-sm text-slate-400 hidden md:block"><i class="far fa-clock mr-1"></i> Automasi Penuh · Tanpa Kerja
-        Manual</div>
-    </div>
-  </div>
 
-  <!-- Hero Section dengan semua teks utama -->
-  <div class="gradient-hero relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
-    <div class="max-w-6xl mx-auto px-5 py-16 md:py-24 relative z-10 text-center">
-      <span
-        class="inline-flex items-center gap-2 bg-indigo-500/20 px-4 py-1.5 rounded-full text-sm border border-indigo-400/30"><i
-          class="fas fa-chalkboard-user text-indigo-300"></i> Modul Pengajaran Digital</span>
-      <h1 class="text-5xl md:text-7xl font-extrabold font-display mt-6 leading-tight">Automasi <br><span
-          class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">E-Sijil
-          Moden</span></h1>
-      <p class="text-xl text-slate-300 max-w-2xl mx-auto mt-6">Panduan lengkap platform reka bentuk, penjanaan
-        automatik, dan borang online untuk sistem sijil digital.</p>
-      <!-- 5 langkah ringkas dalam bentuk badges -->
-      <div class="flex flex-wrap justify-center gap-3 mt-10">
-        <span class="bg-slate-800/60 backdrop-blur-sm px-4 py-2 rounded-full text-sm"><i
-            class="fas fa-paintbrush text-indigo-400 mr-2"></i>01 Reka Bentuk</span>
-        <span class="bg-slate-800/60 backdrop-blur-sm px-4 py-2 rounded-full text-sm"><i
-            class="fas fa-edit text-indigo-400 mr-2"></i>02 Borang Online</span>
-        <span class="bg-slate-800/60 backdrop-blur-sm px-4 py-2 rounded-full text-sm"><i
-            class="fas fa-table text-indigo-400 mr-2"></i>03 Google Sheets</span>
-        <span class="bg-slate-800/60 backdrop-blur-sm px-4 py-2 rounded-full text-sm"><i
-            class="fas fa-cogs text-indigo-400 mr-2"></i>04 Auto-Generate</span>
-        <span class="bg-slate-800/60 backdrop-blur-sm px-4 py-2 rounded-full text-sm"><i
-            class="fas fa-envelope-open-text text-indigo-400 mr-2"></i>05 Hantar E-mel</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-7xl mx-auto px-5 py-12">
-    <!-- LAPISAN 1: REKA BENTUK SIJIL (kad mengikut teks asal) -->
-    <div class="mb-20">
-      <div class="flex items-center gap-3 border-l-4 border-indigo-500 pl-4 mb-8">
-        <span class="text-3xl font-black text-indigo-400">01</span>
-        <h2 class="text-3xl font-bold font-display">Platform Reka Bentuk Sijil</h2>
-        <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full ml-auto">Alat template
-          profesional</span>
-      </div>
-      <p class="text-slate-300 mb-8 max-w-2xl">Alat untuk mereka bentuk template sijil yang menarik dan profesional.</p>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Adobe Photoshop -->
-        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 hover:border-indigo-500/40 transition">
-          <div class="flex items-center gap-3 mb-3"><i class="fab fa-adobe text-2xl text-red-400"></i>
-            <h3 class="text-xl font-bold">Adobe Photoshop</h3><span
-              class="text-xs bg-slate-700 px-2 py-0.5 rounded-full">Perisian Desktop</span>
+      <!-- Desktop Modules & Call-To-Action (Hidden on Mobile) -->
+      <div class="hidden lg:flex items-center gap-3">
+        
+        <!-- Desktop Modules Dropdown Container -->
+        <div class="relative group">
+          <button class="bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 font-semibold text-xs px-4 py-2.5 rounded-xl transition-all flex items-center gap-1.5 focus:outline-none">
+            <i class="fas fa-cubes text-brand-indigo"></i> Modul Sistem <i class="fas fa-chevron-down text-[9px] text-slate-500 group-hover:rotate-180 transition-transform"></i>
+          </button>
+          
+          <!-- Dropdown Card -->
+          <div class="absolute right-0 top-full mt-2 w-72 bg-slate-950/98 backdrop-blur-2xl border border-slate-850 rounded-2xl p-3 shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
+            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest px-2.5 py-1 block border-b border-slate-900 mb-2">Panduan & Rujukan</span>
+            <div class="space-y-1">
+              <a href="note1.html" class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-900 transition-colors">
+                <span class="w-7 h-7 rounded-lg bg-brand-indigo/10 flex items-center justify-center text-brand-indigo text-xs"><i class="fas fa-file-alt"></i></span>
+                <div class="flex flex-col">
+                  <span class="text-xs font-bold text-slate-200">Bulk Apps Script (Note 1)</span>
+                  <span class="text-[9px] text-slate-500">Automasi baris Sheets</span>
+                </div>
+              </a>
+              <a href="note2.html" class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-900 transition-colors">
+                <span class="w-7 h-7 rounded-lg bg-brand-purple/10 flex items-center justify-center text-brand-purple text-xs"><i class="fas fa-envelope-open-text"></i></span>
+                <div class="flex flex-col">
+                  <span class="text-xs font-bold text-slate-200">PDF & Emel (Note 2)</span>
+                  <span class="text-[9px] text-slate-500">Penghantaran Gmail automatik</span>
+                </div>
+              </a>
+              <a href="note3.html" class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-900 transition-colors">
+                <span class="w-7 h-7 rounded-lg bg-brand-cyan/10 flex items-center justify-center text-brand-cyan text-xs"><i class="fas fa-wand-magic-sparkles"></i></span>
+                <div class="flex flex-col">
+                  <span class="text-xs font-bold text-slate-200">Reka AI Lanjutan (Note 3)</span>
+                  <span class="text-[9px] text-slate-500">Prompting Midjourney & SD</span>
+                </div>
+              </a>
+              <a href="note_slides.html" class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-900 transition-colors">
+                <span class="w-7 h-7 rounded-lg bg-brand-amber/10 flex items-center justify-center text-brand-amber text-xs"><i class="fas fa-file-powerpoint"></i></span>
+                <div class="flex flex-col">
+                  <span class="text-xs font-bold text-slate-200">Slides Masterclass</span>
+                  <span class="text-[9px] text-slate-500">Prinsip reka letak & tags</span>
+                </div>
+              </a>
+              <a href="note_basic_ai.html" class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-900 transition-colors">
+                <span class="w-7 h-7 rounded-lg bg-brand-rose/10 flex items-center justify-center text-brand-rose text-xs"><i class="fas fa-brain"></i></span>
+                <div class="flex flex-col">
+                  <span class="text-xs font-bold text-slate-200">Prompt Compiler AI Asas</span>
+                  <span class="text-[9px] text-slate-500">Imagen 3 & DALL-E 3</span>
+                </div>
+              </a>
+            </div>
           </div>
-          <p class="text-slate-400 text-sm">Terbaik untuk sijil berkualiti cetak tinggi. Tidak menyokong automasi secara
-            langsung — perlu export manual.</p>
-          <div class="mt-3 text-xs text-slate-500"><i class="fas fa-print"></i> Reka bentuk profesional + output manual
+        </div>
+
+        <a href="hebahan.html" class="relative group overflow-hidden bg-gradient-to-r from-brand-emerald to-brand-cyan hover:from-brand-cyan hover:to-brand-emerald text-slate-950 font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/25 flex items-center gap-1.5">
+          <i class="fas fa-bullhorn"></i> Hebahan KPT/UUM
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button (Visible on Mobile/Tablet) -->
+      <button id="mobile-menu-toggle" onclick="toggleMobileMenu()" class="lg:hidden p-2.5 text-slate-400 hover:text-white rounded-xl bg-slate-900/50 border border-slate-800 focus:outline-none flex items-center justify-center transition-colors">
+        <i id="mobile-menu-icon" class="fas fa-bars text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu Panel (Responsive slide-down) -->
+    <div id="mobile-menu-panel" class="hidden absolute top-full left-0 w-full bg-slate-950/98 backdrop-blur-2xl border-b border-slate-900 p-6 flex flex-col gap-6 z-50 max-h-[85vh] overflow-y-auto">
+      
+      <!-- Internal Section Scroll Links -->
+      <div class="flex flex-col gap-3 border-b border-slate-900 pb-4">
+        <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest block mb-1">Seksyen Halaman Utama</span>
+        <a href="#platform-section" onclick="toggleMobileMenu()" class="text-sm text-slate-350 hover:text-white flex items-center justify-between">
+          <span>Pillar Sistem</span> <i class="fas fa-chevron-right text-[10px] text-slate-600"></i>
+        </a>
+        <a href="#integration-section" onclick="toggleMobileMenu()" class="text-sm text-slate-350 hover:text-white flex items-center justify-between">
+          <span>Penyemak Integrasi</span> <i class="fas fa-chevron-right text-[10px] text-slate-600"></i>
+        </a>
+        <a href="#workflow-section" onclick="toggleMobileMenu()" class="text-sm text-slate-350 hover:text-white flex items-center justify-between">
+          <span>Aliran Kerja</span> <i class="fas fa-chevron-right text-[10px] text-slate-600"></i>
+        </a>
+        <a href="#comparison-section" onclick="toggleMobileMenu()" class="text-sm text-slate-350 hover:text-white flex items-center justify-between">
+          <span>Jadual Perbandingan</span> <i class="fas fa-chevron-right text-[10px] text-slate-600"></i>
+        </a>
+      </div>
+
+      <!-- Sub-modules Glass Grid for Mobile (Clean 2 Cols) -->
+      <div class="flex flex-col gap-4">
+        <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest block">Semua Rujukan & Modul Sijil</span>
+        
+        <div class="grid grid-cols-2 gap-3">
+          
+          <!-- Bulk Script (Note 1) -->
+          <a href="note1.html" class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl hover:border-brand-indigo/40 flex flex-col gap-1.5 transition-colors">
+            <span class="text-brand-indigo text-xs"><i class="fas fa-file-alt"></i></span>
+            <span class="text-[11px] font-bold text-slate-200 leading-tight">Note 1: Bulk Script</span>
+          </a>
+
+          <!-- PDF & Emel (Note 2) -->
+          <a href="note2.html" class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl hover:border-brand-purple/40 flex flex-col gap-1.5 transition-colors">
+            <span class="text-brand-purple text-xs"><i class="fas fa-envelope-open-text"></i></span>
+            <span class="text-[11px] font-bold text-slate-200 leading-tight">Note 2: PDF & Emel</span>
+          </a>
+
+          <!-- Reka AI (Note 3) -->
+          <a href="note3.html" class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl hover:border-brand-cyan/40 flex flex-col gap-1.5 transition-colors">
+            <span class="text-brand-cyan text-xs"><i class="fas fa-wand-magic-sparkles"></i></span>
+            <span class="text-[11px] font-bold text-slate-200 leading-tight">Note 3: Reka AI</span>
+          </a>
+
+          <!-- Slides Sijil -->
+          <a href="note_slides.html" class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl hover:border-brand-amber/40 flex flex-col gap-1.5 transition-colors">
+            <span class="text-brand-amber text-xs"><i class="fas fa-file-powerpoint"></i></span>
+            <span class="text-[11px] font-bold text-slate-200 leading-tight">Slides Sijil</span>
+          </a>
+
+          <!-- AI Asas -->
+          <a href="note_basic_ai.html" class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl hover:border-brand-rose/40 flex flex-col gap-1.5 transition-colors">
+            <span class="text-brand-rose text-xs"><i class="fas fa-brain"></i></span>
+            <span class="text-[11px] font-bold text-slate-200 leading-tight">AI Asas</span>
+          </a>
+
+          <!-- Hebahan -->
+          <a href="hebahan.html" class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl hover:border-brand-emerald/40 flex flex-col gap-1.5 transition-colors">
+            <span class="text-brand-emerald text-xs"><i class="fas fa-bullhorn"></i></span>
+            <span class="text-[11px] font-bold text-slate-200 leading-tight">Hebahan KPT</span>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Prominent Call-To-Action inside mobile menu -->
+      <a href="hebahan.html" class="w-full bg-gradient-to-r from-brand-emerald to-brand-cyan text-slate-950 font-extrabold text-xs py-3.5 rounded-xl transition-all shadow-lg text-center flex items-center justify-center gap-1.5">
+        <i class="fas fa-bullhorn"></i> Hubungi / Log Masuk Workspace UUM
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative overflow-hidden pt-8 pb-16 lg:py-24 grid-bg border-b border-slate-900">
+    <!-- Glowing background blobs -->
+    <div class="absolute top-20 right-[-10%] w-[500px] h-[500px] rounded-full mesh-glow-1 -z-10"></div>
+    <div class="absolute bottom-10 left-[-10%] w-[550px] h-[550px] rounded-full mesh-glow-2 -z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+      <!-- Hero Text -->
+      <div class="lg:col-span-7 text-center lg:text-left">
+        <span class="inline-flex items-center gap-2 bg-brand-indigo/10 border border-brand-indigo/30 px-4 py-2 rounded-full text-xs font-semibold text-brand-indigo tracking-wider uppercase font-display mb-6">
+          <i class="fas fa-chalkboard-user"></i> Modul Pengajaran Digital Moden
+        </span>
+        
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black font-display tracking-tight leading-[1.1] text-white">
+          Sistem Automasi<br>
+          <span class="bg-gradient-to-r from-brand-indigo via-brand-purple to-brand-cyan bg-clip-text text-transparent">E-Sijil Moden</span>
+        </h1>
+        
+        <p class="text-base sm:text-lg text-slate-400 mt-6 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+          Panduan integrasi bertaraf industri untuk reka bentuk sijil, penyerahan borang online, penulisan Google Apps Script, dan pengeluaran sijil digital bercetak secara automatik.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap justify-center lg:justify-start gap-4 mt-8">
+          <a href="#integration-section" class="bg-slate-900 border border-slate-800 hover:border-slate-700 text-white font-semibold text-sm px-6 py-3.5 rounded-xl transition-all flex items-center gap-2 group">
+            <i class="fas fa-network-wired text-brand-cyan group-hover:rotate-45 transition-transform"></i> Penyemak Integrasi
+          </a>
+          <a href="#platform-section" class="bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 font-semibold text-sm px-6 py-3.5 rounded-xl transition-all flex items-center gap-2">
+            Mula Teroka <i class="fas fa-arrow-down text-slate-500"></i>
+          </a>
+        </div>
+
+        <!-- 5 Steps Quick Badges -->
+        <div class="mt-12">
+          <p class="text-xs text-slate-500 font-mono tracking-widest uppercase mb-4 text-center lg:text-left">Aliran Kerja Utama</p>
+          <div class="flex flex-wrap justify-center lg:justify-start gap-2.5">
+            <span class="bg-slate-900/80 border border-slate-800/80 px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 hover:border-brand-indigo/30 transition-all">
+              <i class="fas fa-paint-brush text-brand-indigo"></i> <strong class="text-slate-300">01</strong> Reka Bentuk
+            </span>
+            <span class="bg-slate-900/80 border border-slate-800/80 px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 hover:border-brand-purple/30 transition-all">
+              <i class="fas fa-edit text-brand-purple"></i> <strong class="text-slate-300">02</strong> Borang Online
+            </span>
+            <span class="bg-slate-900/80 border border-slate-800/80 px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 hover:border-brand-cyan/30 transition-all">
+              <i class="fas fa-table text-brand-cyan"></i> <strong class="text-slate-300">03</strong> Google Sheets
+            </span>
+            <span class="bg-slate-900/80 border border-slate-800/80 px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 hover:border-brand-emerald/30 transition-all">
+              <i class="fas fa-cogs text-brand-emerald"></i> <strong class="text-slate-300">04</strong> Auto-Gen
+            </span>
+            <span class="bg-slate-900/80 border border-slate-800/80 px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 hover:border-brand-rose/30 transition-all">
+              <i class="fas fa-paper-plane text-brand-rose"></i> <strong class="text-slate-300">05</strong> Hantar E-mel
+            </span>
           </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual (Interactive Glass Mockup Dashboard) -->
+      <div class="lg:col-span-5 relative mt-8 lg:mt-0">
+        <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-indigo via-brand-purple to-brand-cyan opacity-20 blur-xl"></div>
+        <div class="relative glass-card bg-slate-950/80 rounded-2xl border border-slate-800 p-6 flex flex-col gap-6 overflow-hidden">
+          
+          <!-- Mockup Window Header -->
+          <div class="flex items-center justify-between pb-3 border-b border-slate-900">
+            <div class="flex gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-red-500/70 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500/70 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500/70 inline-block"></span>
+            </div>
+            <span class="text-[10px] text-slate-500 font-mono">e-sijil-dashboard.net</span>
+            <span class="w-4 h-4 text-slate-600"><i class="fas fa-cog animate-spin"></i></span>
+          </div>
+
+          <!-- Simulation visualizer -->
+          <div class="space-y-4">
+            <!-- Simulated Step 1 -->
+            <div class="flex items-center justify-between bg-slate-900/50 border border-slate-800/80 p-3 rounded-xl">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-indigo/10 flex items-center justify-center text-brand-indigo">
+                  <i class="fab fa-wpforms"></i>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold">1. Borang Online</h4>
+                  <p class="text-[10px] text-slate-500">Kemasukan data peserta baru</p>
+                </div>
+              </div>
+              <span class="text-[9px] bg-brand-indigo/20 text-brand-indigo font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider">Tally / Forms</span>
+            </div>
+
+            <!-- Simulated Step 2 -->
+            <div class="flex items-center justify-between bg-slate-900/50 border border-slate-800/80 p-3 rounded-xl">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-emerald/10 flex items-center justify-center text-brand-emerald">
+                  <i class="fas fa-table"></i>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold">2. Google Sheets</h4>
+                  <p class="text-[10px] text-slate-500">Data-binding, lajur & baris automasi</p>
+                </div>
+              </div>
+              <span class="text-[9px] bg-brand-emerald/20 text-brand-emerald font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider">Sheet Terhubung</span>
+            </div>
+
+            <!-- Simulated Step 3 -->
+            <div class="flex items-center justify-between bg-slate-900/50 border border-slate-800/80 p-3 rounded-xl">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-purple/10 flex items-center justify-center text-brand-purple">
+                  <i class="fas fa-code"></i>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold">3. Apps Script / AutoCrat</h4>
+                  <p class="text-[10px] text-slate-500">Mencetus penjanaan templat Slides</p>
+                </div>
+              </div>
+              <span class="text-[9px] bg-brand-purple/20 text-brand-purple font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider">Mencipta PDF</span>
+            </div>
+
+            <!-- Simulated Sijil Output Mockup -->
+            <div class="relative bg-gradient-to-br from-indigo-950/20 to-purple-950/30 border border-brand-indigo/20 p-4 rounded-xl flex items-center gap-3 overflow-hidden shadow-inner">
+              <div class="absolute -right-6 -bottom-6 w-20 h-20 bg-brand-indigo/10 rounded-full blur-xl"></div>
+              
+              <!-- Floating Mini Sijil Design -->
+              <div class="w-12 h-16 bg-slate-900 border border-slate-700/60 rounded-md p-1.5 flex flex-col justify-between items-center relative flex-shrink-0 shadow-lg">
+                <div class="w-full h-[3px] bg-brand-indigo rounded"></div>
+                <div class="flex flex-col items-center gap-0.5 my-1">
+                  <div class="w-8 h-[2px] bg-slate-700 rounded"></div>
+                  <div class="w-6 h-[2px] bg-slate-700 rounded"></div>
+                  <i class="fa-solid fa-ribbon text-[8px] text-yellow-500 my-0.5"></i>
+                  <div class="w-7 h-[2px] bg-brand-cyan rounded"></div>
+                </div>
+                <div class="w-full flex justify-between items-center">
+                  <span class="w-[4px] h-[4px] bg-slate-800 rounded-full"></span>
+                  <span class="w-[4px] h-[4px] bg-slate-800 rounded-full"></span>
+                </div>
+              </div>
+
+              <!-- Output Details -->
+              <div class="flex-1">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-emerald animate-ping"></span>
+                  <span class="text-[9px] font-mono text-brand-emerald uppercase tracking-wider font-semibold">Hasil Output Sukses</span>
+                </div>
+                <h4 class="text-xs font-bold text-white mt-1">Sijil_Ahmad_Ali.pdf</h4>
+                <p class="text-[10px] text-slate-400">Telah dihantar ke: <span class="text-slate-300 font-mono">ahmad@gmail.com</span></p>
+                <div class="mt-1.5 flex gap-2">
+                  <span class="text-[9px] text-brand-cyan hover:underline cursor-pointer"><i class="fas fa-external-link-alt text-[8px]"></i> Lihat Fail</span>
+                  <span class="text-[9px] text-slate-400">·</span>
+                  <span class="text-[9px] text-brand-purple hover:underline cursor-pointer"><i class="fas fa-history text-[8px]"></i> Lihat Log</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Product Logos Horizontal Showcase (Infinitely Scrolling Marquee) -->
+  <section class="py-10 bg-slate-950/80 border-b border-slate-900 overflow-hidden relative">
+    <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-950 to-transparent z-10"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-950 to-transparent z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-6 mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-center md:text-left">
+        <h3 class="font-display font-bold text-sm tracking-widest text-slate-400 uppercase">Ekosistem Alat Automasi E-Sijil</h3>
+        <p class="text-xs text-slate-500">Semua platform digital utama yang disokong secara bersepadu</p>
+      </div>
+      <div class="h-[1px] flex-1 bg-slate-900 mx-4 hidden md:block"></div>
+      <span class="text-[10px] text-slate-400 font-mono bg-slate-900 border border-slate-800 px-3 py-1 rounded-full"><i class="fas fa-infinity text-brand-indigo"></i> Integrasi Menyeluruh</span>
+    </div>
+
+    <!-- Scrolling Track Redesigned with Native Vector Icons -->
+    <div class="marquee-container flex overflow-hidden w-full relative py-4">
+      <div class="flex gap-12 items-center justify-center animate-marquee whitespace-nowrap min-w-full">
+        <!-- Google Sheets -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-file-excel text-brand-emerald text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Google Sheets</span>
         </div>
         <!-- Canva -->
-        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 hover:border-indigo-500/40 transition">
-          <div class="flex items-center gap-3 mb-3"><i class="fab fa-canva text-2xl text-teal-400"></i>
-            <h3 class="text-xl font-bold">Canva</h3><span
-              class="text-xs bg-slate-700 px-2 py-0.5 rounded-full">Web-Based Designer</span>
-          </div>
-          <p class="text-slate-400 text-sm">Mesra pengguna dengan template cantik. Boleh integrasi via Zapier untuk
-            automasi terhad.</p>
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-palette text-brand-indigo text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Canva</span>
+        </div>
+        <!-- Adobe Photoshop -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-bezier-curve text-brand-rose text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Photoshop</span>
         </div>
         <!-- PowerPoint -->
-        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 hover:border-indigo-500/40 transition">
-          <div class="flex items-center gap-3 mb-3"><i class="fab fa-microsoft text-2xl text-orange-400"></i>
-            <h3 class="text-xl font-bold">PowerPoint</h3><span
-              class="text-xs bg-slate-700 px-2 py-0.5 rounded-full">Microsoft Office</span>
-          </div>
-          <p class="text-slate-400 text-sm">Mudah untuk reka bentuk. Mail Merge boleh digunakan tetapi tidak seintuitif
-            Google Slides.</p>
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-file-powerpoint text-brand-amber text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">PowerPoint</span>
+        </div>
+        <!-- Google Slides -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-desktop text-brand-cyan text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Google Slides</span>
         </div>
         <!-- Google Docs -->
-        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 hover:border-indigo-500/40 transition">
-          <div class="flex items-center gap-3 mb-3"><i class="fab fa-google text-2xl text-blue-400"></i>
-            <h3 class="text-xl font-bold">Google Docs</h3><span
-              class="text-xs bg-slate-700 px-2 py-0.5 rounded-full">Google Workspace</span>
-          </div>
-          <p class="text-slate-400 text-sm">Sesuai untuk sijil berasaskan teks. Boleh digunakan dengan AutoCrat untuk
-            automasi penuh.</p>
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-file-alt text-brand-cyan text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Google Docs</span>
         </div>
-        <!-- Google Slides ⭐ pilihan terbaik -->
-        <div
-          class="bg-gradient-to-br from-indigo-950/50 to-slate-900 border border-indigo-500/50 rounded-2xl p-5 md:col-span-2 lg:col-span-1 relative">
-          <div class="absolute top-3 right-3 bg-indigo-600 text-white text-xs px-2 py-1 rounded-full"><i
-              class="fas fa-star"></i> PILIHAN TERBAIK</div>
-          <div class="flex items-center gap-3 mb-3"><i class="fab fa-google text-2xl text-indigo-400"></i>
-            <h3 class="text-xl font-bold">Google Slides</h3><span
-              class="text-xs bg-indigo-900/60 px-2 py-0.5 rounded-full">Google Workspace</span>
-          </div>
-          <p class="text-slate-300 text-sm">⭐ PILIHAN TERBAIK untuk automasi. Sangat serasi dengan AutoCrat dan Apps
-            Script via placeholder tag.</p>
-          <div class="mt-2 text-emerald-400 text-xs"><i class="fas fa-bolt"></i> Native integration + placeholder
-            <<Nama>> / {{Nama}}</div>
+        <!-- Make.com -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-project-diagram text-brand-purple text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Make.com</span>
+        </div>
+        <!-- JotForm -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-check-square text-brand-indigo text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">JotForm</span>
+        </div>
+        <!-- Tally.so -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-square-poll-horizontal text-slate-400 text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Tally.so</span>
+        </div>
+        <!-- Typeform -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-comment-dots text-brand-cyan text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Typeform</span>
+        </div>
+        <!-- Google Forms -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fab fa-wpforms text-brand-purple text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Google Forms</span>
+        </div>
+        <!-- Zapier -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-bolt text-brand-amber text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Zapier</span>
+        </div>
+      </div>
+
+      <!-- Duplicate marquee content for seamless infinite loops -->
+      <div class="flex gap-12 items-center justify-center animate-marquee aria-hidden='true' whitespace-nowrap min-w-full">
+        <!-- Google Sheets -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-file-excel text-brand-emerald text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Google Sheets</span>
+        </div>
+        <!-- Canva -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-palette text-brand-indigo text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Canva</span>
+        </div>
+        <!-- Adobe Photoshop -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-bezier-curve text-brand-rose text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Photoshop</span>
+        </div>
+        <!-- PowerPoint -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-file-powerpoint text-brand-amber text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">PowerPoint</span>
+        </div>
+        <!-- Google Slides -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-desktop text-brand-cyan text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Google Slides</span>
+        </div>
+        <!-- Google Docs -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-file-alt text-brand-cyan text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Google Docs</span>
+        </div>
+        <!-- Make.com -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-project-diagram text-brand-purple text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Make.com</span>
+        </div>
+        <!-- JotForm -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-check-square text-brand-indigo text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">JotForm</span>
+        </div>
+        <!-- Tally.so -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-square-poll-horizontal text-slate-400 text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Tally.so</span>
+        </div>
+        <!-- Typeform -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-comment-dots text-brand-cyan text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Typeform</span>
+        </div>
+        <!-- Google Forms -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fab fa-wpforms text-brand-purple text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Google Forms</span>
+        </div>
+        <!-- Zapier -->
+        <div class="flex items-center gap-2.5 bg-slate-900/40 border border-slate-800/60 rounded-xl px-4 py-2.5 hover:border-slate-700 transition-colors">
+          <i class="fas fa-bolt text-brand-amber text-base"></i>
+          <span class="text-xs font-semibold text-slate-300 font-display">Zapier</span>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- LAPISAN 2: AUTO-GENERATE -->
-    <div class="mb-20">
-      <div class="flex items-center gap-3 border-l-4 border-emerald-500 pl-4 mb-8">
-        <span class="text-3xl font-black text-emerald-400">02</span>
-        <h2 class="text-3xl font-bold font-display">Platform Auto-Generate</h2>
-        <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full ml-auto">Enjin penjanaan
-          automatik</span>
+  <!-- 3 Pillars Section (Interactive Tab Panel Explorer) -->
+  <section id="platform-section" class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-brand-indigo font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-layer-group"></i> 3 Pilar Utama Sistem
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-4 tracking-tight">Terokai Ekosistem Teknologi E-Sijil</h2>
+        <p class="text-slate-400 mt-3">Alat bertaraf premium yang menyokong reka bentuk visual, enjin automasi fail, serta borang online berintegrasi tinggi.</p>
       </div>
-      <p class="text-slate-300 mb-8">Enjin yang menjana sijil secara automatik dari data spreadsheet.</p>
-      <div class="grid md:grid-cols-2 gap-7">
-        <div class="bg-slate-900/40 rounded-xl p-6 border border-slate-700/50">
-          <div class="flex items-center gap-2"><i class="fab fa-google text-2xl text-blue-400"></i>
-            <h3 class="text-xl font-bold">Google AutoCrat</h3><span
-              class="text-xs bg-slate-700 px-2 rounded-full">Google Sheets Add-on</span>
+
+      <!-- Category Segmented Controls (Tab Buttons) -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12 max-w-4xl mx-auto">
+        <button id="tab-btn-rekabentuk" onclick="switchTab('rekabentuk')" class="tab-btn border-2 border-brand-indigo text-brand-indigo bg-brand-indigo/10 font-bold text-sm px-6 py-3.5 rounded-2xl transition-all flex items-center gap-2 shadow-lg shadow-indigo-500/5">
+          <i class="fas fa-paint-brush"></i> 01 Platform Reka Bentuk Sijil
+        </button>
+        <button id="tab-btn-autogen" onclick="switchTab('autogen')" class="tab-btn border-2 border-transparent text-slate-400 hover:text-slate-200 font-bold text-sm px-6 py-3.5 rounded-2xl transition-all flex items-center gap-2">
+          <i class="fas fa-cogs"></i> 02 Enjin Auto-Generate
+        </button>
+        <button id="tab-btn-borang" onclick="switchTab('borang')" class="tab-btn border-2 border-transparent text-slate-400 hover:text-slate-200 font-bold text-sm px-6 py-3.5 rounded-2xl transition-all flex items-center gap-2">
+          <i class="fas fa-edit"></i> 03 Platform Borang Online
+        </button>
+      </div>
+
+      <!-- Tab Content 1: REKA BENTUK SIJIL -->
+      <div id="grid-rekabentuk" class="tool-grid grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Adobe Photoshop -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-brand-indigo/5 rounded-full blur-xl"></div>
+          <div>
+            <div class="flex justify-between items-start gap-4 mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-brand-rose/10 border border-brand-rose/30 text-brand-rose rounded-lg flex items-center justify-center font-bold text-lg flex-shrink-0"><i class="fas fa-bezier-curve"></i></div>
+                <h3 class="text-lg font-bold text-white font-display">Adobe Photoshop</h3>
+              </div>
+              <span class="text-[10px] bg-slate-800 text-slate-400 border border-slate-700/60 font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">Desktop Only</span>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed mt-2">
+              Pilihan terulung profesional untuk template berkualiti cetakan tinggi. Sangat sesuai untuk reka bentuk grafik yang kompleks namun tidak mempunyai keupayaan automasi dinamik secara langsung (memerlukan eksport manual).
+            </p>
           </div>
-          <p class="text-slate-400 mt-2">Add-on Google Sheets. Guna tag <<Nama>> dalam template. Sesuai untuk pemula —
-              tanpa kod.</p>
-          <div class="mt-2 text-sm text-slate-300 bg-slate-800/50 p-2 rounded"><i class="fas fa-code-branch"></i> Cara:
-            Tag <<Nama Peserta>>, <<Tarikh>> → output PDF ke Drive</div>
+          <div class="mt-6 pt-4 border-t border-slate-900 flex justify-between items-center text-xs">
+            <span class="text-brand-rose font-medium"><i class="fas fa-times-circle"></i> Tiada Automasi Terus</span>
+            <span class="text-slate-500 font-mono">Kemahiran: Tinggi</span>
+          </div>
         </div>
-        <div class="bg-slate-900/40 rounded-xl p-6 border border-slate-700/50">
-          <div class="flex items-center gap-2"><i class="fab fa-google text-2xl text-green-400"></i>
-            <h3 class="text-xl font-bold">Google Apps Script</h3><span
-              class="text-xs bg-slate-700 px-2 rounded-full">JavaScript Cloud Runtime</span>
+
+        <!-- Canva -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-brand-cyan/5 rounded-full blur-xl"></div>
+          <div>
+            <div class="flex justify-between items-start gap-4 mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-brand-indigo/10 border border-brand-indigo/30 text-brand-indigo rounded-lg flex items-center justify-center font-bold text-lg flex-shrink-0"><i class="fas fa-palette"></i></div>
+                <h3 class="text-lg font-bold text-white font-display">Canva</h3>
+              </div>
+              <span class="text-[10px] bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/20 font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">Web-Based</span>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed mt-2">
+              Terkenal dengan ribuan template sedia ada yang memukau dan mesra pengguna. Memudahkan pereka menyunting sijil secara digital. Mempunyai integrasi terhad melalui Zapier atau Make.com untuk pengeluaran bulk.
+            </p>
           </div>
-          <p class="text-slate-400 mt-2">Kawalan penuh via JavaScript. Boleh jana sijil, simpan ke Drive, hantar e-mel —
-            semua dalam satu skrip.</p>
+          <div class="mt-6 pt-4 border-t border-slate-900 flex justify-between items-center text-xs">
+            <span class="text-brand-amber font-medium"><i class="fas fa-exclamation-triangle"></i> Automasi Terhad</span>
+            <span class="text-slate-500 font-mono">Kemahiran: Rendah</span>
+          </div>
         </div>
-        <div class="bg-slate-900/40 rounded-xl p-6 border border-slate-700/50">
-          <div class="flex items-center gap-2"><i class="fas fa-link text-2xl text-amber-400"></i>
-            <h3 class="text-xl font-bold">Make.com</h3><span class="text-xs bg-slate-700 px-2 rounded-full">Automation
-              Platform</span>
+
+        <!-- PowerPoint -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-brand-amber/5 rounded-full blur-xl"></div>
+          <div>
+            <div class="flex justify-between items-start gap-4 mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-brand-amber/10 border border-brand-amber/30 text-brand-amber rounded-lg flex items-center justify-center font-bold text-lg flex-shrink-0"><i class="fas fa-file-powerpoint"></i></div>
+                <h3 class="text-lg font-bold text-white font-display">PowerPoint</h3>
+              </div>
+              <span class="text-[10px] bg-slate-800 text-slate-400 border border-slate-700/60 font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">MS Office</span>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed mt-2">
+              Mudah untuk reka letak sijil standard. Boleh dihubungkan dengan Microsoft Excel menggunakan ciri tradisional <strong>Mail Merge</strong> untuk cetakan kelompok, tetapi kurang mesra penyegerakan ke storan awan digital berbanding Google Slides.
+            </p>
           </div>
-          <p class="text-slate-400 mt-2">No-code workflow visual. Sambung Tally → Sheets → Drive → Gmail dalam satu
-            kanvas drag-and-drop.</p>
+          <div class="mt-6 pt-4 border-t border-slate-900 flex justify-between items-center text-xs">
+            <span class="text-brand-amber font-medium"><i class="fas fa-check-circle"></i> Mail Merge Manual</span>
+            <span class="text-slate-500 font-mono">Kemahiran: Rendah</span>
+          </div>
         </div>
-        <div class="bg-slate-900/40 rounded-xl p-6 border border-slate-700/50">
-          <div class="flex items-center gap-2"><i class="fas fa-certificate text-2xl text-purple-400"></i>
-            <h3 class="text-xl font-bold">Certifier.io</h3><span class="text-xs bg-slate-700 px-2 rounded-full">Platform
-              Khusus Sijil</span>
+
+        <!-- Google Docs -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-brand-indigo/5 rounded-full blur-xl"></div>
+          <div>
+            <div class="flex justify-between items-start gap-4 mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan rounded-lg flex items-center justify-center font-bold text-lg flex-shrink-0"><i class="fas fa-file-alt"></i></div>
+                <h3 class="text-lg font-bold text-white font-display">Google Docs</h3>
+              </div>
+              <span class="text-[10px] bg-slate-800 text-slate-400 border border-slate-700/60 font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">Workspace</span>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed mt-2">
+              Sesuai untuk sijil berbentuk surat atau berasaskan teks formal. Sangat serasi dengan Google Sheets dan add-on seperti AutoCrat untuk automasi, namun terhad dari sudut reka bentuk grafik latar belakang yang kompleks.
+            </p>
           </div>
-          <p class="text-slate-400 mt-2">Platform lengkap — reka bentuk, jana, hantar, dan track analytics. QR
-            verification built-in.</p>
+          <div class="mt-6 pt-4 border-t border-slate-900 flex justify-between items-center text-xs">
+            <span class="text-brand-emerald font-medium"><i class="fas fa-check-circle"></i> Serasi AutoCrat</span>
+            <span class="text-slate-500 font-mono">Kemahiran: Rendah</span>
+          </div>
+        </div>
+
+        <!-- Google Slides (⭐ PILIHAN TERBAIK) -->
+        <div class="glass-card border-2 border-brand-indigo/55 bg-gradient-to-br from-slate-900/80 to-slate-900 rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between lg:col-span-2 shadow-xl shadow-indigo-500/5">
+          <div class="absolute top-3 right-3 bg-brand-indigo text-white font-display font-extrabold text-[9px] px-3 py-1 rounded-full uppercase tracking-widest flex items-center gap-1.5 shadow-lg">
+            <i class="fas fa-star text-yellow-300 animate-spin" style="animation-duration: 4s;"></i> Pilihan Terbaik
+          </div>
+          <div class="absolute top-0 right-0 w-36 h-36 bg-brand-indigo/10 rounded-full blur-2xl"></div>
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 bg-brand-amber/10 border border-brand-amber/30 text-brand-amber rounded-lg flex items-center justify-center font-bold text-lg flex-shrink-0"><i class="fas fa-desktop"></i></div>
+              <h3 class="text-xl font-black text-white font-display">Google Slides</h3>
+              <span class="text-[10px] bg-brand-indigo/20 text-brand-indigo font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Native Auto</span>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed mt-2">
+              ⭐ <strong>PILIHAN TERUTAMA & TERBAIK</strong> untuk automasi bertaraf korporat. Sangat fleksibel untuk reka bentuk template sijil dan menyokong integrasi 100% native dengan AutoCrat serta Google Apps Script melalui pemetaan tag placeholder.
+            </p>
+            <!-- Placeholder Tag Visualizer -->
+            <div class="mt-5 bg-slate-950/80 border border-slate-800 rounded-xl p-3 flex justify-between items-center">
+              <span class="text-xs text-slate-400 font-mono">Placeholder Tag:</span>
+              <div class="flex gap-2">
+                <code class="bg-indigo-950/60 border border-indigo-800 text-brand-indigo text-xs px-2.5 py-1 rounded-md font-mono">&lt;&lt;Nama Peserta&gt;&gt;</code>
+                <code class="bg-purple-950/60 border border-purple-800 text-brand-purple text-xs px-2.5 py-1 rounded-md font-mono">{{Nama}}</code>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-950 flex justify-between items-center text-xs">
+            <span class="text-brand-emerald font-bold"><i class="fas fa-bolt text-brand-cyan"></i> Native Integration + Dynamic Placeholders</span>
+            <span class="text-slate-400 font-mono">Kemahiran: Rendah</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 2: ENJIN AUTO-GENERATE -->
+      <div id="grid-autogen" class="tool-grid grid md:grid-cols-2 gap-6 hidden">
+        <!-- Google AutoCrat -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-brand-emerald/5 rounded-full blur-xl"></div>
+          <div>
+            <div class="flex justify-between items-start gap-4 mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-brand-emerald/10 border border-brand-emerald/30 text-brand-emerald rounded-lg flex items-center justify-center font-bold text-xl">
+                  <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white font-display">Google AutoCrat</h3>
+              </div>
+              <span class="text-[10px] bg-brand-emerald/10 text-brand-emerald border border-brand-emerald/20 font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">Sheets Add-on</span>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed mt-2">
+              Add-on yang dipasang terus pada Google Sheets. Berfungsi memetakan data sel daripada lajur sheet ke dalam placeholder template (Slides/Docs), menjana PDF secara automatik ke dalam Google Drive, dan menghantarnya melalui Gmail. Sangat sesuai untuk pengguna tanpa kemahiran coding.
+            </p>
+            <div class="mt-4 bg-slate-900/50 border border-slate-800/80 rounded-xl p-3 text-xs text-slate-400">
+              <i class="fas fa-info-circle text-brand-indigo mr-1.5"></i> Kaedah: Mengesan trigger "On Form Submit" atau secara berjadual.
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-900 flex justify-between items-center text-xs">
+            <span class="text-brand-emerald font-medium"><i class="fas fa-check-circle"></i> Percuma & Tanpa Kod</span>
+            <span class="text-slate-500 font-mono">Kemahiran: Rendah</span>
+          </div>
+        </div>
+
+        <!-- Google Apps Script -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-brand-purple/5 rounded-full blur-xl"></div>
+          <div>
+            <div class="flex justify-between items-start gap-4 mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-brand-purple/10 border border-brand-purple/30 text-brand-purple rounded-lg flex items-center justify-center font-bold text-lg flex-shrink-0"><i class="fas fa-code"></i></div>
+                <h3 class="text-lg font-bold text-white font-display">Google Apps Script</h3>
+              </div>
+              <span class="text-[10px] bg-brand-purple/10 text-brand-purple border border-brand-purple/20 font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">JavaScript Cloud</span>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed mt-2">
+              Enjin pengaturcaraan awan milik Google Workspace. Memberikan kawalan mutlak kepada pembangun untuk memprogramkan logik automasi tersuai (custom JS), membuat salinan fail, menukar slaid kepada dokumen PDF secara dinamik, menulis URL pautan sijil terus ke sheet, and menghantar e-mel dengan fail kepilan sijil secara serentak.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-900 flex justify-between items-center text-xs">
+            <span class="text-brand-indigo font-bold"><i class="fas fa-code"></i> Kebebasan Logik Penuh</span>
+            <span class="text-slate-500 font-mono">Kemahiran: Tinggi</span>
+          </div>
+        </div>
+
+        <!-- Make.com -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-brand-purple/5 rounded-full blur-xl"></div>
+          <div>
+            <div class="flex justify-between items-start gap-4 mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-brand-purple/10 border border-brand-purple/30 text-brand-purple rounded-lg flex items-center justify-center font-bold text-lg flex-shrink-0"><i class="fas fa-project-diagram"></i></div>
+                <h3 class="text-lg font-bold text-white font-display">Make.com</h3>
+              </div>
+              <span class="text-[10px] bg-slate-800 text-slate-400 border border-slate-700/60 font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">No-Code Platform</span>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed mt-2">
+              Platform automasi visual (no-code) yang sangat popular di peringkat global. Membolehkan sambungan visual dengan menyeret dan melepaskan modul integrasi (seperti: Tally ➔ Google Sheets ➔ Google Drive ➔ Gmail) dalam satu kanvas visual yang dinamik dan mudah dipantau.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-900 flex justify-between items-center text-xs">
+            <span class="text-brand-cyan font-medium"><i class="fas fa-project-diagram"></i> Workflow Visual Sleek</span>
+            <span class="text-slate-500 font-mono">Kemahiran: Sederhana</span>
+          </div>
+        </div>
+
+        <!-- Certifier.io -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-brand-purple/5 rounded-full blur-xl"></div>
+          <div>
+            <div class="flex justify-between items-start gap-4 mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-brand-purple/10 border border-brand-purple/30 text-brand-purple rounded-lg flex items-center justify-center font-bold text-xl flex-shrink-0">
+                  <i class="fas fa-award"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white font-display">Certifier.io</h3>
+              </div>
+              <span class="text-[10px] bg-slate-800 text-slate-400 border border-slate-700/60 font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">SaaS Khusus</span>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed mt-2">
+              Platform SaaS premium yang dibina khas untuk menguruskan kitaran sijil digital secara hujung-ke-hujung. Dilengkapi dengan pereka sijil, penghantaran kelompok, dan sistem kod pengesahan QR bersepadu yang membolehkan penerima mengesahkan keaslian sijil mereka.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-900 flex justify-between items-center text-xs">
+            <span class="text-brand-purple font-medium"><i class="fas fa-qrcode"></i> Pengesahan QR Terbina</span>
+            <span class="text-slate-500 font-mono">Kemahiran: Rendah</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 3: BORANG ONLINE -->
+      <div id="grid-borang" class="tool-grid grid md:grid-cols-2 lg:grid-cols-4 gap-6 hidden">
+        <!-- Google Forms -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-8 h-8 bg-brand-purple/10 border border-brand-purple/30 text-brand-purple rounded-lg flex items-center justify-center font-bold text-base flex-shrink-0"><i class="fab fa-wpforms"></i></div>
+              <h3 class="text-base font-bold text-white font-display">Google Forms</h3>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Integrasi native paling mudah dan 100% percuma. Mengalirkan data peserta terus to Google Sheets secara terus tanpa memerlukan persediaan pihak ketiga. Walau bagaimanapun, mempunyai had yang ketara dari sudut fleksibiliti reka bentuk borang serta ketiadaan logik bersyarat yang kompleks.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-900 flex justify-between items-center text-[10px]">
+            <span class="text-brand-emerald font-semibold"><i class="fas fa-check-circle"></i> Integrasi Native Terus</span>
+            <span class="text-slate-500 font-mono">Kemahiran: Rendah</span>
+          </div>
+        </div>
+
+        <!-- JotForm -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-8 h-8 bg-brand-indigo/10 border border-brand-indigo/30 text-brand-indigo rounded-lg flex items-center justify-center font-bold text-base flex-shrink-0"><i class="fas fa-check-square"></i></div>
+              <h3 class="text-base font-bold text-white font-display">JotForm</h3>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Borang kaya dengan fungsi lanjutan seperti tandatangan digital penerima, pembayaran terbina, dan ruangan muat naik fail. Mempunyai integrasi terus ke Google Sheets, namun pelan percuma dihadkan kepada 100 penghantaran borang sahaja sebulan.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-900 flex justify-between items-center text-[10px]">
+            <span class="text-brand-amber font-semibold"><i class="fas fa-exclamation-triangle"></i> Had Pelan Percuma</span>
+            <span class="text-slate-500 font-mono">Kemahiran: Rendah</span>
+          </div>
+        </div>
+
+        <!-- Tally.so -->
+        <div class="glass-card border border-brand-indigo/30 bg-slate-900/30 rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-8 h-8 bg-slate-900 border border-slate-800 text-slate-300 rounded-lg flex items-center justify-center font-bold text-base flex-shrink-0"><i class="fas fa-square-poll-horizontal"></i></div>
+              <h3 class="text-base font-bold text-white font-display">Tally.so</h3>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Borang paling moden dengan antara muka minimalis gaya Notion. Pilihan premium & estetik yang memberikan 99% fungsi secara percuma sepenuhnya. Walau bagaimanapun, penyambungan data ke Google Sheets memerlukan Zapier atau Make.com (satu langkah tambahan).
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-900 flex justify-between items-center text-[10px]">
+            <span class="text-brand-indigo font-bold"><i class="fas fa-star"></i> Pilihan Estetik Terbaik</span>
+            <span class="text-slate-400 font-mono">Kemahiran: Sederhana</span>
+          </div>
+        </div>
+
+        <!-- Typeform -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-8 h-8 bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan rounded-lg flex items-center justify-center font-bold text-base flex-shrink-0"><i class="fas fa-comment-dots"></i></div>
+              <h3 class="text-base font-bold text-white font-display">Typeform</h3>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Platform borang premium terkemuka dengan gaya perbualan "satu soalan pada satu masa" yang meningkatkan kadar interaksi peserta. Sangat cantik tetapi berbayar tinggi untuk menyahkunci integrasi API pihak ketiga secara meluas.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-900 flex justify-between items-center text-[10px]">
+            <span class="text-brand-rose font-semibold"><i class="fas fa-dollar-sign"></i> Pelan Premium Mahal</span>
+            <span class="text-slate-500 font-mono">Kemahiran: Sederhana</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Integration Checker Widget & Flow Visualizer -->
+  <section id="integration-section" class="py-20 bg-slate-900/30 border-y border-slate-900 relative">
+    <!-- background glow -->
+    <div class="absolute inset-0 mesh-glow-1 opacity-50 pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-brand-cyan font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-network-wired"></i> Kuiz Aliran Sistem
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-4 tracking-tight">Penyemak & Simulator Integrasi Pintar</h2>
+        <p class="text-slate-400 mt-3">Gunakan widget interaktif ini untuk merangka strategi pembinaan sistem e-sijil anda sendiri. Pilih platform input dan enjin penjanaan, dan lihat status penyegerakannya serta-merta!</p>
+      </div>
+
+      <!-- Widget Layout Grid -->
+      <div class="grid lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
+        
+        <!-- Left: Configuration Form -->
+        <div class="lg:col-span-5 bg-slate-950/80 border border-slate-800 rounded-3xl p-6 flex flex-col gap-6 shadow-xl">
+          <h3 class="text-lg font-bold font-display text-white flex items-center gap-2 pb-3 border-b border-slate-900">
+            <i class="fas fa-sliders-h text-brand-indigo"></i> Konfigurasi Sistem Anda
+          </h3>
+
+          <!-- Form Choice -->
+          <div class="flex flex-col gap-2">
+            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest font-mono">1. Pilih Borang Online (Input)</label>
+            <select id="widget-form-select" onchange="updateIntegrationChecker()" class="bg-slate-900/80 border border-slate-850 focus:border-brand-indigo text-slate-200 text-sm rounded-xl p-3.5 outline-none transition-colors cursor-pointer w-full">
+              <option value="gforms">Google Forms (Native & Percuma)</option>
+              <option value="tally" selected>Tally.so (Estetik, Minimalis & Percuma)</option>
+              <option value="jotform">JotForm (Kaya Ciri, Templat Kuat)</option>
+              <option value="typeform">Typeform (Gaya Perbualan Premium)</option>
+            </select>
+          </div>
+
+          <!-- Divider -->
+          <div class="flex items-center gap-3 py-1">
+            <div class="h-[1px] flex-1 bg-slate-900"></div>
+            <div class="w-7 h-7 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-[10px] text-slate-500 font-mono">
+              <i class="fas fa-link text-brand-cyan"></i>
+            </div>
+            <div class="h-[1px] flex-1 bg-slate-900"></div>
+          </div>
+
+          <!-- Generator Choice -->
+          <div class="flex flex-col gap-2">
+            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest font-mono">2. Pilih Enjin Penjana Sijil</label>
+            <select id="widget-generator-select" onchange="updateIntegrationChecker()" class="bg-slate-900/80 border border-slate-850 focus:border-brand-indigo text-slate-200 text-sm rounded-xl p-3.5 outline-none transition-colors cursor-pointer w-full">
+              <option value="autocrat" selected>Google AutoCrat (Add-on Tanpa Kod)</option>
+              <option value="script">Google Apps Script (JavaScript Cloud Runtime)</option>
+              <option value="make">Make.com (Workflow Visual No-Code)</option>
+              <option value="certifier">Certifier.io (Platform SaaS Khas Sijil)</option>
+            </select>
+          </div>
+
+          <div class="bg-indigo-950/20 border border-indigo-900/30 rounded-2xl p-4 mt-2">
+            <p class="text-xs text-indigo-300 leading-relaxed">
+              <i class="fas fa-lightbulb text-brand-amber mr-1"></i> <strong>Tip:</strong> Pilihan platform ini akan menentukan tahap kerumitan penulisan kod dan kos bulanan operasi anda.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Visualizer & Output Info -->
+        <div class="lg:col-span-7 bg-slate-950/50 border border-slate-850 rounded-3xl p-6 flex flex-col gap-6 justify-between shadow-2xl relative overflow-hidden">
+          <!-- background subtle decorative grid -->
+          <div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
+
+          <!-- Dynamic Pipeline Animation SVG -->
+          <div class="relative z-10 w-full bg-slate-950 border border-slate-900 rounded-2xl p-4 flex flex-col items-center gap-4">
+            <span class="text-[9px] text-slate-500 font-mono tracking-widest uppercase align-self-start"><i class="fas fa-network-wired"></i> Simulasi Data Pipeline</span>
+            
+            <div class="w-full flex items-center justify-between gap-2 max-w-md my-4">
+              <!-- Visual Node 1 (Borang) -->
+              <div class="flex flex-col items-center gap-2">
+                <div id="node-form-icon" class="w-12 h-12 rounded-2xl bg-brand-indigo/10 border border-brand-indigo/30 flex items-center justify-center text-xl text-brand-indigo transition-all">
+                  <i class="fab fa-wpforms"></i>
+                </div>
+                <span id="node-form-name" class="text-[10px] font-bold text-slate-300">Tally.so</span>
+              </div>
+
+              <!-- Visual Pipe 1 -->
+              <div class="flex-1 h-2 relative flex items-center">
+                <div class="absolute inset-0 bg-slate-900 rounded-full"></div>
+                <div id="pipe-1-glow" class="absolute left-0 right-0 h-1 bg-gradient-to-r from-brand-indigo to-brand-emerald rounded-full opacity-100 shadow-[0_0_10px_#10b981]"></div>
+              </div>
+
+              <!-- Visual Node 2 (Google Sheets - fixed core) -->
+              <div class="flex flex-col items-center gap-2">
+                <div class="w-12 h-12 rounded-2xl bg-brand-emerald/10 border border-brand-emerald/30 flex items-center justify-center text-xl text-brand-emerald shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Google_Sheets_2020_Logo.svg" alt="Google Sheets" class="h-6 w-6">
+                </div>
+                <span class="text-[10px] font-bold text-slate-300">Google Sheets</span>
+              </div>
+
+              <!-- Visual Pipe 2 -->
+              <div class="flex-1 h-2 relative flex items-center">
+                <div class="absolute inset-0 bg-slate-900 rounded-full"></div>
+                <div id="pipe-2-glow" class="absolute left-0 right-0 h-1 bg-gradient-to-r from-brand-emerald to-brand-purple rounded-full opacity-100 shadow-[0_0_10px_#8b5cf6]"></div>
+              </div>
+
+              <!-- Visual Node 3 (Penjana) -->
+              <div class="flex flex-col items-center gap-2">
+                <div id="node-gen-icon" class="w-12 h-12 rounded-2xl bg-brand-purple/10 border border-brand-purple/30 flex items-center justify-center text-xl text-brand-purple transition-all">
+                  <i class="fas fa-bolt"></i>
+                </div>
+                <span id="node-gen-name" class="text-[10px] font-bold text-slate-300">AutoCrat</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Text Details -->
+          <div class="relative z-10 grid md:grid-cols-2 gap-6 border-t border-slate-900 pt-6">
+            
+            <!-- Details LHS -->
+            <div class="flex flex-col gap-3">
+              <div>
+                <span class="text-[10px] text-slate-500 font-mono tracking-widest uppercase block">Status Aliran Integrasi</span>
+                <span id="widget-status" class="text-sm font-extrabold text-brand-emerald mt-1 block">Sempurna & Percuma</span>
+              </div>
+              
+              <div class="mt-2">
+                <span class="text-[10px] text-slate-500 font-mono tracking-widest uppercase block mb-1.5">Kadar Kesukaran Setup</span>
+                <div class="flex items-center gap-2">
+                  <div class="flex-1 h-2 bg-slate-900 rounded-full overflow-hidden">
+                    <div id="widget-difficulty-bar" class="h-full bg-brand-emerald rounded-full transition-all" style="width: 30%;"></div>
+                  </div>
+                  <span id="widget-difficulty-text" class="text-xs font-mono font-bold text-slate-300">Rendah (30%)</span>
+                </div>
+              </div>
+
+              <div class="mt-2 bg-slate-900/40 border border-slate-900 p-3.5 rounded-2xl">
+                <p id="widget-description" class="text-xs text-slate-400 leading-relaxed">
+                  Konfigurasi ini amat disyorkan untuk pemula. Tally mengumpul data estetik dan menyimpannya di Google Sheets, sementara AutoCrat menukarkannya kepada PDF secara native tanpa sebarang kod.
+                </p>
+              </div>
+            </div>
+
+            <!-- Details RHS: Pros & Cons -->
+            <div class="flex flex-col gap-4">
+              <div>
+                <span class="text-[10px] text-slate-500 font-mono tracking-widest uppercase block mb-2">Kelebihan (Pros)</span>
+                <ul id="widget-pros" class="space-y-1.5 text-xs text-slate-300">
+                  <li class="flex items-start gap-2"><i class="fas fa-check text-brand-emerald mt-0.5"></i> <span>Native & Percuma sepenuhnya</span></li>
+                  <li class="flex items-start gap-2"><i class="fas fa-check text-brand-emerald mt-0.5"></i> <span>Setup pantas tanpa menulis kod</span></li>
+                </ul>
+              </div>
+
+              <div>
+                <span class="text-[10px] text-slate-500 font-mono tracking-widest uppercase block mb-2">Kekurangan (Cons)</span>
+                <ul id="widget-cons" class="space-y-1.5 text-xs text-slate-400">
+                  <li class="flex items-start gap-2"><i class="fas fa-exclamation-triangle text-brand-amber mt-0.5"></i> <span>Had reka bentuk borang standard</span></li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Warning/Caution Card for Google Sheets Connection -->
+      <div class="mt-16 bg-gradient-to-r from-brand-rose/10 via-slate-950 to-slate-950 border border-brand-rose/25 rounded-3xl p-6 max-w-5xl mx-auto shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-brand-rose/5 rounded-full blur-2xl"></div>
+        <div class="flex flex-col md:flex-row gap-5 items-start relative z-10">
+          <div class="w-12 h-12 rounded-2xl bg-brand-rose/10 border border-brand-rose/30 flex items-center justify-center text-xl text-brand-rose flex-shrink-0">
+            <i class="fas fa-triangle-exclamation"></i>
+          </div>
+          <div class="space-y-2">
+            <h4 class="font-display font-extrabold text-white text-lg">Peringatan Kritikal: Isu Integrasi Data → Google Sheets</h4>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Apabila membina aliran automasi e-sijil, pastikan anda memahami kekangan setiap borang. Google Forms memberikan penyambungan data secara <strong>native & segera</strong> ke Google Sheets secara percuma, manakala Tally.so atau JotForm memerlukan tetapan pautan webhooks atau platform tengah seperti <strong>Zapier/Make.com</strong> untuk menjana data bertulis pada baris yang betul. Pilihan di tangan anda!
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 pt-3 border-t border-slate-900 text-xs font-mono">
+              <div>
+                <span class="text-slate-500 block">Google Forms:</span>
+                <span class="text-brand-emerald font-bold"><i class="fas fa-check"></i> Native Terus</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">JotForm:</span>
+                <span class="text-brand-emerald font-bold"><i class="fas fa-check"></i> Native Terus</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Tally.so:</span>
+                <span class="text-brand-amber font-bold"><i class="fas fa-exchange-alt"></i> Zapier / Make.com</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Typeform:</span>
+                <span class="text-brand-amber font-bold"><i class="fas fa-exchange-alt"></i> Zapier / Make.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Workflow Section -->
+  <section id="workflow-section" class="py-20 relative grid-bg border-b border-slate-900">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-brand-indigo font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-route"></i> Aliran Kerja
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-4 tracking-tight">Aliran Kerja Sistem E-Sijil Pintar</h2>
+        <p class="text-slate-400 mt-3">Proses lengkap digital dari saat borang pendaftaran diisi oleh peserta hinggalah sijil PDF terhasil dan dihantar terus ke peti mel e-mel mereka.</p>
+      </div>
+
+      <!-- Steps Cards Timeline (Interactive Hover Grid) -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 relative">
+        <!-- SVG Connecting line decoration (Hidden on mobile, showing on Large desktop) -->
+        <div class="absolute inset-0 top-[35%] left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-brand-indigo via-brand-emerald to-brand-purple opacity-10 pointer-events-none -z-10 hidden lg:block"></div>
+
+        <!-- Step 1 -->
+        <div class="glass-card bg-slate-950/70 border border-slate-850 rounded-2xl p-6 relative overflow-hidden group">
+          <span class="absolute top-3 right-4 font-display font-black text-4xl text-slate-800/40 group-hover:text-brand-indigo/35 transition-colors">01</span>
+          <div class="w-12 h-12 rounded-xl bg-brand-indigo/10 border border-brand-indigo/30 flex items-center justify-center text-xl text-brand-indigo mb-4">
+            <i class="fas fa-edit"></i>
+          </div>
+          <h3 class="font-display font-bold text-base text-white">Peserta Isi Borang</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mt-2">
+            Peserta mendaftarkan maklumat nama rasmi dan butiran program melalui borang online kegemaran (Tally.so, JotForm, atau Google Forms).
+          </p>
+          <div class="mt-4 pt-3 border-t border-slate-900 text-[10px] text-slate-500 font-mono flex items-center gap-1.5">
+            <i class="fas fa-mouse-pointer text-brand-indigo"></i> Trigger: Pengisian borang online
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="glass-card bg-slate-950/70 border border-slate-850 rounded-2xl p-6 relative overflow-hidden group">
+          <span class="absolute top-3 right-4 font-display font-black text-4xl text-slate-800/40 group-hover:text-brand-emerald/35 transition-colors">02</span>
+          <div class="w-12 h-12 rounded-xl bg-brand-emerald/10 border border-brand-emerald/30 flex items-center justify-center text-xl text-brand-emerald mb-4">
+            <i class="fas fa-database"></i>
+          </div>
+          <h3 class="font-display font-bold text-base text-white">Data Masuk Sheets</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mt-2">
+            Butiran penyerahan borang direkodkan terus pada baris baris di Google Sheets secara automatik tanpa memerlukan kemasukan manual.
+          </p>
+          <div class="mt-4 pt-3 border-t border-slate-900 text-[10px] text-slate-500 font-mono flex items-center gap-1.5">
+            <i class="fas fa-link text-brand-emerald"></i> Integrasi native / Zapier / Make
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="glass-card bg-slate-950/70 border border-slate-850 rounded-2xl p-6 relative overflow-hidden group">
+          <span class="absolute top-3 right-4 font-display font-black text-4xl text-slate-800/40 group-hover:text-brand-cyan/35 transition-colors">03</span>
+          <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center text-xl text-brand-cyan mb-4">
+            <i class="fas fa-cog"></i>
+          </div>
+          <h3 class="font-display font-bold text-base text-white">Trigger Penciptaan</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mt-2">
+            Enjin AutoCrat atau Google Apps Script mengesan kemasukan data baris baru dan serta-merta mencetuskan logik penjanaan sijil.
+          </p>
+          <div class="mt-4 pt-3 border-t border-slate-900 text-[10px] text-slate-500 font-mono flex items-center gap-1.5">
+            <i class="fas fa-bolt text-brand-cyan"></i> Apps Script OnFormSubmit
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="glass-card bg-slate-950/70 border border-slate-850 rounded-2xl p-6 relative overflow-hidden group">
+          <span class="absolute top-3 right-4 font-display font-black text-4xl text-slate-800/40 group-hover:text-brand-purple/35 transition-colors">04</span>
+          <div class="w-12 h-12 rounded-xl bg-brand-purple/10 border border-brand-purple/30 flex items-center justify-center text-xl text-brand-purple mb-4">
+            <i class="fas fa-fill-drip"></i>
+          </div>
+          <h3 class="font-display font-bold text-base text-white">Isi Template Sijil</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mt-2">
+            Sistem membuat penduaan daripada template Google Slides asal dan menggantikan placeholders nama rasmi & tarikh dengan maklumat peserta.
+          </p>
+          <div class="mt-4 pt-3 border-t border-slate-900 text-[10px] text-slate-500 font-mono flex items-center gap-1.5">
+            <i class="fas fa-tags text-brand-purple"></i> replaceAllText("{{Nama}}", nama)
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="glass-card bg-slate-950/70 border border-slate-850 rounded-2xl p-6 relative overflow-hidden group">
+          <span class="absolute top-3 right-4 font-display font-black text-4xl text-slate-800/40 group-hover:text-brand-rose/35 transition-colors">05</span>
+          <div class="w-12 h-12 rounded-xl bg-brand-rose/10 border border-brand-rose/30 flex items-center justify-center text-xl text-brand-rose mb-4">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <h3 class="font-display font-bold text-base text-white">Simpan Fail (PDF)</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mt-2">
+            Pendua template Slides ditukarkan kepada format PDF bercetak berkualiti tinggi dan disimpan dengan selamat di folder Google Drive awam.
+          </p>
+          <div class="mt-4 pt-3 border-t border-slate-900 text-[10px] text-slate-500 font-mono flex items-center gap-1.5">
+            <i class="fas fa-hdd text-brand-rose"></i> Storan Automatik Google Drive
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="glass-card bg-slate-950/70 border border-slate-850 rounded-2xl p-6 relative overflow-hidden group">
+          <span class="absolute top-3 right-4 font-display font-black text-4xl text-slate-800/40 group-hover:text-brand-emerald/35 transition-colors">06</span>
+          <div class="w-12 h-12 rounded-xl bg-brand-emerald/10 border border-brand-emerald/30 flex items-center justify-center text-xl text-brand-emerald mb-4">
+            <i class="fas fa-paper-plane"></i>
+          </div>
+          <h3 class="font-display font-bold text-base text-white">E-mel Automatik</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mt-2">
+            Peti mel Gmail menghantar salinan fail kepilan PDF sijil, manakala pautan fail unik turut direkodkan secara serentak ke dalam lajur Sheet E.
+          </p>
+          <div class="mt-4 pt-3 border-t border-slate-900 text-[10px] text-slate-500 font-mono flex items-center gap-1.5">
+            <i class="fas fa-envelope-open-text text-brand-emerald"></i> Gmail API / MailApp.sendEmail()
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Comparison Table with Live Search and Filters -->
+  <section id="comparison-section" class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-brand-purple font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-table-list"></i> Matriks Perbandingan
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-4 tracking-tight">Jadual Perbandingan Komprehensif</h2>
+        <p class="text-slate-400 mt-3">Gunakan jadual interaktif ini untuk menapis dan mencari platform terbaik yang sepadan dengan keperluan kepakaran teknikal anda.</p>
+      </div>
+
+      <!-- Search & Filters Toolbar -->
+      <div class="bg-slate-950/80 border border-slate-850 rounded-2xl p-5 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between shadow-lg">
+        <!-- Search input -->
+        <div class="relative w-full md:max-w-xs">
+          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+            <i class="fas fa-search text-xs"></i>
+          </span>
+          <input id="table-search-input" onkeyup="filterComparisonTable()" type="text" placeholder="Cari platform..." class="w-full bg-slate-900 border border-slate-800 focus:border-brand-indigo rounded-xl py-2.5 pl-10 pr-4 text-xs text-slate-200 outline-none transition-colors">
+        </div>
+
+        <!-- Filter category buttons -->
+        <div class="flex flex-wrap gap-2 w-full md:w-auto">
+          <button onclick="filterCategory('all')" id="filter-btn-all" class="table-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-indigo/10 border border-brand-indigo text-brand-indigo transition-all">
+            Semua
+          </button>
+          <button onclick="filterCategory('design')" id="filter-btn-design" class="table-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200 transition-all">
+            🎨 Reka Bentuk Sijil
+          </button>
+          <button onclick="filterCategory('autogen')" id="filter-btn-autogen" class="table-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200 transition-all">
+            ⚡ Enjin Auto-Gen
+          </button>
+          <button onclick="filterCategory('forms')" id="filter-btn-forms" class="table-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200 transition-all">
+            📝 Borang Online
+          </button>
+        </div>
+      </div>
+
+      <!-- Table Wrapper -->
+      <div class="bg-slate-950 border border-slate-850 rounded-3xl overflow-hidden shadow-2xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-900/60 border-b border-slate-800 text-xs font-mono font-bold text-slate-400 uppercase">
+                <th class="p-4 pl-6">Platform / Alat</th>
+                <th class="p-4">Percuma?</th>
+                <th class="p-4">Integrasi Sheets</th>
+                <th class="p-4">Boleh Automate?</th>
+                <th class="p-4 pr-6">Kemahiran Teknikal</th>
+              </tr>
+            </thead>
+            <tbody id="comparison-tbody" class="divide-y divide-slate-900 text-sm">
+              
+              <!-- SECTION: REKA BENTUK -->
+              <tr class="section-row bg-slate-950 font-bold text-xs text-brand-indigo uppercase tracking-wider font-mono">
+                <td colspan="5" class="p-4 pl-6 bg-indigo-950/10"><i class="fas fa-paint-brush mr-2"></i> 🎨 Reka Bentuk Sijil</td>
+              </tr>
+              <tr data-category="design" class="comparison-row hover:bg-slate-900/30 transition-colors">
+                <td class="p-4 pl-8 flex items-center gap-3">
+                  <div class="w-5 h-5 rounded bg-brand-rose/10 text-brand-rose flex items-center justify-center text-[10px] flex-shrink-0"><i class="fas fa-bezier-curve"></i></div>
+                  <span class="font-bold text-white font-display">Adobe Photoshop</span>
+                </td>
+                <td class="p-4"><span class="inline-flex px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-rose/10 border border-brand-rose/20 text-brand-rose">✕ Berbayar</span></td>
+                <td class="p-4"><span class="text-slate-500 font-medium">✕ Tidak Menyokong</span></td>
+                <td class="p-4"><span class="text-slate-400">✕ Manual</span></td>
+                <td class="p-4 pr-6"><span class="inline-flex px-2.5 py-1 text-[10px] font-mono rounded-md bg-brand-rose/10 text-brand-rose font-bold">Tinggi</span></td>
+              </tr>
+              <tr data-category="design" class="comparison-row hover:bg-slate-900/30 transition-colors">
+                <td class="p-4 pl-8 flex items-center gap-3">
+                  <div class="w-5 h-5 rounded bg-brand-indigo/10 text-brand-indigo flex items-center justify-center text-[10px] flex-shrink-0"><i class="fas fa-palette"></i></div>
+                  <span class="font-bold text-white font-display">Canva</span>
+                </td>
+                <td class="p-4"><span class="inline-flex px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-amber/10 border border-brand-amber/20 text-brand-amber">~ Freemium</span></td>
+                <td class="p-4"><span class="text-brand-indigo font-medium"><i class="fas fa-exchange-alt mr-1"></i> Via Zapier/Make</span></td>
+                <td class="p-4"><span class="text-brand-amber"><i class="fas fa-circle-notch animate-spin mr-1"></i> Terhad</span></td>
+                <td class="p-4 pr-6"><span class="inline-flex px-2.5 py-1 text-[10px] font-mono rounded-md bg-brand-emerald/10 text-brand-emerald font-bold">Rendah</span></td>
+              </tr>
+              <tr data-category="design" class="comparison-row hover:bg-slate-900/30 transition-colors">
+                <td class="p-4 pl-8 flex items-center gap-3">
+                  <div class="w-5 h-5 rounded bg-brand-amber/10 text-brand-amber flex items-center justify-center text-[10px] flex-shrink-0"><i class="fas fa-file-powerpoint"></i></div>
+                  <span class="font-bold text-white font-display">PowerPoint</span>
+                </td>
+                <td class="p-4"><span class="inline-flex px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-rose/10 border border-brand-rose/20 text-brand-rose">✕ Berbayar</span></td>
+                <td class="p-4"><span class="text-slate-500 font-medium">✕ Tidak Menyokong</span></td>
+                <td class="p-4"><span class="text-slate-300">~ Mail Merge Manual</span></td>
+                <td class="p-4 pr-6"><span class="inline-flex px-2.5 py-1 text-[10px] font-mono rounded-md bg-brand-emerald/10 text-brand-emerald font-bold">Rendah</span></td>
+              </tr>
+              <tr data-category="design" class="comparison-row hover:bg-slate-900/30 transition-colors">
+                <td class="p-4 pl-8 flex items-center gap-3">
+                  <div class="w-5 h-5 rounded bg-brand-cyan/10 text-brand-cyan flex items-center justify-center text-[10px] flex-shrink-0"><i class="fas fa-file-alt"></i></div>
+                  <span class="font-bold text-white font-display">Google Docs</span>
+                </td>
+                <td class="p-4"><span class="inline-flex px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-emerald/10 border border-brand-emerald/20 text-brand-emerald">✓ Percuma</span></td>
+                <td class="p-4"><span class="text-brand-emerald font-semibold"><i class="fas fa-check-circle mr-1"></i> Native Terus</span></td>
+                <td class="p-4"><span class="text-brand-emerald font-semibold"><i class="fas fa-check mr-1"></i> AutoCrat</span></td>
+                <td class="p-4 pr-6"><span class="inline-flex px-2.5 py-1 text-[10px] font-mono rounded-md bg-brand-emerald/10 text-brand-emerald font-bold">Rendah</span></td>
+              </tr>
+              <tr data-category="design" class="comparison-row bg-indigo-950/5 hover:bg-indigo-950/10 transition-colors">
+                <td class="p-4 pl-8 flex items-center gap-3">
+                  <div class="w-5 h-5 rounded bg-brand-amber/10 text-brand-amber flex items-center justify-center text-[10px] flex-shrink-0"><i class="fas fa-desktop"></i></div>
+                  <span class="font-bold text-brand-indigo font-display">Google Slides ⭐</span>
+                </td>
+                <td class="p-4"><span class="inline-flex px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-emerald/10 border border-brand-emerald/20 text-brand-emerald">✓ Percuma</span></td>
+                <td class="p-4"><span class="text-brand-emerald font-semibold"><i class="fas fa-check-circle mr-1"></i> Native Terus</span></td>
+                <td class="p-4"><span class="text-brand-indigo font-bold"><i class="fas fa-bolt mr-1"></i> Penuh & Native</span></td>
+                <td class="p-4 pr-6"><span class="inline-flex px-2.5 py-1 text-[10px] font-mono rounded-md bg-brand-emerald/10 text-brand-emerald font-bold">Rendah</span></td>
+              </tr>
+
+              <!-- SECTION: AUTOMATION -->
+              <tr class="section-row bg-slate-950 font-bold text-xs text-brand-emerald uppercase tracking-wider font-mono">
+                <td colspan="5" class="p-4 pl-6 bg-emerald-950/10"><i class="fas fa-cogs mr-2"></i> ⚡ Enjin Auto-Generate</td>
+              </tr>
+              <tr data-category="autogen" class="comparison-row hover:bg-slate-900/30 transition-colors">
+                <td class="p-4 pl-8 flex items-center gap-3">
+                  <div class="w-5 h-5 rounded bg-brand-emerald/10 text-brand-emerald flex items-center justify-center text-xs flex-shrink-0"><i class="fas fa-bolt"></i></div>
+                  <span class="font-bold text-white font-display">AutoCrat</span>
+                </td>
+                <td class="p-4"><span class="inline-flex px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-emerald/10 border border-brand-emerald/20 text-brand-emerald">✓ Percuma</span></td>
+                <td class="p-4"><span class="text-brand-emerald font-semibold"><i class="fas fa-check-circle mr-1"></i> Native Terus</span></td>
+                <td class="p-4"><span class="text-brand-emerald font-semibold"><i class="fas fa-check mr-1"></i> Penuh</span></td>
+                <td class="p-4 pr-6"><span class="inline-flex px-2.5 py-1 text-[10px] font-mono rounded-md bg-brand-emerald/10 text-brand-emerald font-bold">Rendah</span></td>
+              </tr>
+              <tr data-category="autogen" class="comparison-row hover:bg-slate-900/30 transition-colors">
+                <td class="p-4 pl-8 flex items-center gap-3">
+                  <div class="w-5 h-5 rounded bg-brand-purple/10 text-brand-purple flex items-center justify-center text-[10px] flex-shrink-0"><i class="fas fa-code"></i></div>
+                  <span class="font-bold text-white font-display">Apps Script</span>
+                </td>
+                <td class="p-4"><span class="inline-flex px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-emerald/10 border border-brand-emerald/20 text-brand-emerald">✓ Percuma</span></td>
+                <td class="p-4"><span class="text-brand-emerald font-semibold"><i class="fas fa-check-circle mr-1"></i> Native Terus</span></td>
+                <td class="p-4"><span class="text-brand-emerald font-semibold"><i class="fas fa-check mr-1"></i> Penuh (Custom JS)</span></td>
+                <td class="p-4 pr-6"><span class="inline-flex px-2.5 py-1 text-[10px] font-mono rounded-md bg-brand-rose/10 text-brand-rose font-bold">Tinggi</span></td>
+              </tr>
+              <tr data-category="autogen" class="comparison-row hover:bg-slate-900/30 transition-colors">
+                <td class="p-4 pl-8 flex items-center gap-3">
+                  <div class="w-5 h-5 rounded bg-brand-purple/10 text-brand-purple flex items-center justify-center text-[10px] flex-shrink-0"><i class="fas fa-project-diagram"></i></div>
+                  <span class="font-bold text-white font-display">Make.com</span>
+                </td>
+                <td class="p-4"><span class="inline-flex px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-amber/10 border border-brand-amber/20 text-brand-amber">~ 1,000 Ops/Bln</span></td>
+                <td class="p-4"><span class="text-brand-emerald font-semibold"><i class="fas fa-check-circle mr-1"></i> Ya</span></td>
+                <td class="p-4"><span class="text-brand-purple font-semibold"><i class="fas fa-project-diagram mr-1"></i> Visual Flow</span></td>
+                <td class="p-4 pr-6"><span class="inline-flex px-2.5 py-1 text-[10px] font-mono rounded-md bg-brand-purple/10 text-brand-purple font-bold">Sederhana</span></td>
+              </tr>
+
+              <!-- SECTION: FORMS -->
+              <tr class="section-row bg-slate-950 font-bold text-xs text-brand-cyan uppercase tracking-wider font-mono">
+                <td colspan="5" class="p-4 pl-6 bg-cyan-950/10"><i class="fas fa-edit mr-2"></i> 📝 Borang Online</td>
+              </tr>
+              <tr data-category="forms" class="comparison-row hover:bg-slate-900/30 transition-colors">
+                <td class="p-4 pl-8 flex items-center gap-3">
+                  <div class="w-5 h-5 rounded bg-brand-purple/10 text-brand-purple flex items-center justify-center text-[10px] flex-shrink-0"><i class="fab fa-wpforms"></i></div>
+                  <span class="font-bold text-white font-display">Google Forms</span>
+                </td>
+                <td class="p-4"><span class="inline-flex px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-emerald/10 border border-brand-emerald/20 text-brand-emerald">✓ Percuma</span></td>
+                <td class="p-4"><span class="text-brand-emerald font-semibold"><i class="fas fa-check-circle mr-1"></i> Native Terus</span></td>
+                <td class="p-4"><span class="text-brand-emerald font-semibold"><i class="fas fa-bolt mr-1"></i> Trigger Auto</span></td>
+                <td class="p-4 pr-6"><span class="inline-flex px-2.5 py-1 text-[10px] font-mono rounded-md bg-brand-emerald/10 text-brand-emerald font-bold">Rendah</span></td>
+              </tr>
+              <tr data-category="forms" class="comparison-row hover:bg-slate-900/30 transition-colors">
+                <td class="p-4 pl-8 flex items-center gap-3">
+                  <div class="w-5 h-5 rounded bg-brand-indigo/10 text-brand-indigo flex items-center justify-center text-[10px] flex-shrink-0"><i class="fas fa-check-square"></i></div>
+                  <span class="font-bold text-white font-display">JotForm</span>
+                </td>
+                <td class="p-4"><span class="inline-flex px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-amber/10 border border-brand-amber/20 text-brand-amber">~ 100 Sub/Bln</span></td>
+                <td class="p-4"><span class="text-brand-emerald font-semibold"><i class="fas fa-check-circle mr-1"></i> Native Terus</span></td>
+                <td class="p-4"><span class="text-brand-emerald font-semibold"><i class="fas fa-check mr-1"></i> Ya</span></td>
+                <td class="p-4 pr-6"><span class="inline-flex px-2.5 py-1 text-[10px] font-mono rounded-md bg-brand-emerald/10 text-brand-emerald font-bold">Rendah</span></td>
+              </tr>
+              <tr data-category="forms" class="comparison-row hover:bg-slate-900/30 transition-colors">
+                <td class="p-4 pl-8 flex items-center gap-3">
+                  <div class="w-5 h-5 rounded bg-slate-900 border border-slate-800 text-slate-400 flex items-center justify-center text-[10px] flex-shrink-0"><i class="fas fa-square-poll-horizontal"></i></div>
+                  <span class="font-bold text-white font-display">Tally.so</span>
+                </td>
+                <td class="p-4"><span class="inline-flex px-2.5 py-1 text-[10px] font-bold rounded-full bg-brand-emerald/10 border border-brand-emerald/20 text-brand-emerald">✓ Percuma</span></td>
+                <td class="p-4"><span class="text-brand-amber font-semibold"><i class="fas fa-exchange-alt mr-1"></i> Via Zapier/Make</span></td>
+                <td class="p-4"><span class="text-brand-amber">~ Perlu Setup</span></td>
+                <td class="p-4 pr-6"><span class="inline-flex px-2.5 py-1 text-[10px] font-mono rounded-md bg-brand-purple/10 text-brand-purple font-bold">Sederhana</span></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Fallback hidden alert when no search results found -->
+      <div id="table-empty-state" class="hidden text-center py-12 bg-slate-950 border border-slate-850 rounded-3xl mt-4">
+        <i class="fas fa-search text-3xl text-slate-700 mb-3 block"></i>
+        <p class="text-slate-400 text-sm">Tiada keputusan dijumpai untuk carian anda.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Apps Script IDE & Copy Code Drawer -->
+  <section class="py-20 bg-slate-900/20 border-t border-slate-900 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-brand-emerald font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-code"></i> Kod Pakej
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-4 tracking-tight">Klip Kod Apps Script Bersedia Untuk Digunakan</h2>
+        <p class="text-slate-400 mt-3">Pasangkan skrip automasi ini dalam tetingkap Extensions ➔ Apps Script di fail Google Sheets anda. Gantikan ID dokumen dengan kepunyaan anda sendiri.</p>
+      </div>
+
+      <!-- Terminal Editor Container -->
+      <div class="max-w-4xl mx-auto bg-[#0b0f19] border border-brand-indigo/35 rounded-2xl shadow-2xl overflow-hidden relative">
+        <!-- Terminal Header controls -->
+        <div class="bg-[#121826] px-5 py-4 flex flex-wrap justify-between items-center gap-3 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <div class="flex gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+            </div>
+            <div class="h-4 w-[1px] bg-slate-800 mx-1"></div>
+            <span class="text-xs text-slate-300 font-mono flex items-center gap-1.5"><i class="fab fa-js-square text-yellow-500"></i> janaSijil.js</span>
+            <span class="text-[10px] bg-slate-800 text-slate-500 font-mono px-2 py-0.5 rounded border border-slate-700">Google Apps Script</span>
+          </div>
+          <!-- Copy code button -->
+          <button id="copy-code-btn" onclick="copyCode()" class="bg-slate-800 hover:bg-brand-indigo text-slate-200 hover:text-white px-4 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200 flex items-center gap-2">
+            <i class="fas fa-copy"></i> Salin Kod
+          </button>
+        </div>
+
+        <!-- Terminal Editor Panel body -->
+        <div class="p-6 overflow-x-auto text-xs sm:text-sm font-mono text-slate-300 leading-relaxed max-h-[400px] overflow-y-auto">
+          <pre id="editor-code-block" class="m-0"><span class="text-brand-purple">function</span> <span class="text-brand-cyan">janaSijilAutomatik</span>() {
+  <span class="text-slate-500">// 1. Kenal pasti helaian Sheet1 yang mengandungi rekod peserta</span>
+  <span class="text-brand-purple">const</span> <span class="text-brand-rose">sheet</span> = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(<span class="text-brand-cyan">'Sheet1'</span>);
+  <span class="text-brand-purple">const</span> <span class="text-brand-rose">data</span> = <span class="text-brand-rose">sheet</span>.getDataRange().getValues();
+  
+  <span class="text-slate-500">// ⚠️ GANTIKAN DENGAN ID GOOGLE SLIDES TEMPLATE &amp; FOLDER DRIVE ANDA</span>
+  <span class="text-brand-purple">const</span> <span class="text-brand-rose">SLIDES_ID</span> = <span class="text-brand-cyan">'1AbCdEfGhIjKlMnOpQrStUvWxYz1234567890abcdefg'</span>; 
+  <span class="text-brand-purple">const</span> <span class="text-brand-rose">FOLDER_ID</span> = <span class="text-brand-cyan">'1aBcDeFgHiJkLmNoPqRsTuVwXyZ098765'</span>;         
+  
+  <span class="text-brand-purple">const</span> <span class="text-brand-rose">template</span> = DriveApp.getFileById(<span class="text-brand-rose">SLIDES_ID</span>);
+  <span class="text-brand-purple">const</span> <span class="text-brand-rose">folderPenyimpanan</span> = DriveApp.getFolderById(<span class="text-brand-rose">FOLDER_ID</span>);
+
+  <span class="text-slate-500">// Mula pembacaan baris dari baris ke-2 (Baris 1 ialah tajuk lajur)</span>
+  <span class="text-brand-purple">for</span> (<span class="text-brand-purple">let</span> <span class="text-brand-rose">i</span> = <span class="text-brand-amber">1</span>; <span class="text-brand-rose">i</span> &lt; <span class="text-brand-rose">data</span>.length; <span class="text-brand-rose">i</span>++) {
+    <span class="text-brand-purple">let</span> [<span class="text-brand-rose">id, nama, program, tarikh, linkSijil</span>] = <span class="text-brand-rose">data</span>[<span class="text-brand-rose">i</span>];
+
+    <span class="text-slate-500">// Jika lajur pautan sudah terisi, langkau (elak penjanaan berganda)</span>
+    <span class="text-brand-purple">if</span> (<span class="text-brand-rose">linkSijil</span> !== <span class="text-brand-cyan">""</span>) <span class="text-brand-purple">continue</span>;
+
+    <span class="text-slate-500">// A. Buat pendua slaid template baharu dalam folder storan</span>
+    <span class="text-brand-purple">let</span> <span class="text-brand-rose">salinan</span> = <span class="text-brand-rose">template</span>.makeCopy(<span class="text-brand-cyan">`Sijil - ${nama}`</span>, <span class="text-brand-rose">folderPenyimpanan</span>);
+    <span class="text-brand-purple">let</span> <span class="text-brand-rose">slideSalinan</span> = SlidesApp.openById(<span class="text-brand-rose">salinan</span>.getId());
+    <span class="text-brand-purple">let</span> <span class="text-brand-rose">presentation</span> = <span class="text-brand-rose">slideSalinan</span>.getSlides()[<span class="text-brand-amber">0</span>]; <span class="text-slate-500">// Slide pertama</span>
+
+    <span class="text-slate-500">// B. Gantikan placeholder tag {{Nama}}, {{Program}}, {{Tarikh}}</span>
+    <span class="text-brand-rose">presentation</span>.replaceAllText(<span class="text-brand-cyan">'{{Nama}}'</span>, <span class="text-brand-rose">nama</span>);
+    <span class="text-brand-rose">presentation</span>.replaceAllText(<span class="text-brand-cyan">'{{Program}}'</span>, <span class="text-brand-rose">program</span>);
+    <span class="text-brand-rose">presentation</span>.replaceAllText(<span class="text-brand-cyan">'{{Tarikh}}'</span>, <span class="text-brand-rose">tarikh</span>);
+    <span class="text-brand-rose">slideSalinan</span>.saveAndClose();
+
+    <span class="text-slate-500">// C. Tukarkan pendua Google Slides tadi kepada salinan fail PDF</span>
+    <span class="text-brand-purple">let</span> <span class="text-brand-rose">pdf</span> = <span class="text-brand-rose">salinan</span>.getAs(<span class="text-brand-cyan">'application/pdf'</span>);
+    <span class="text-brand-purple">let</span> <span class="text-brand-rose">failPDF</span> = <span class="text-brand-rose">folderPenyimpanan</span>.createFile(<span class="text-brand-rose">pdf</span>);
+    <span class="text-brand-rose">failPDF</span>.setName(<span class="text-brand-cyan">`Sijil_${nama}.pdf`</span>);
+    
+    <span class="text-slate-500">// Padam slaid pendua asal (Kekalkan fail PDF sahaja)</span>
+    <span class="text-brand-rose">salinan</span>.setTrashed(<span class="text-brand-purple">true</span>);
+
+    <span class="text-slate-500">// D. Rekodkan pautan fail PDF awam ke lajur E (lajur ke-5)</span>
+    <span class="text-brand-rose">sheet</span>.getRange(<span class="text-brand-rose">i</span> + <span class="text-brand-amber">1</span>, <span class="text-brand-amber">5</span>).setValue(<span class="text-brand-rose">failPDF</span>.getUrl());
+    
+    <span class="text-slate-500">// Set kebenaran perkongsian fail kepada 'Siapa dengan Pautan boleh view'</span>
+    <span class="text-brand-rose">failPDF</span>.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  }
+}</pre>
+        </div>
+
+        <!-- Terminal Status Bar -->
+        <div class="bg-[#121826] px-5 py-3 border-t border-slate-800 text-[10px] text-slate-500 flex justify-between flex-wrap gap-2">
+          <span><i class="fas fa-info-circle text-brand-amber"></i> Tip: Dapatkan tutorial penuh bulk generation di fail <strong>note1.html</strong></span>
+          <span><i class="fas fa-check text-brand-emerald"></i> Bersedia untuk copy-paste</span>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- LAPISAN 3: BORANG ONLINE + isu integrasi -->
-    <div class="mb-20">
-      <div class="flex items-center gap-3 border-l-4 border-amber-500 pl-4 mb-8">
-        <span class="text-3xl font-black text-amber-400">03</span>
-        <h2 class="text-3xl font-bold font-display">Platform Borang Online</h2>
-        <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full ml-auto">Pengumpul data ke Sheets</span>
-      </div>
-      <p class="text-slate-300 mb-8">Mengumpul data peserta yang mengalir terus ke Google Sheets.</p>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-slate-800/30 rounded-xl p-5"><i class="fab fa-google text-2xl text-blue-400 mb-2 block"></i>
-          <h3 class="text-lg font-bold">Google Forms</h3>
-          <p class="text-slate-400 text-sm">Integrasi paling mudah dengan Google Sheets — native, tanpa setup tambahan.
-            Had pada jenis field dan reka bentuk.</p><span class="text-xs text-emerald-400">✓ Native integration</span>
+  <!-- Summary Recommendations & Modules -->
+  <section class="py-20 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8">
+    
+    <!-- Box 1: Best Practice Combos -->
+    <div class="glass-card border border-slate-800/80 bg-slate-950/60 rounded-3xl p-8 relative overflow-hidden flex flex-col justify-between">
+      <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-brand-amber/5 rounded-full blur-2xl"></div>
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl bg-brand-amber/10 border border-brand-amber/30 flex items-center justify-center text-lg text-brand-amber">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3 class="font-display font-extrabold text-xl text-white">Gabungan Sistem Terbaik (Pilihan Kami)</h3>
         </div>
-        <div class="bg-slate-800/30 rounded-xl p-5"><i class="fab fa-wpforms text-2xl text-orange-400 mb-2 block"></i>
-          <h3 class="text-lg font-bold">JotForm</h3>
-          <p class="text-slate-400 text-sm">Field lebih kaya (tandatangan, pembayaran, upload fail). Integrasi Google
-            Sheets native tetapi ada had submission.</p>
-        </div>
-        <div class="bg-slate-800/30 rounded-xl p-5"><i
-            class="fas fa-chart-line text-2xl text-indigo-400 mb-2 block"></i>
-          <h3 class="text-lg font-bold">Tally.so</h3>
-          <p class="text-slate-400 text-sm">UI paling cantik dan moden. Integrasi Sheets memerlukan Zapier atau Make —
-            satu langkah tambahan berbanding Forms.</p>
-        </div>
-        <div class="bg-slate-800/30 rounded-xl p-5"><i
-            class="fas fa-comment-dots text-2xl text-pink-400 mb-2 block"></i>
-          <h3 class="text-lg font-bold">Typeform</h3>
-          <p class="text-slate-400 text-sm">Borang gaya perbualan satu-soalan-sekaligus. Cantik tapi premium. Integrasi
-            Sheets memerlukan pihak ketiga.</p>
-        </div>
-      </div>
-
-      <!-- Peringatan Isu Integrasi ⚡ -->
-      <div class="mt-10 bg-gradient-to-r from-red-950/30 to-slate-900 border border-red-800/40 rounded-2xl p-6">
-        <div class="flex items-center gap-3 text-red-300"><i class="fas fa-bolt text-xl"></i><span
-            class="font-bold text-lg">Isu Integrasi Platform → Google Sheets</span><span class="text-xs ml-auto">Masalah
-            biasa yang perlu diketahui sebelum membina sistem automasi</span></div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-sm">
-          <div class="flex justify-between border-b border-slate-700 pb-2"><span><i class="fab fa-google"></i> Google
-              Forms</span><span class="text-emerald-400">Native (Terus) → Sheets</span><span class="text-slate-400">⚠
-              Tiada logik bersyarat</span></div>
-          <div class="flex justify-between border-b border-slate-700 pb-2"><span><i class="fab fa-wpforms"></i>
-              JotForm</span><span class="text-emerald-400">Native Integration → Sheets</span><span
-              class="text-slate-400">⚠ Limit 100 submission/bln (free)</span></div>
-          <div class="flex justify-between border-b border-slate-700 pb-2"><span><i class="fas fa-chart-simple"></i>
-              Tally.so</span><span>Zapier / Make.com / Webhook → Sheets</span><span class="text-amber-400">⚠ Perlukan
-              akaun pihak ketiga</span></div>
-          <div class="flex justify-between border-b border-slate-700 pb-2"><span><i class="fas fa-comments"></i>
-              Typeform</span><span>Zapier / Make.com → Sheets</span><span class="text-amber-400">⚠ Plan berbayar untuk
-              integrasi lanjutan</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- JADUAL PERBANDINGAN LENGKAP (teks asal) -->
-    <div class="mb-20 overflow-x-auto">
-      <div class="flex items-center gap-3 mb-6"><i class="fas fa-table-list text-2xl text-cyan-400"></i>
-        <h2 class="text-2xl font-bold">Jadual Perbandingan Lengkap</h2>
-      </div>
-      <table class="min-w-full bg-slate-900/50 border border-slate-700 rounded-2xl text-sm">
-        <thead class="bg-slate-800/80">
-          <tr>
-            <th class="p-3 text-left">Platform</th>
-            <th class="p-3">Percuma?</th>
-            <th class="p-3">Integrasi Sheets</th>
-            <th class="p-3">Boleh Automate?</th>
-            <th class="p-3">Kemahiran</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-slate-700">
-          <tr>
-            <td class="p-3 font-bold">🎨 Reka Bentuk Sijil</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="p-3 pl-6">Adobe Photoshop</td>
-            <td class="text-red-400">✕ Berbayar</td>
-            <td>✕ Tidak</td>
-            <td>✕ Manual</td>
-            <td>Tinggi</td>
-          </tr>
-          <tr>
-            <td class="p-3 pl-6">Canva</td>
-            <td class="text-yellow-400">~ Freemium</td>
-            <td>~ Via Zapier</td>
-            <td>~ Terhad</td>
-            <td>Rendah</td>
-          </tr>
-          <tr>
-            <td class="p-3 pl-6">PowerPoint</td>
-            <td class="text-red-400">✕ Berbayar</td>
-            <td>✕ Tidak</td>
-            <td>~ Mail Merge</td>
-            <td>Rendah</td>
-          </tr>
-          <tr>
-            <td class="p-3 pl-6">Google Docs</td>
-            <td class="text-green-400">✓ Percuma</td>
-            <td>✓ Native</td>
-            <td>✓ AutoCrat</td>
-            <td>Rendah</td>
-          </tr>
-          <tr>
-            <td class="p-3 pl-6 font-semibold text-indigo-300">Google Slides ⭐</td>
-            <td class="text-green-400">✓ Percuma</td>
-            <td>✓ Native</td>
-            <td>✓ Penuh</td>
-            <td>Rendah</td>
-          </tr>
-          <tr>
-            <td class="p-3 font-bold">⚙️ Auto-Generate</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="p-3 pl-6">AutoCrat</td>
-            <td class="text-green-400">✓ Percuma</td>
-            <td>✓ Native</td>
-            <td>✓ Penuh</td>
-            <td>Rendah</td>
-          </tr>
-          <tr>
-            <td class="p-3 pl-6">Apps Script</td>
-            <td class="text-green-400">✓ Percuma</td>
-            <td>✓ Native</td>
-            <td>✓ Penuh</td>
-            <td>Tinggi</td>
-          </tr>
-          <tr>
-            <td class="p-3 pl-6">Make.com</td>
-            <td class="text-yellow-400">~ 1K ops/bln</td>
-            <td>✓ Ya</td>
-            <td>✓ Visual Flow</td>
-            <td>Sederhana</td>
-          </tr>
-          <tr>
-            <td class="p-3 font-bold">📝 Borang Online</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="p-3 pl-6">Google Forms</td>
-            <td class="text-green-400">✓ Percuma</td>
-            <td>✓ Native</td>
-            <td>✓ Trigger Auto</td>
-            <td>Rendah</td>
-          </tr>
-          <tr>
-            <td class="p-3 pl-6">JotForm</td>
-            <td class="text-yellow-400">~ 100 sub/bln</td>
-            <td>✓ Native</td>
-            <td>✓ Ya</td>
-            <td>Rendah</td>
-          </tr>
-          <tr>
-            <td class="p-3 pl-6">Tally.so</td>
-            <td class="text-green-400">✓ Percuma</td>
-            <td>~ Via Zapier/Make</td>
-            <td>~ Perlu Setup</td>
-            <td>Sederhana</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- ALIRAN KERJA SISTEM E-SIJIL (langkah 1-6) -->
-    <div class="step-timeline rounded-3xl p-8 mb-16 border border-slate-700/50 shadow-2xl">
-      <div class="text-center mb-8"><i class="fas fa-diagram-project text-4xl text-indigo-400"></i>
-        <h2 class="text-2xl font-bold mt-2">Aliran Kerja Sistem E-Sijil</h2>
-        <p class="text-slate-400">Dari borang hingga e-mel peserta</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-center">
-        <div class="bg-black/30 p-4 rounded-xl"><span class="text-2xl font-black text-indigo-400">01</span><i
-            class="fas fa-edit block text-2xl my-2"></i><strong>Peserta Isi Borang</strong>
-          <p class="text-xs text-slate-400">Tally.so / JotForm / Google Forms</p>
-        </div>
-        <div class="bg-black/30 p-4 rounded-xl"><span class="text-2xl font-black text-indigo-400">02</span><i
-            class="fas fa-table block text-2xl my-2"></i><strong>Data Masuk Sheets</strong>
-          <p class="text-xs">Google Sheets (auto atau via Zapier)</p>
-        </div>
-        <div class="bg-black/30 p-4 rounded-xl"><span class="text-2xl font-black text-indigo-400">03</span><i
-            class="fas fa-bolt block text-2xl my-2"></i><strong>Trigger Penciptaan</strong>
-          <p class="text-xs">AutoCrat / Apps Script / Make</p>
-        </div>
-        <div class="bg-black/30 p-4 rounded-xl"><span class="text-2xl font-black text-indigo-400">04</span><i
-            class="fas fa-paintbrush block text-2xl my-2"></i><strong>Isi Template Sijil</strong>
-          <p class="text-xs">Google Slides template dengan placeholder</p>
-        </div>
-        <div class="bg-black/30 p-4 rounded-xl"><span class="text-2xl font-black text-indigo-400">05</span><i
-            class="fas fa-cloud-upload-alt block text-2xl my-2"></i><strong>Simpan ke Drive</strong>
-          <p class="text-xs">Google Drive (PDF format)</p>
-        </div>
-        <div class="bg-black/30 p-4 rounded-xl"><span class="text-2xl font-black text-indigo-400">06</span><i
-            class="fas fa-envelope block text-2xl my-2"></i><strong>E-mel Automatik</strong>
-          <p class="text-xs">Gmail via AutoCrat / Apps Script</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Ringkasan & tips tambahan (kad footer) -->
-    <div class="grid md:grid-cols-2 gap-8 mt-8">
-      <div class="bg-slate-800/30 border border-slate-700 rounded-2xl p-6">
-        <i class="fas fa-lightbulb text-2xl text-amber-400 mb-3"></i>
-        <h3 class="text-xl font-bold mb-2">Gabungan Terbaik (Rekomendasi)</h3>
-        <ul class="space-y-2 text-slate-300">
-          <li><i class="fas fa-check-circle text-emerald-400 mr-2"></i> <strong>Reka Bentuk:</strong> Google Slides
-            (template dengan tag)</li>
-          <li><i class="fas fa-check-circle text-emerald-400 mr-2"></i> <strong>Borang:</strong> Google Forms (integrasi
-            paling mudah) atau Tally.so (estetik + percuma)</li>
-          <li><i class="fas fa-check-circle text-emerald-400 mr-2"></i> <strong>Penjana:</strong> AutoCrat (tanpa kod) +
-            Apps Script untuk automasi lebih fleksibel</li>
-          <li><i class="fas fa-check-circle text-emerald-400 mr-2"></i> <strong>Penghantaran:</strong> AutoCrat/Apps
-            Script dengan lampiran PDF + QR verification</li>
+        <ul class="space-y-4 text-sm text-slate-300">
+          <li class="flex items-start gap-3">
+            <span class="w-5 h-5 rounded-full bg-brand-emerald/10 border border-brand-emerald/30 flex items-center justify-center text-[10px] text-brand-emerald mt-0.5 flex-shrink-0"><i class="fas fa-check"></i></span>
+            <div>
+              <strong>Reka Bentuk:</strong> Gunakan <strong>Google Slides</strong>. Sediakan slaid bersaiz A4 melintang dengan kotak teks tag placeholders bercerun kemas.
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="w-5 h-5 rounded-full bg-brand-emerald/10 border border-brand-emerald/30 flex items-center justify-center text-[10px] text-brand-emerald mt-0.5 flex-shrink-0"><i class="fas fa-check"></i></span>
+            <div>
+              <strong>Kutipan Borang:</strong> Gunakan <strong>Google Forms</strong> (Paling mudah) atau <strong>Tally.so</strong> (Antara muka visual Notion estetik + percuma).
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="w-5 h-5 rounded-full bg-brand-emerald/10 border border-brand-emerald/30 flex items-center justify-center text-[10px] text-brand-emerald mt-0.5 flex-shrink-0"><i class="fas fa-check"></i></span>
+            <div>
+              <strong>Enjin Penjana:</strong> Gunakan <strong>AutoCrat</strong> untuk mula membina sistem dalam 15 minit tanpa kod, atau <strong>Apps Script</strong> untuk automasi bertulis.
+            </div>
+          </li>
         </ul>
       </div>
-      <div class="bg-indigo-950/30 border border-indigo-800 rounded-2xl p-6">
-        <i class="fas fa-download text-2xl text-indigo-300 mb-3"></i>
-        <h3 class="text-xl font-bold">Modul Sedia Untuk Digunakan</h3>
-        <p class="text-slate-300 text-sm mt-2">Nota pengajaran ini merangkumi semua platform, isu integrasi, jadual
-          perbandingan dan aliran kerja lengkap — sesuai untuk latihan kakitangan, bengkel automasi pendidikan, atau
-          rujukan pembangunan sistem e-sijil.</p>
-        <div class="mt-4 flex gap-2 text-xs text-indigo-200"><i class="fas fa-robot"></i> Automasi AI-Ready · <i
-            class="fas fa-chart-line"></i> Jimat masa 90%</div>
+      <div class="mt-8 pt-4 border-t border-slate-900/60 text-xs text-slate-500 flex items-center gap-1.5">
+        <i class="fas fa-star text-brand-amber"></i> Rekomendasi 100% Native & Bebas Kos Bulanan
       </div>
     </div>
 
-    <!-- footer kredit -->
-    <div class="mt-16 pt-8 text-center text-slate-500 text-xs border-t border-slate-800">
-      <i class="far fa-copyright"></i> Automasi E-Sijil Moden — Panduan Digital Lengkap. Berdasarkan platform Tally.so,
-      AutoCrat, JotForm, Apps Script & Google Workspace.
+    <!-- Box 2: Ready Modules Redesigned 6-Card Grid -->
+    <div class="glass-card border border-brand-indigo/35 bg-indigo-950/5 rounded-3xl p-8 relative overflow-hidden flex flex-col justify-between shadow-lg shadow-indigo-500/5">
+      <div class="absolute -right-12 -top-12 w-48 h-48 bg-brand-indigo/5 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div>
+        <!-- Section title inside card -->
+        <div class="flex items-center justify-between mb-6 border-b border-slate-900 pb-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-indigo/10 border border-brand-indigo/30 flex items-center justify-center text-lg text-brand-indigo">
+              <i class="fas fa-cubes"></i>
+            </div>
+            <h3 class="font-display font-extrabold text-lg text-white">Directory Ekosistem E-Sijil</h3>
+          </div>
+          <span class="text-[9px] bg-brand-cyan/15 text-brand-cyan px-2 py-0.5 rounded font-mono font-bold uppercase">6 Modul Utama</span>
+        </div>
+        
+        <!-- 6-Card Micro Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          <!-- Modul 1: Skrip Bulk (Note 1) -->
+          <a href="note1.html" class="group bg-slate-950/80 hover:bg-slate-900 border border-slate-850 hover:border-brand-indigo/40 p-4 rounded-2xl transition-all flex flex-col justify-between h-[115px]">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[9px] font-mono text-brand-indigo font-bold">MODUL 01</span>
+                <span class="text-[10px] text-slate-500"><i class="fas fa-code"></i></span>
+              </div>
+              <h4 class="text-xs font-bold text-white mt-1.5 group-hover:text-brand-indigo transition-colors">Bulk Apps Script</h4>
+              <p class="text-[10px] text-slate-500 mt-1 leading-relaxed line-clamp-2">Jana beratus sijil sekali gus terus daripada helaian baris Google Sheets.</p>
+            </div>
+          </a>
+
+          <!-- Modul 2: PDF & Emel (Note 2) -->
+          <a href="note2.html" class="group bg-slate-950/80 hover:bg-slate-900 border border-slate-850 hover:border-brand-purple/40 p-4 rounded-2xl transition-all flex flex-col justify-between h-[115px]">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[9px] font-mono text-brand-purple font-bold">MODUL 02</span>
+                <span class="text-[10px] text-slate-500"><i class="fas fa-envelope-open-text"></i></span>
+              </div>
+              <h4 class="text-xs font-bold text-white mt-1.5 group-hover:text-brand-purple transition-colors">PDF & Emel Auto</h4>
+              <p class="text-[10px] text-slate-500 mt-1 leading-relaxed line-clamp-2">Sistem penghantaran fail kepilan sijil terus ke peti Gmail peserta.</p>
+            </div>
+          </a>
+
+          <!-- Modul 3: Reka AI Lanjutan (Note 3) -->
+          <a href="note3.html" class="group bg-slate-950/80 hover:bg-slate-900 border border-slate-850 hover:border-brand-cyan/40 p-4 rounded-2xl transition-all flex flex-col justify-between h-[115px]">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[9px] font-mono text-brand-cyan font-bold">MODUL 03</span>
+                <span class="text-[10px] text-slate-500"><i class="fas fa-wand-magic-sparkles"></i></span>
+              </div>
+              <h4 class="text-xs font-bold text-white mt-1.5 group-hover:text-brand-cyan transition-colors">Reka AI Lanjutan</h4>
+              <p class="text-[10px] text-slate-500 mt-1 leading-relaxed line-clamp-2">Teknik prompt Midjourney dan Stable Diffusion untuk background mewah.</p>
+            </div>
+          </a>
+
+          <!-- Modul 4: Slides Sijil -->
+          <a href="note_slides.html" class="group bg-slate-950/80 hover:bg-slate-900 border border-slate-850 hover:border-brand-amber/40 p-4 rounded-2xl transition-all flex flex-col justify-between h-[115px]">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[9px] font-mono text-brand-amber font-bold">MODUL 04</span>
+                <span class="text-[10px] text-slate-500"><i class="fas fa-file-powerpoint"></i></span>
+              </div>
+              <h4 class="text-xs font-bold text-white mt-1.5 group-hover:text-brand-amber transition-colors">Slides Masterclass</h4>
+              <p class="text-[10px] text-slate-500 mt-1 leading-relaxed line-clamp-2">Logik reka letak bucu, margins, dan tipografi di Google Slides.</p>
+            </div>
+          </a>
+
+          <!-- Modul 5: AI Asas -->
+          <a href="note_basic_ai.html" class="group bg-slate-950/80 hover:bg-slate-900 border border-slate-850 hover:border-brand-rose/40 p-4 rounded-2xl transition-all flex flex-col justify-between h-[115px]">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[9px] font-mono text-brand-rose font-bold">MODUL 05</span>
+                <span class="text-[10px] text-slate-500"><i class="fas fa-brain"></i></span>
+              </div>
+              <h4 class="text-xs font-bold text-white mt-1.5 group-hover:text-brand-rose transition-colors">Prompt Compiler AI Asas</h4>
+              <p class="text-[10px] text-slate-500 mt-1 leading-relaxed line-clamp-2">Bina prompt pengelak teks ejaan AI secara langsung (DALL-E & Imagen 3).</p>
+            </div>
+          </a>
+
+          <!-- Modul 6: Hebahan KPT/UUM -->
+          <a href="hebahan.html" class="group bg-slate-950/80 hover:bg-slate-900 border border-slate-850 hover:border-brand-emerald/40 p-4 rounded-2xl transition-all flex flex-col justify-between h-[115px]">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[9px] font-mono text-brand-emerald font-bold">MODUL 06</span>
+                <span class="text-[10px] text-slate-500"><i class="fas fa-bullhorn"></i></span>
+              </div>
+              <h4 class="text-xs font-bold text-white mt-1.5 group-hover:text-brand-emerald transition-colors">Hebahan KPT & UUM</h4>
+              <p class="text-[10px] text-slate-500 mt-1 leading-relaxed line-clamp-2">Akses percuma Google Workspace for Education Plus UUM.</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-slate-900/60 flex justify-between items-center text-[10px] text-slate-500 font-mono">
+        <span><i class="fas fa-puzzle-piece"></i> 100% Interoperable</span>
+        <span>Sedia Teroka <i class="fas fa-angle-right"></i></span>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-slate-950 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto px-6 text-center text-xs text-slate-500">
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fab fa-google"></i></span>
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fab fa-canva"></i></span>
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fab fa-microsoft"></i></span>
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fab fa-wpforms"></i></span>
+      </div>
+      <p class="mb-2">
+        <i class="far fa-copyright"></i> 2026 Automasi E-Sijil Moden — Panduan Rujukan Pengajaran Digital Lengkap.
+      </p>
+      <p class="text-[10px] text-slate-600 leading-relaxed max-w-xl mx-auto">
+        Reka bentuk jenama, cap dagangan, logo Canva, Adobe Photoshop, Microsoft PowerPoint, JotForm, Make.com, Tally, Typeform, dan Google Workspace adalah hak milik tunggal pihak pengurusan platform masing-masing.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Embedded Premium Interactivity (Vanilla JS) -->
+  <script>
+    // Tab switching engine
+    function switchTab(categoryId) {
+      // Hide all category grids
+      document.querySelectorAll('.tool-grid').forEach(grid => {
+        grid.classList.add('hidden');
+      });
+      // Show chosen grid
+      document.getElementById('grid-' + categoryId).classList.remove('hidden');
+
+      // Reset all tab button styles
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.className = "tab-btn border-2 border-transparent text-slate-400 hover:text-slate-200 font-bold text-sm px-6 py-3.5 rounded-2xl transition-all flex items-center gap-2";
+      });
+
+      // Highlight active tab button
+      const activeBtn = document.getElementById('tab-btn-' + categoryId);
+      activeBtn.className = "tab-btn border-2 border-brand-indigo text-brand-indigo bg-brand-indigo/10 font-bold text-sm px-6 py-3.5 rounded-2xl transition-all flex items-center gap-2 shadow-lg shadow-indigo-500/5";
+    }
+
+    // Search and Filter engine for Comparison Table
+    let currentCategoryFilter = 'all';
+
+    function filterCategory(category) {
+      currentCategoryFilter = category;
+      
+      // Update filter button styling
+      document.querySelectorAll('.table-filter-btn').forEach(btn => {
+        btn.className = "table-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200 transition-all";
+      });
+      
+      const activeBtn = document.getElementById('filter-btn-' + category);
+      activeBtn.className = "table-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-indigo/10 border border-brand-indigo text-brand-indigo transition-all";
+
+      filterComparisonTable();
+    }
+
+    function filterComparisonTable() {
+      const searchVal = document.getElementById('table-search-input').value.toLowerCase().trim();
+      const rows = document.querySelectorAll('.comparison-row');
+      const sectionRows = document.querySelectorAll('.section-row');
+      
+      let shownCount = 0;
+
+      rows.forEach(row => {
+        const platformName = row.querySelector('.font-display').innerText.toLowerCase();
+        const rowCategory = row.getAttribute('data-category');
+        
+        const matchesSearch = platformName.includes(searchVal);
+        const matchesCategory = (currentCategoryFilter === 'all' || rowCategory === currentCategoryFilter);
+
+        if (matchesSearch && matchesCategory) {
+          row.classList.remove('hidden');
+          shownCount++;
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+
+      // Hide or show category section header rows based on filters
+      sectionRows.forEach(secRow => {
+        if (currentCategoryFilter === 'all' && searchVal === '') {
+          secRow.classList.remove('hidden');
+        } else {
+          secRow.classList.add('hidden');
+        }
+      });
+
+      // Handle empty state visibility
+      const emptyState = document.getElementById('table-empty-state');
+      if (shownCount === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+      }
+    }
+
+    // Integration Checker Widget Database (Malay Phrasing)
+    const integrationDb = {
+      'gforms-autocrat': {
+        status: 'Native & Percuma (Paling Mudah)',
+        colorClass: 'text-brand-emerald',
+        difficultyVal: 20,
+        difficultyText: 'Rendah (20%)',
+        desc: 'Pilihan standard yang ideal untuk pemula. Google Forms menghantar butiran data secara langsung ke Google Sheets secara percuma, dan AutoCrat melancarkan penjanaan sijil sejurus selepas borang dihantar tanpa memerlukan sebarang penulisan kod.',
+        pros: ['Native & percuma sepenuhnya', 'Setup pantas kurang dari 15 minit', 'Tanpa memerlukan kod'],
+        cons: ['Reka bentuk borang terhad', 'Had kuota harian dokumen Google Drive', 'Tiada logik bersyarat kompleks']
+      },
+      'gforms-script': {
+        status: 'Kombinasi Kuasa Maksima (Profesional)',
+        colorClass: 'text-brand-indigo',
+        difficultyVal: 70,
+        difficultyText: 'Tinggi (70%)',
+        desc: 'Gabungan mantap untuk kawalan mutlak. Anda menggunakan borang Google Forms secara percuma untuk mengutip data, dan memprogramkan logik tersuai Apps Script untuk manipulasi fail, simpanan folder berasingan di Drive, dan penghantaran lampiran e-mel.',
+        pros: ['Logik tersuai sepenuhnya', 'Automasi e-mel tersusun', 'Percuma tanpa kos pelan SaaS'],
+        cons: ['Perlukan sedikit pengetahuan JavaScript', 'Perlu selenggara kod jika lajur berubah']
+      },
+      'gforms-make': {
+        status: 'Visual Integrasi (Fleksibel)',
+        colorClass: 'text-brand-purple',
+        difficultyVal: 45,
+        difficultyText: 'Sederhana (45%)',
+        desc: 'Menghubungkan Google Forms ke Sheets dan Drive menggunakan pelan diagram Visual Make.com. Sangat sesuai untuk membina integrasi berbilang langkah tanpa perlu memprogramkan skrip.',
+        pros: ['Antara muka diagram yang mesra', 'Boleh disambung ke sistem luaran', 'Tiada kod yang panjang'],
+        cons: ['Pelan percuma dihadkan kepada 1,000 operasi sebulan', 'Toleransi kelewatan data (delay) kecil']
+      },
+      'gforms-certifier': {
+        status: 'Pengeluaran Skala Besar & Analytics',
+        colorClass: 'text-brand-cyan',
+        difficultyVal: 35,
+        difficultyText: 'Sederhana (35%)',
+        desc: 'Data Forms disalurkan ke Sheets, kemudian disambungkan ke Certifier.io menggunakan automasi webhook. Sesuai untuk syarikat atau acara pendidikan besar yang memerlukan penjejakan sijil terperinci.',
+        pros: ['Statistik pembukaan e-mel penerima', 'Kod pengesahan QR terbina', 'Reka bentuk visual premium'],
+        cons: ['Memerlukan langganan berbayar SaaS', 'Bukan integrasi native Google sepenuhnya']
+      },
+      'tally-autocrat': {
+        status: 'Estetik Minimalis (Separa Native)',
+        colorClass: 'text-brand-emerald',
+        difficultyVal: 40,
+        difficultyText: 'Sederhana (40%)',
+        desc: 'Membina borang estetik Notion di Tally.so, menyegerakkan data ke Google Sheets menggunakan integrasi visual terbina Tally, kemudian AutoCrat menjana slaid sijil secara kelompok di Google Slides.',
+        pros: ['Rupa bentuk borang yang sangat premium', '99% ciri Tally adalah percuma', 'Add-on Sheets percuma'],
+        cons: ['Perlukan setup pautan integrasi Tally ke Sheets terlebih dahulu', 'Tiada logik skrip penyesuaian fail']
+      },
+      'tally-script': {
+        status: 'Estetik Maksima & Kod Tersuai (Premium)',
+        colorClass: 'text-brand-indigo',
+        difficultyVal: 75,
+        difficultyText: 'Tinggi (75%)',
+        desc: 'Gabungan terkuat untuk pembuat sistem profesional. Tally.so digunakan untuk borang pendaftaran minimalis, disegerakkan ke Google Sheets, dan Apps Script memproses pendaftaran dinamik serta melahirkan pautan fail PDF bercetak.',
+        pros: ['Gabungan visual borang tercantik', 'Logik pengaturcaraan tanpa had', 'Pautan sijil ditulis semula ke Sheets'],
+        cons: ['Kemahiran JS diperlukan', 'Penyahpepijatan ralat skrip manual']
+      },
+      'tally-make': {
+        status: 'Workflow Visual Estetik Hujung-Ke-Hujung',
+        colorClass: 'text-brand-purple',
+        difficultyVal: 50,
+        difficultyText: 'Sederhana (50%)',
+        desc: 'Aliran kerja modular yang menghubungkan webhooks Tally secara langsung ke kanvas Make.com untuk mencetuskan penjanaan dokumen PDF Google Slides secara terus ke Google Drive.',
+        pros: ['Sangat visual dan mudah dipantau', 'Tiada coding diperlukan', 'Sesuai untuk proses berbilang langkah'],
+        cons: ['Kuota bulanan operasi Make.com terhad', 'Bergantung pada ketersediaan API Tally']
+      },
+      'tally-certifier': {
+        status: 'Sistem Pengurusan Sijil Korporat Estetik',
+        colorClass: 'text-brand-cyan',
+        difficultyVal: 45,
+        difficultyText: 'Sederhana (45%)',
+        desc: 'Menghubungkan borang Tally yang cantik dengan platform pengeluaran sijil profesional Certifier.io untuk melahirkan pengalaman pendaftaran dan pengijazahan korporat yang tiada tandingan.',
+        pros: ['QR verification terbina', 'Analitik e-mel dihantar', 'Antara muka borang Notion'],
+        cons: ['Layanan premium SaaS berbayar', 'Sedikit masa diperlukan untuk konfigurasi webhook']
+      },
+      'jotform-autocrat': {
+        status: 'Borang Kaya Ciri & Automasi Mudah',
+        colorClass: 'text-brand-emerald',
+        difficultyVal: 35,
+        difficultyText: 'Sederhana (35%)',
+        desc: 'Menggunakan kelebihan borang Jotform (seperti tandatangan digital atau pembayaran) yang disegerakkan ke Sheets, lalu diproses oleh enjin AutoCrat untuk penjanaan template sijil automatik.',
+        pros: ['Borang berkualiti tinggi dan selamat', 'Integrasi native Jotform-Sheets', 'Tiada coding'],
+        cons: ['Jotform percuma dihadkan kepada 100 sub sebulan', 'Had reka letak sijil standard Docs']
+      },
+      'jotform-script': {
+        status: 'Borang Kaya Ciri & Kod Kuasa Penuh',
+        colorClass: 'text-brand-indigo',
+        difficultyVal: 80,
+        difficultyText: 'Sangat Tinggi (80%)',
+        desc: 'Gabungan mantap antara fleksibiliti borang lanjutan Jotform dan kebebasan kod JavaScript Google Apps Script untuk sistem pengurusan sijil korporat yang tegar.',
+        pros: ['Kelebihan borang paling kaya', 'Kawalan logik program mutlak', 'Pengurusan e-mel lampiran tersusun'],
+        cons: ['Had data Jotform percuma', 'Tahap kepakaran pengaturcaraan yang tinggi']
+      },
+      'jotform-make': {
+        status: 'Visual Integrasi Profesional',
+        colorClass: 'text-brand-purple',
+        difficultyVal: 55,
+        difficultyText: 'Sederhana (55%)',
+        desc: 'Menggunakan Make.com untuk menyambung data borang Jotform terus ke Folder Google Drive dan template Google Slides tanpa melalui Google Sheets jika mahu.',
+        pros: ['Setup visual yang teguh', 'Fleksibiliti pemetaan parameter', 'Peringkat integrasi mudah'],
+        cons: ['Had bulanan data Jotform & Make percuma', 'Konfigurasi parameter yang banyak']
+      },
+      'jotform-certifier': {
+        status: 'Pengurusan Pengeluaran Bertaraf Industri',
+        colorClass: 'text-brand-cyan',
+        difficultyVal: 40,
+        difficultyText: 'Sederhana (40%)',
+        desc: 'Menyambung sistem borang selamat Jotform terus ke Certifier.io. Ini membolehkan kelulusan pengeluaran sijil perubatan, lesen, atau diploma dengan ciri keselamatan tinggi.',
+        pros: ['Pengesahan QR pensijilan sah', 'Sesuai untuk lesen rasmi', 'Borang mesra tandatangan digital'],
+        cons: ['Gabungan pelan berbayar bulanan yang tinggi', 'Bukan setup berasaskan Google Workspace standard']
+      },
+      'typeform-autocrat': {
+        status: 'Gaya Perbualan Sederhana',
+        colorClass: 'text-brand-emerald',
+        difficultyVal: 45,
+        difficultyText: 'Sederhana (45%)',
+        desc: 'Menyambungkan borang gaya perbualan satu-demi-satu Typeform ke Sheets menggunakan Zapier/Make, kemudian AutoCrat memproses pengeluaran sijil kelompok.',
+        pros: ['Kadar penyiapan borang peserta tinggi', 'Add-on automasi yang mantap', 'Tiada kod'],
+        cons: ['Kos pelan bulanan Typeform yang mahal', 'Setup perantara Zapier/Make wajib']
+      },
+      'typeform-script': {
+        status: 'Integrasi Premium Berskala Penuh',
+        colorClass: 'text-brand-indigo',
+        difficultyVal: 85,
+        difficultyText: 'Sangat Tinggi (85%)',
+        desc: 'Gabungan reka bentuk borang conversational Typeform paling premium dengan logik Apps Script JavaScript tersuai untuk melahirkan sistem e-sijil acara bertaraf antarabangsa.',
+        pros: ['Estetik borang bertaraf elit', 'Logik program fleksibel sepenuhnya', 'Autentikasi fail dinamik'],
+        cons: ['Kemahiran kod JS mendalam wajib', 'Had kewangan langganan Typeform premium']
+      },
+      'typeform-make': {
+        status: 'Aliran Visual Premium Hujung-Ke-Hujung',
+        colorClass: 'text-brand-purple',
+        difficultyVal: 55,
+        difficultyText: 'Sederhana (55%)',
+        desc: 'Menghubungkan webhook Typeform secara terus di kanvas Make.com untuk memproses kemasukan peserta dan melahirkan slaid sijil secara visual.',
+        pros: ['Setup visual yang mempesonakan', 'Sesuai untuk program acara premium', 'Tiada coding'],
+        cons: ['Gabungan kos operasi bulanan tinggi', 'Memerlukan kemahiran menyusun struktur data JSON']
+      },
+      'typeform-certifier': {
+        status: 'Ekosistem Korporat Elit',
+        colorClass: 'text-brand-cyan',
+        difficultyVal: 50,
+        difficultyText: 'Sederhana (50%)',
+        desc: 'Menyambungkan borang Typeform antarabangsa terus ke Certifier.io untuk pengalaman pemberian kelayakan digital yang dipenuhi dengan visual grafik premium dan pensijilan QR rasmi.',
+        pros: ['Penerima sijil merasa sangat wow', 'Verifikasi keselamatan QR bersepadu', 'Analitis data e-mel hantar/buka'],
+        cons: ['Kos pelan berbayar SaaS berkembar yang tinggi', 'Persediaan webhook khusus']
+      }
+    };
+
+    // Update Integration Checker Widget logic
+    function updateIntegrationChecker() {
+      const selectedForm = document.getElementById('widget-form-select').value;
+      const selectedGen = document.getElementById('widget-generator-select').value;
+      const key = selectedForm + '-' + selectedGen;
+      
+      const config = integrationDb[key];
+      if (!config) return;
+
+      // Update Visual SVG Pipeline Nodes
+      const formNodeName = document.getElementById('widget-form-select').options[document.getElementById('widget-form-select').selectedIndex].text.split(' (')[0];
+      const genNodeName = document.getElementById('widget-generator-select').options[document.getElementById('widget-generator-select').selectedIndex].text.split(' (')[0];
+      
+      document.getElementById('node-form-name').innerText = formNodeName;
+      document.getElementById('node-gen-name').innerText = genNodeName;
+
+      // Update Form Icon based on selection
+      const formIconEl = document.getElementById('node-form-icon');
+      if (selectedForm === 'gforms') {
+        formIconEl.innerHTML = '<i class="fab fa-wpforms text-brand-purple text-xl"></i>';
+        formIconEl.className = "w-12 h-12 rounded-2xl bg-brand-purple/10 border border-brand-purple/30 flex items-center justify-center transition-all";
+      } else if (selectedForm === 'tally') {
+        formIconEl.innerHTML = '<i class="fas fa-square-poll-horizontal text-slate-300 text-xl"></i>';
+        formIconEl.className = "w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center transition-all";
+      } else if (selectedForm === 'jotform') {
+        formIconEl.innerHTML = '<i class="fas fa-check-square text-brand-indigo text-xl"></i>';
+        formIconEl.className = "w-12 h-12 rounded-2xl bg-brand-indigo/10 border border-brand-indigo/30 flex items-center justify-center transition-all";
+      } else {
+        formIconEl.innerHTML = '<i class="fas fa-comment-dots text-brand-cyan text-xl"></i>';
+        formIconEl.className = "w-12 h-12 rounded-2xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center transition-all";
+      }
+
+      // Update Generator Icon based on selection
+      const genIconEl = document.getElementById('node-gen-icon');
+      if (selectedGen === 'autocrat') {
+        genIconEl.innerHTML = '<i class="fas fa-bolt text-brand-emerald text-xl"></i>';
+        genIconEl.className = "w-12 h-12 rounded-2xl bg-brand-emerald/10 border border-brand-emerald/30 flex items-center justify-center transition-all";
+      } else if (selectedGen === 'script') {
+        genIconEl.innerHTML = '<i class="fas fa-code text-brand-purple text-xl"></i>';
+        genIconEl.className = "w-12 h-12 rounded-2xl bg-brand-purple/10 border border-brand-purple/30 flex items-center justify-center transition-all shadow-[0_0_15px_rgba(139,92,246,0.1)]";
+      } else if (selectedGen === 'make') {
+        genIconEl.innerHTML = '<i class="fas fa-project-diagram text-brand-purple text-xl"></i>';
+        genIconEl.className = "w-12 h-12 rounded-2xl bg-brand-purple/10 border border-brand-purple/30 flex items-center justify-center transition-all";
+      } else {
+        genIconEl.innerHTML = '<i class="fas fa-award text-brand-cyan text-xl"></i>';
+        genIconEl.className = "w-12 h-12 rounded-2xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center transition-all";
+      }
+
+      // Update Text elements
+      const statusEl = document.getElementById('widget-status');
+      statusEl.innerText = config.status;
+      statusEl.className = `text-sm font-extrabold mt-1 block ${config.colorClass}`;
+
+      document.getElementById('widget-difficulty-text').innerText = config.difficultyText;
+      const diffBar = document.getElementById('widget-difficulty-bar');
+      diffBar.style.width = config.difficultyVal + '%';
+      
+      // Update Difficulty color
+      if (config.difficultyVal <= 30) {
+        diffBar.className = "h-full bg-brand-emerald rounded-full transition-all";
+      } else if (config.difficultyVal <= 60) {
+        diffBar.className = "h-full bg-brand-amber rounded-full transition-all";
+      } else {
+        diffBar.className = "h-full bg-brand-rose rounded-full transition-all";
+      }
+
+      document.getElementById('widget-description').innerText = config.desc;
+
+      // Update Pros list
+      const prosContainer = document.getElementById('widget-pros');
+      prosContainer.innerHTML = '';
+      config.pros.forEach(pro => {
+        prosContainer.innerHTML += `<li class="flex items-start gap-2"><i class="fas fa-check text-brand-emerald mt-0.5"></i> <span>${pro}</span></li>`;
+      });
+
+      // Update Cons list
+      const consContainer = document.getElementById('widget-cons');
+      consContainer.innerHTML = '';
+      config.cons.forEach(con => {
+        consContainer.innerHTML += `<li class="flex items-start gap-2"><i class="fas fa-exclamation-triangle text-brand-amber mt-0.5"></i> <span>${con}</span></li>`;
+      });
+    }
+
+    // Copy to Clipboard engine
+    function copyCode() {
+      const codeText = document.getElementById('editor-code-block').innerText;
+      const copyBtn = document.getElementById('copy-code-btn');
+
+      navigator.clipboard.writeText(codeText).then(() => {
+        // Visual feedback
+        const originalHtml = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Disalin!';
+        copyBtn.classList.remove('bg-slate-800', 'hover:bg-brand-indigo');
+        copyBtn.classList.add('bg-brand-emerald');
+        
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHtml;
+          copyBtn.classList.add('bg-slate-800', 'hover:bg-brand-indigo');
+          copyBtn.classList.remove('bg-brand-emerald');
+        }, 2000);
+      }).catch(err => {
+        alert('Gagal menyalin kod. Sila salin secara manual.');
+      });
+    }
+
+    // Toggle Mobile Menu Drawer Panel
+    function toggleMobileMenu() {
+      const panel = document.getElementById('mobile-menu-panel');
+      const icon = document.getElementById('mobile-menu-icon');
+      if (panel.classList.contains('hidden')) {
+        panel.classList.remove('hidden');
+        icon.className = "fas fa-times text-lg";
+      } else {
+        panel.classList.add('hidden');
+        icon.className = "fas fa-bars text-lg";
+      }
+    }
+
+    // Initialize widget on load
+    window.onload = function() {
+      updateIntegrationChecker();
+    };
+  </script>
 </body>
 
 </html>

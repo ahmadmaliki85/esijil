@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hebahan: Google Workspace for Education Plus | KPT & UUM</title>
+  
+  <!-- Fonts & Icon Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              950: '#020617',
+            },
+            brand: {
+              purple: '#a855f7',
+              indigo: '#6366f1',
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              rose: '#f43f5e'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Premium Custom Styling (Vanilla CSS) -->
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    /* Mesh Gradients */
+    .mesh-glow-1 {
+      background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.18) 0%, transparent 50%);
+    }
+    .mesh-glow-2 {
+      background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.12) 0%, transparent 60%);
+    }
+
+    /* Grid Overlay Pattern */
+    .grid-bg {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    /* Glassmorphism Styles */
+    .glass-nav {
+      background: rgba(2, 6, 23, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(99, 102, 241, 0.35);
+      box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.15);
+      transform: translateY(-4px);
+    }
+
+    /* Animated Border */
+    .glow-border {
+      position: relative;
+    }
+    .glow-border::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      background: linear-gradient(90deg, #4285F4, #EA4335, #FBBC05, #34A853, #4285F4);
+      background-size: 400% 400%;
+      z-index: -1;
+      border-radius: inherit;
+      opacity: 0.35;
+      animation: rotate-gradient 8s linear infinite;
+    }
+    @keyframes rotate-gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-200 font-sans antialiased overflow-x-hidden">
+
+  <!-- Glassmorphic Navigation -->
+  <nav class="sticky top-0 z-50 glass-nav">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-indigo to-brand-cyan flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+          <i class="fab fa-google text-white text-lg"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-extrabold text-lg tracking-tight">e-Sijil<span class="bg-gradient-to-r from-brand-indigo to-brand-cyan bg-clip-text text-transparent ml-1">Moden</span></span>
+          <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">Portal Pengumuman</span>
+        </div>
+      </a>
+      
+      <!-- Nav Links -->
+      <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-brand-indigo transition-colors"><i class="fas fa-home mr-1"></i> Halaman Utama</a>
+        <a href="note1.html" class="hover:text-brand-indigo transition-colors">Skrip Bulk (Note 1)</a>
+        <a href="note2.html" class="hover:text-brand-indigo transition-colors">PDF & Emel (Note 2)</a>
+        <a href="note3.html" class="hover:text-brand-indigo transition-colors">Reka AI (Note 3)</a>
+        <a href="note_slides.html" class="hover:text-brand-indigo transition-colors">Slides Sijil</a>
+        <a href="note_basic_ai.html" class="hover:text-brand-indigo transition-colors">AI Asas</a>
+        <a href="#credentials" class="hover:text-brand-indigo transition-colors">Log Masuk</a>
+        <a href="#feature-hub" class="hover:text-brand-indigo transition-colors">Kelebihan Portal</a>
+      </div>
+
+      <!-- Action Button -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all flex items-center gap-1.5">
+          <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Announcement Banner -->
+  <header class="relative overflow-hidden pt-12 pb-16 lg:py-20 grid-bg border-b border-slate-900">
+    <div class="absolute top-20 right-[-10%] w-[500px] h-[500px] rounded-full mesh-glow-1 -z-10"></div>
+    <div class="absolute bottom-10 left-[-10%] w-[500px] h-[500px] rounded-full mesh-glow-2 -z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <span class="inline-flex items-center gap-2 bg-brand-cyan/10 border border-brand-cyan/30 px-4 py-2 rounded-full text-xs font-semibold text-brand-cyan tracking-wider uppercase font-display mb-6">
+        <i class="fas fa-bullhorn"></i> Pengumuman Rasmi KPT & UUM
+      </span>
+      
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black font-display tracking-tight leading-[1.15] text-white max-w-5xl mx-auto">
+        Kini Ditawarkan: Akses Penuh<br>
+        <span class="bg-gradient-to-r from-[#4285F4] via-brand-indigo to-brand-purple bg-clip-text text-transparent">Google Workspace for Education Plus</span>
+      </h1>
+      
+      <p class="text-sm sm:text-base md:text-lg text-slate-400 mt-6 max-w-3xl mx-auto leading-relaxed">
+        Sukacita dimaklumkan bahawa Kementerian Pendidikan Tinggi (KPT) dan Universiti Utara Malaysia (UUM) kini menawarkan edisi tertinggi dan paling komprehensif daripada Google yang direka khusus untuk memperkasakan Pengajaran & Pembelajaran (PdP) serta pengurusan digital universiti.
+      </p>
+    </div>
+  </header>
+
+  <!-- Section 1: Credentials & Login Assistant Redesign -->
+  <section id="credentials" class="py-16 relative border-b border-slate-900">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <!-- LHS: Details & Text -->
+        <div class="lg:col-span-6 space-y-6">
+          <span class="text-xs font-bold tracking-widest text-brand-cyan font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+            <i class="fas fa-key"></i> Butiran Log Masuk
+          </span>
+          <h2 class="text-3xl font-extrabold font-display text-white tracking-tight">Pembantu Log Masuk Akaun Anda</h2>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Semua warga akademik dan pelajar boleh mengakses portal Google Workspace for Education Plus menggunakan kredensial akaun portal rasmi UUM yang telah diselaraskan.
+          </p>
+          
+          <div class="space-y-4 font-sans">
+            <div class="flex gap-4.5 bg-slate-900/30 border border-slate-850 p-4.5 rounded-2xl">
+              <div class="w-10 h-10 rounded-xl bg-slate-950/85 border border-slate-800 flex items-center justify-center text-brand-cyan flex-shrink-0"><i class="fas fa-globe"></i></div>
+              <div>
+                <strong class="text-sm text-white font-display">Laman Web Rasmi</strong>
+                <p class="text-xs text-slate-400 mt-1">Layari <a href="https://www.google.com" target="_blank" class="text-brand-cyan hover:underline font-mono">https://www.google.com</a> atau melalui aplikasi rasmi Google Workspace.</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4.5 bg-slate-900/30 border border-slate-850 p-4.5 rounded-2xl">
+              <div class="w-10 h-10 rounded-xl bg-slate-950/85 border border-slate-800 flex items-center justify-center text-brand-rose flex-shrink-0"><i class="fas fa-envelope"></i></div>
+              <div>
+                <strong class="text-sm text-white font-display">Sokongan Pengguna</strong>
+                <p class="text-xs text-slate-400 mt-1">Sekiranya menghadapi sebarang ralat teknikal berkaitan log masuk, sila emel terus kepada <a href="mailto:workspace@uum.edu.my" class="text-brand-rose hover:underline font-mono">workspace@uum.edu.my</a> untuk bantuan.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RHS: High-Fidelity Google Sign-In Mockup -->
+        <div class="lg:col-span-6">
+          <div class="glow-border rounded-3xl bg-[#0b0f19] overflow-hidden shadow-2xl p-7 relative">
+            
+            <!-- Google Branding Header -->
+            <div class="text-center pb-6 border-b border-slate-900/80">
+              <!-- Google Colored Logo -->
+              <div class="flex items-center justify-center gap-1 mb-3.5">
+                <span class="text-[#4285F4] text-2xl font-display font-extrabold">G</span>
+                <span class="text-[#EA4335] text-2xl font-display font-extrabold">o</span>
+                <span class="text-[#FBBC05] text-2xl font-display font-extrabold">o</span>
+                <span class="text-[#4285F4] text-2xl font-display font-extrabold">g</span>
+                <span class="text-[#34A853] text-2xl font-display font-extrabold">l</span>
+                <span class="text-[#EA4335] text-2xl font-display font-extrabold">e</span>
+              </div>
+              <h3 class="font-display font-bold text-white text-base">Sign In</h3>
+              <p class="text-xs text-slate-500 mt-1 font-sans">Gunakan akaun institusi Google Workspace UUM anda</p>
+            </div>
+
+            <!-- Login Input Widget -->
+            <div class="py-6 flex flex-col gap-5">
+              <!-- User Input -->
+              <div class="flex flex-col gap-2">
+                <label class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">Username Portal UUM Anda</label>
+                <div class="relative">
+                  <span class="absolute left-3 top-3.5 text-slate-500 text-sm"><i class="fas fa-user-circle"></i></span>
+                  <input id="input-uum-username" onkeyup="updateSSOMockup()" type="text" placeholder="Masukkan username portal" value="Ahmad" class="w-full bg-slate-900/80 border border-slate-800 focus:border-brand-indigo text-slate-200 text-sm rounded-xl py-3.5 pl-10 pr-4 outline-none transition-colors font-sans">
+                </div>
+              </div>
+
+              <!-- Real-Time Workspace Email Display -->
+              <div class="bg-slate-950/80 border border-slate-900 rounded-2xl p-4.5 flex flex-col gap-3.5 font-mono text-xs">
+                <div class="flex flex-col gap-1">
+                  <span class="text-[10px] text-slate-500 uppercase tracking-wide">E-mel Google Workspace Anda:</span>
+                  <span id="output-google-username" class="text-brand-cyan text-sm font-bold select-all leading-relaxed break-all">ahmad@gw.uum.edu.my</span>
+                </div>
+                <div class="h-[1px] bg-slate-900"></div>
+                <div class="flex flex-col gap-1">
+                  <span class="text-[10px] text-slate-500 uppercase tracking-wide">Kata Laluan (Password):</span>
+                  <span class="text-brand-amber font-sans text-xs flex items-center gap-1.5 leading-relaxed">
+                    <i class="fas fa-lock"></i> Gunakan Kata Laluan Portal UUM Anda
+                  </span>
+                </div>
+              </div>
+
+              <!-- Action buttons inside mockup -->
+              <div class="flex items-center justify-between gap-4 mt-2">
+                <span class="text-[10px] text-slate-500 font-sans"><i class="fas fa-circle-info text-brand-cyan mr-1"></i> Huruf kecil automatik</span>
+                <button id="copy-sso-btn" onclick="copySSOInfo()" class="bg-[#1a2333] hover:bg-brand-indigo border border-slate-800 hover:border-transparent text-slate-200 hover:text-white px-5 py-3 rounded-xl text-xs font-semibold tracking-wider transition-all flex items-center gap-2">
+                  <i class="fas fa-copy"></i> Salin Kredensial
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 2: Interactive Feature Hub Redesign -->
+  <section id="feature-hub" class="py-16 relative bg-slate-900/10">
+    <div class="absolute inset-0 mesh-glow-2 opacity-30 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-bold tracking-widest text-brand-purple font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-star"></i> Kelebihan Premium
+        </span>
+        <h2 class="text-3xl font-extrabold font-display text-white mt-4 tracking-tight">Kelebihan Google Workspace Plus</h2>
+        <p class="text-slate-400 mt-2">Klik tab di bawah untuk melihat simulasi interaktif ciri edisi "Education Plus" anda secara masa nyata.</p>
+      </div>
+
+      <!-- Segmented Tab Switchers -->
+      <div class="flex flex-wrap justify-center gap-2.5 max-w-4xl mx-auto mb-10">
+        <button id="tab-btn-meet" onclick="switchFeatureTab('meet')" class="feature-tab-btn border border-brand-indigo bg-brand-indigo/15 text-brand-indigo font-bold text-xs px-5 py-3 rounded-xl transition-all flex items-center gap-2 flex-1 min-w-[150px] justify-center">
+          <i class="fas fa-video"></i> Google Meet Premium
+        </button>
+        <button id="tab-btn-classroom" onclick="switchFeatureTab('classroom')" class="feature-tab-btn border border-slate-800 text-slate-400 hover:text-slate-200 font-bold text-xs px-5 py-3 rounded-xl transition-all flex items-center gap-2 flex-1 min-w-[150px] justify-center">
+          <i class="fas fa-graduation-cap"></i> Classroom & Integriti
+        </button>
+        <button id="tab-btn-notebook" onclick="switchFeatureTab('notebook')" class="feature-tab-btn border border-slate-800 text-slate-400 hover:text-slate-200 font-bold text-xs px-5 py-3 rounded-xl transition-all flex items-center gap-2 flex-1 min-w-[150px] justify-center">
+          <i class="fas fa-book-open"></i> NotebookLM Pro
+        </button>
+        <button id="tab-btn-gemini" onclick="switchFeatureTab('gemini')" class="feature-tab-btn border border-slate-800 text-slate-400 hover:text-slate-200 font-bold text-xs px-5 py-3 rounded-xl transition-all flex items-center gap-2 flex-1 min-w-[150px] justify-center">
+          <i class="fas fa-shield-halved"></i> Gemini Enterprise
+        </button>
+      </div>
+
+      <!-- Tab Content Frame (Interactive Showcase Sandbox) -->
+      <div class="max-w-5xl mx-auto bg-[#0b0f19] border border-slate-850 rounded-3xl shadow-2xl overflow-hidden min-h-[380px] flex flex-col">
+        
+        <!-- Showcase Header -->
+        <div class="bg-[#121826] px-6 py-4 border-b border-slate-900/80 flex justify-between items-center">
+          <div class="flex items-center gap-2.5">
+            <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+            <div class="h-4 w-[1px] bg-slate-850 mx-1"></div>
+            <span id="showcase-title" class="text-xs text-slate-400 font-mono flex items-center gap-1.5"><i class="fas fa-circle-check text-brand-emerald"></i> Modul Meet Premium Aktif</span>
+          </div>
+          <span class="text-[9px] bg-brand-purple/10 border border-brand-purple/20 text-brand-purple px-2 py-0.5 rounded font-mono">Enterprise Level Plus</span>
+        </div>
+
+        <!-- 1. MEET TAB PANEL -->
+        <div id="panel-meet" class="feature-panel p-8 grid md:grid-cols-12 gap-8 items-center">
+          <div class="md:col-span-7 space-y-4">
+            <h4 class="text-lg font-bold font-display text-white">Google Meet Premium: Lupakan Batasan Kuliah Maya</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Dengan edisi tertinggi ini, sesi mesyuarat staf atau kuliah gabungan mega anda kini lebih interaktif tanpa gangguan bising latar belakang dan kapasiti yang terhad.
+            </p>
+            <div class="grid grid-cols-2 gap-4 pt-2">
+              <div class="bg-slate-950/80 border border-slate-850 p-3.5 rounded-xl flex flex-col">
+                <span class="text-[9px] text-slate-500 font-mono uppercase">Maksimum Peserta</span>
+                <strong class="text-white text-base font-display mt-0.5">500 Warga</strong>
+              </div>
+              <div class="bg-slate-950/80 border border-slate-850 p-3.5 rounded-xl flex flex-col">
+                <span class="text-[9px] text-slate-500 font-mono uppercase">Live Stream Staf</span>
+                <strong class="text-brand-cyan text-base font-display mt-0.5">100,000 Peta</strong>
+              </div>
+            </div>
+          </div>
+          <!-- Interactive Widget Meet Display -->
+          <div class="md:col-span-5 bg-slate-950 border border-slate-850 rounded-2xl p-5 flex flex-col gap-3 text-xs font-mono">
+            <span class="text-[10px] text-slate-500 border-b border-slate-900 pb-2 flex items-center gap-1.5"><i class="fas fa-cogs"></i> Meet Controller Dashboard</span>
+            <div class="flex justify-between items-center py-1">
+              <span>Auto-Recordings:</span>
+              <span class="text-brand-emerald font-bold"><i class="fas fa-check-circle"></i> On (Drive Stored)</span>
+            </div>
+            <div class="flex justify-between items-center py-1">
+              <span>Interactive Polls & Q&A:</span>
+              <span class="text-brand-emerald font-bold"><i class="fas fa-check-circle"></i> Enabled</span>
+            </div>
+            <div class="flex justify-between items-center py-1">
+              <span>Noise Cancellation AI:</span>
+              <span class="text-brand-cyan font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-brand-cyan inline-block animate-ping"></span> Tapis Bunyi Aktif</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. CLASSROOM TAB PANEL -->
+        <div id="panel-classroom" class="feature-panel p-8 grid md:grid-cols-12 gap-8 items-center hidden">
+          <div class="md:col-span-7 space-y-4">
+            <h4 class="text-lg font-bold font-display text-white">Google Classroom & Integriti Akademik Maksimum</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Memelihara etika dan keaslian penyelidikan akademik di universiti. Edisi Plus memberikan kuota tanpa had bagi mengesan elemen plagiarisme di dalam tugasan pelajar secara telus.
+            </p>
+            <div class="bg-slate-950/80 border border-slate-850 p-4.5 rounded-xl flex items-start gap-3">
+              <i class="fas fa-shield-halved text-brand-purple text-lg mt-0.5"></i>
+              <div>
+                <strong class="text-xs text-white block">Laporan Keaslian Tanpa Had (Originality Reports)</strong>
+                <p class="text-[10px] text-slate-400 leading-relaxed mt-1">
+                  Pensyarah bebas menyemak teks persuratan tugasan pelajar pada bila-bila masa. Pelajar juga boleh menyemak draf draf mereka sendiri sebelum penghantaran akhir.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Plagiarism Scan Visualizer -->
+          <div class="md:col-span-5 bg-slate-950 border border-slate-850 rounded-2xl p-5 flex flex-col gap-3.5 text-xs">
+            <span class="text-[10px] font-mono text-slate-500 border-b border-slate-900 pb-2 block uppercase tracking-wide">Plagiarism Scanner Status</span>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-200">Tugasan_Pelajar.pdf</span>
+              <span class="text-[10px] bg-brand-emerald/10 text-brand-emerald border border-brand-emerald/30 px-2 py-0.5 rounded font-mono font-bold">100% Unik</span>
+            </div>
+            <!-- Progress Bar Mockup -->
+            <div class="w-full bg-slate-900 rounded-full h-2">
+              <div class="bg-brand-emerald h-2 rounded-full" style="width: 100%"></div>
+            </div>
+            <div class="text-[10px] text-slate-500 font-mono leading-relaxed mt-1">
+              <i class="fas fa-check-circle text-brand-emerald mr-1"></i> Roster Sync diaktifkan secara berkala bersama sistem maklumat pelajar.
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. NOTEBOOKLM TAB PANEL -->
+        <div id="panel-notebook" class="feature-panel p-8 grid md:grid-cols-12 gap-8 items-center hidden">
+          <div class="md:col-span-7 space-y-4">
+            <h4 class="text-lg font-bold font-display text-white">NotebookLM Pro: Pembantu Penyelidikan berasaskan AI</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              AI tercanggih untuk memproses jurnal tebal, slaid, dan nota kuliah. Menjawab soalan secara tepat **hanya berdasarkan fail sumber** yang anda muatkan naik tanpa halusinasi fakta luar.
+            </p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-slate-950/80 border border-slate-850 p-3.5 rounded-xl">
+                <strong class="text-white block text-sm font-display">50 Fail / Nota</strong>
+                <p class="text-[9px] text-slate-500 mt-0.5">Had muat naik maksimum satu notebook.</p>
+              </div>
+              <div class="bg-slate-950/80 border border-slate-850 p-3.5 rounded-xl">
+                <strong class="text-brand-cyan block text-sm font-display">Audio Overview</strong>
+                <p class="text-[9px] text-slate-500 mt-0.5">Tukar nota bertulis kepada podcast perbualan AI.</p>
+              </div>
+            </div>
+          </div>
+          <!-- NotebookLM Source mock list -->
+          <div class="md:col-span-5 bg-slate-950 border border-slate-850 rounded-2xl p-5 flex flex-col gap-3 text-xs font-mono">
+            <span class="text-[10px] text-slate-500 border-b border-slate-900 pb-2 flex items-center gap-1.5"><i class="fas fa-folder-open text-brand-cyan"></i> NotebookLM Source Library</span>
+            <div class="flex items-center gap-2.5 py-1 text-[10px] text-slate-300">
+              <i class="fas fa-file-pdf text-brand-rose"></i> Jurnal_Penyelidikan_UUM.pdf
+            </div>
+            <div class="flex items-center gap-2.5 py-1 text-[10px] text-slate-300">
+              <i class="fas fa-file-powerpoint text-brand-amber"></i> Slaid_PdP_Mewah.ppt
+            </div>
+            <div class="h-[1px] bg-slate-900 my-1"></div>
+            <div class="text-[10px] text-slate-500 leading-relaxed">
+              <i class="fas fa-lock text-brand-emerald mr-1"></i> Data dan hasil prompt sulit. Google tidak melatih model AI awam mengikut data anda.
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. GEMINI TAB PANEL -->
+        <div id="panel-gemini" class="feature-panel p-8 grid md:grid-cols-12 gap-8 items-center hidden">
+          <div class="md:col-span-7 space-y-4">
+            <h4 class="text-lg font-bold font-display text-white">Gemini Enterprise: Sandbox AI 100% Kebenaran Sulit</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Merangka rancangan pengajian, memerah idea penyelidikan korporat, atau menterjemah abstrak kertas kerja dengan perlindungan data bertaraf perusahaan antarabangsa.
+            </p>
+            <div class="bg-slate-950/80 border border-slate-850 p-4.5 rounded-xl flex items-start gap-3">
+              <i class="fas fa-user-shield text-brand-rose text-lg mt-0.5"></i>
+              <div>
+                <strong class="text-xs text-white block">Enterprise Data Protection (gemini.google.com)</strong>
+                <p class="text-[10px] text-slate-400 leading-relaxed mt-1">
+                  Semua input atau kod pengekodan (Python, R) yang anda taipkan tidak akan dikumpulkan atau dibaca oleh Google untuk melatih sistem AI awam mereka.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Gemini Chat bubble simulator -->
+          <div class="md:col-span-5 bg-slate-950 border border-slate-850 rounded-2xl p-5 flex flex-col gap-3 text-[10px] font-mono">
+            <span class="text-slate-500 border-b border-slate-900 pb-2 flex items-center justify-between">
+              <span><i class="fas fa-shield-halved text-brand-rose"></i> Secure Gemini Session</span>
+              <span class="text-brand-emerald"><i class="fas fa-lock"></i> Protected</span>
+            </span>
+            <div class="bg-slate-900/50 p-2.5 rounded-xl text-slate-400">
+              User: Tolong semak ralat dalam kod Python ini...
+            </div>
+            <div class="bg-brand-rose/5 border border-brand-rose/10 p-2.5 rounded-xl text-slate-300">
+              Gemini: Kod anda selamat. Analisis sedia dilakukan tanpa pendedahan data luaran.
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer status hub -->
+        <div class="bg-[#121826] px-6 py-3.5 border-t border-slate-900/80 text-[10px] text-slate-500 text-center font-mono">
+          <i class="fas fa-circle-info text-brand-cyan mr-1.5"></i> Edisi Google Education Plus dilesenkan khas untuk memperkasakan warga KPT dan UUM.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-slate-950 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto px-6 text-center text-xs text-slate-500">
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fab fa-google"></i></span>
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fas fa-shield-halved"></i></span>
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fas fa-bullhorn"></i></span>
+      </div>
+      <p class="mb-2">
+        <i class="far fa-copyright"></i> 2026 Kementerian Pendidikan Tinggi (KPT) & Universiti Utara Malaysia (UUM).
+      </p>
+      <p class="text-[10px] text-slate-600 leading-relaxed max-w-xl mx-auto">
+        Portal ini dibangunkan sebagai hebahan rasmi digital. Google, Google Workspace, Google Meet, Google Classroom, NotebookLM dan Gemini adalah tanda dagangan berdaftar Google LLC.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Embedded Premium Interactivity (Vanilla JS) -->
+  <script>
+    // SSO Live Generator Engine
+    function updateSSOMockup() {
+      const uumUsername = document.getElementById('input-uum-username').value.trim();
+      const outputGoogle = document.getElementById('output-google-username');
+
+      if (uumUsername === '') {
+        outputGoogle.innerText = 'username@gw.uum.edu.my';
+        return;
+      }
+
+      // Convert to lowercase and clean whitespace
+      const cleanUsername = uumUsername.toLowerCase().replace(/\s+/g, '');
+      outputGoogle.innerText = cleanUsername + '@gw.uum.edu.my';
+    }
+
+    // Copy SSO details to clipboard
+    function copySSOInfo() {
+      const email = document.getElementById('output-google-username').innerText;
+      const copyBtn = document.getElementById('copy-sso-btn');
+
+      const copyText = `Google Workspace Login Info:\nUsername: ${email}\nLaman Web: https://www.google.com\nNota: Gunakan kata laluan Portal UUM sedia ada anda untuk log masuk.`;
+
+      navigator.clipboard.writeText(copyText).then(() => {
+        // Copy visual feedback
+        const originalHtml = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Disalin!';
+        copyBtn.classList.remove('bg-[#1a2333]', 'hover:bg-brand-indigo');
+        copyBtn.classList.add('bg-brand-emerald', 'text-slate-950', 'border-transparent');
+        
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHtml;
+          copyBtn.classList.add('bg-[#1a2333]', 'hover:bg-brand-indigo');
+          copyBtn.classList.remove('bg-brand-emerald', 'text-slate-950', 'border-transparent');
+        }, 2000);
+      }).catch(err => {
+        alert('Gagal menyalin maklumat.');
+      });
+    }
+
+    // Interactive Tabbed Feature Showcase Switcher
+    function switchFeatureTab(tabName) {
+      // Hide all panels
+      document.querySelectorAll('.feature-panel').forEach(panel => {
+        panel.classList.add('hidden');
+      });
+
+      // Show targeted panel
+      document.getElementById('panel-' + tabName).classList.remove('hidden');
+
+      // Reset all tab buttons styling
+      document.querySelectorAll('.feature-tab-btn').forEach(btn => {
+        btn.className = "feature-tab-btn border border-slate-800 text-slate-400 hover:text-slate-200 font-bold text-xs px-5 py-3 rounded-xl transition-all flex items-center gap-2 flex-1 min-w-[150px] justify-center";
+      });
+
+      // Highlight active button
+      const activeBtn = document.getElementById('tab-btn-' + tabName);
+      activeBtn.className = "feature-tab-btn border border-brand-indigo bg-brand-indigo/15 text-brand-indigo font-bold text-xs px-5 py-3 rounded-xl transition-all flex items-center gap-2 flex-1 min-w-[150px] justify-center shadow-lg shadow-indigo-500/5";
+
+      // Update terminal/showcase header title
+      const titleEl = document.getElementById('showcase-title');
+      if (tabName === 'meet') {
+        titleEl.innerHTML = '<i class="fas fa-circle-check text-brand-emerald"></i> Modul Meet Premium Aktif';
+      } else if (tabName === 'classroom') {
+        titleEl.innerHTML = '<i class="fas fa-circle-check text-brand-emerald"></i> Modul Classroom & Integriti Aktif';
+      } else if (tabName === 'notebook') {
+        titleEl.innerHTML = '<i class="fas fa-circle-check text-brand-emerald"></i> Modul NotebookLM Pro Aktif';
+      } else if (tabName === 'gemini') {
+        titleEl.innerHTML = '<i class="fas fa-circle-check text-brand-emerald"></i> Modul Gemini Enterprise Aktif';
+      }
+    }
+
+    // Run initializer on load
+    window.onload = function() {
+      updateSSOMockup();
+    };
+  </script>
+</body>
+
+</html>

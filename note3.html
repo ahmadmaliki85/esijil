@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reka Bentuk Sijil AI | Panduan & Prompt Automasi Pintar</title>
+  
+  <!-- Fonts & Icon Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              950: '#030712',
+            },
+            brand: {
+              purple: '#8b5cf6',
+              indigo: '#6366f1',
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              rose: '#f43f5e'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Premium Custom Styling (Vanilla CSS) -->
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030712;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    /* Mesh Gradients */
+    .mesh-glow-1 {
+      background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 50%);
+    }
+    .mesh-glow-2 {
+      background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.12) 0%, transparent 60%);
+    }
+
+    /* Grid Overlay Pattern */
+    .grid-bg {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    /* Glassmorphism Styles */
+    .glass-nav {
+      background: rgba(3, 7, 18, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(6, 182, 212, 0.35);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+      transform: translateY(-4px);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-200 font-sans antialiased overflow-x-hidden">
+
+  <!-- Glassmorphic Navigation -->
+  <nav class="sticky top-0 z-50 glass-nav">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-cyan to-brand-indigo flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+          <i class="fas fa-wand-magic-sparkles text-white text-lg"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-extrabold text-lg tracking-tight">e-Sijil<span class="bg-gradient-to-r from-brand-cyan to-brand-indigo bg-clip-text text-transparent ml-1">Moden</span></span>
+          <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">Penjanaan Reka Bentuk AI</span>
+        </div>
+      </a>
+      
+      <!-- Nav Links -->
+      <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-brand-cyan transition-colors"><i class="fas fa-home mr-1"></i> Halaman Utama</a>
+        <a href="note1.html" class="hover:text-brand-cyan transition-colors">Skrip Bulk (Note 1)</a>
+        <a href="note2.html" class="hover:text-brand-cyan transition-colors">PDF & Emel (Note 2)</a>
+        <a href="note_slides.html" class="hover:text-brand-cyan transition-colors">Slides Sijil</a>
+        <a href="note_basic_ai.html" class="hover:text-brand-cyan transition-colors">AI Asas</a>
+        <a href="hebahan.html" class="hover:text-brand-cyan transition-colors">Hebahan KPT/UUM</a>
+        <a href="#ai-tools" class="hover:text-brand-cyan transition-colors">Alatan AI</a>
+        <a href="#prompt-generator" class="hover:text-brand-cyan transition-colors">Prompt Generator</a>
+      </div>
+
+      <!-- Quick Back Button -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all flex items-center gap-1.5">
+          <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative overflow-hidden pt-8 pb-16 lg:py-20 grid-bg border-b border-slate-900">
+    <div class="absolute top-20 right-[-10%] w-[500px] h-[500px] rounded-full mesh-glow-1 -z-10"></div>
+    <div class="absolute bottom-10 left-[-10%] w-[500px] h-[500px] rounded-full mesh-glow-2 -z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <span class="inline-flex items-center gap-2 bg-brand-cyan/10 border border-brand-cyan/30 px-4 py-2 rounded-full text-xs font-semibold text-brand-cyan tracking-wider uppercase font-display mb-6">
+        <i class="fas fa-robot"></i> Generative AI Integration
+      </span>
+      
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-black font-display tracking-tight leading-[1.1] text-white max-w-4xl mx-auto">
+        Reka Bentuk Templat Sijil<br>
+        <span class="bg-gradient-to-r from-brand-cyan via-brand-indigo to-brand-purple bg-clip-text text-transparent">Menggunakan Kuasa AI Generatif</span>
+      </h1>
+      
+      <p class="text-base sm:text-lg text-slate-400 mt-6 max-w-2xl mx-auto leading-relaxed">
+        Terokai platform AI generatif termaju untuk mencipta latar belakang, bingkai sempadan, dan lencana sijil yang elegan. Cukup sekadar menulis teks arahan (prompt) untuk mendapatkan reka bentuk mewah bertaraf profesional.
+      </p>
+    </div>
+  </header>
+
+  <!-- AI Tools Overview Showcase -->
+  <section id="ai-tools" class="py-16 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-brand-cyan font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-toolbox"></i> Platform Rujukan
+        </span>
+        <h2 class="text-3xl font-extrabold font-display text-white mt-4 tracking-tight">4 AI Terbaik Untuk Sijil Sempurna</h2>
+        <p class="text-slate-400 mt-2">Kelebihan, keupayaan penyuntingan, dan peranan setiap kecerdasan buatan dalam penghasilan dokumen penghargaan.</p>
+      </div>
+
+      <!-- Grid Cards -->
+      <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        
+        <!-- Card 1: Canva Magic Design -->
+        <div class="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-12 -top-12 w-28 h-28 bg-[#00c4cc]/10 rounded-full blur-xl"></div>
+          <div>
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#00c4cc] to-[#7d2ae8] flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                <i class="fas fa-palette"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-extrabold text-white text-lg leading-tight">Canva Magic Design</h3>
+                <span class="text-[10px] font-mono text-[#00c4cc] uppercase tracking-wider">AI Templat & Layout Penuh</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-6">
+              Hanya perlu menaip idea sijil (contoh: "Sijil pencapaian akademik sekolah warna hijau nilam"), AI Canva akan membina susun atur lengkap termasuk teks, font, logo placeholder, dan garisan grid yang boleh disunting sepenuhnya.
+            </p>
+            <!-- Pros & Cons -->
+            <ul class="text-xs space-y-2 font-mono text-slate-300 border-t border-slate-900 pt-4 mb-4">
+              <li><i class="fas fa-plus-circle text-brand-emerald mr-1.5"></i> <strong>Kelebihan:</strong> Boleh disunting terus (editable), ada elemen reka bentuk lain.</li>
+              <li><i class="fas fa-minus-circle text-brand-rose mr-1.5"></i> <strong>Kekurangan:</strong> Reka bentuk kadangkala agak umum (generic) berbanding AI imej tulen.</li>
+            </ul>
+          </div>
+          
+          <div class="flex items-center justify-between border-t border-slate-900 pt-4 mt-auto">
+            <span class="text-[10px] text-slate-500 font-mono">Difficulty: <span class="text-brand-emerald">Mudah</span></span>
+            <span class="text-[10px] text-slate-500 font-mono">Sesuai untuk: <span class="text-white">Beginners / Cepat</span></span>
+          </div>
+        </div>
+
+        <!-- Card 2: Midjourney v6 -->
+        <div class="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-12 -top-12 w-28 h-28 bg-brand-purple/10 rounded-full blur-xl"></div>
+          <div>
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-indigo to-brand-purple flex items-center justify-center text-white text-xl shadow-lg">
+                <i class="fas fa-compass"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-extrabold text-white text-lg leading-tight">Midjourney v6 / DALL-E 3</h3>
+                <span class="text-[10px] font-mono text-brand-purple uppercase tracking-wider">AI Latar Belakang & Tekstur Mewah</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-6">
+              AI imej terkemuka untuk menghasilkan corak sempadan (border patterns) berseni, kerawang emas (gold filigree), tekstur kertas premium, dan lencana sijil 3D photorealistic bertaraf muzium.
+            </p>
+            <ul class="text-xs space-y-2 font-mono text-slate-300 border-t border-slate-900 pt-4 mb-4">
+              <li><i class="fas fa-plus-circle text-brand-emerald mr-1.5"></i> <strong>Kelebihan:</strong> Visual amat mewah, perincian sangat tinggi (hyper-detailed).</li>
+              <li><i class="fas fa-minus-circle text-brand-rose mr-1.5"></i> <strong>Kekurangan:</strong> Imej berbentuk rata (raster), teks tidak boleh diedit secara langsung.</li>
+            </ul>
+          </div>
+          
+          <div class="flex items-center justify-between border-t border-slate-900 pt-4 mt-auto">
+            <span class="text-[10px] text-slate-500 font-mono">Difficulty: <span class="text-brand-amber">Sederhana</span></span>
+            <span class="text-[10px] text-slate-500 font-mono">Sesuai untuk: <span class="text-white">Latar Belakang / Frame</span></span>
+          </div>
+        </div>
+
+        <!-- Card 3: Microsoft Designer -->
+        <div class="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-12 -top-12 w-28 h-28 bg-[#107c41]/10 rounded-full blur-xl"></div>
+          <div>
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#0078d4] to-[#107c41] flex items-center justify-center text-white text-xl shadow-lg">
+                <i class="fas fa-border-all"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-extrabold text-white text-lg leading-tight">Microsoft Designer</h3>
+                <span class="text-[10px] font-mono text-brand-cyan uppercase tracking-wider">AI Reka Bentuk Minimalis</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-6">
+              Menggunakan teknologi OpenAI DALL-E 3 untuk menjana reka bentuk sijil berasaskan grafik moden secara percuma. Menyediakan variasi susun atur visual yang bersih dan minimalis dalam beberapa saat.
+            </p>
+            <ul class="text-xs space-y-2 font-mono text-slate-300 border-t border-slate-900 pt-4 mb-4">
+              <li><i class="fas fa-plus-circle text-brand-emerald mr-1.5"></i> <strong>Kelebihan:</strong> 100% percuma, integrasi awan Microsoft, antara muka mesra pengguna.</li>
+              <li><i class="fas fa-minus-circle text-brand-rose mr-1.5"></i> <strong>Kekurangan:</strong> Pilihan templat dan elemen dekorasi yang agak terhad.</li>
+            </ul>
+          </div>
+          
+          <div class="flex items-center justify-between border-t border-slate-900 pt-4 mt-auto">
+            <span class="text-[10px] text-slate-500 font-mono">Difficulty: <span class="text-brand-emerald">Sangat Mudah</span></span>
+            <span class="text-[10px] text-slate-500 font-mono">Sesuai untuk: <span class="text-white">Generasi Cepat / Percuma</span></span>
+          </div>
+        </div>
+
+        <!-- Card 4: Adobe Firefly -->
+        <div class="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-12 -top-12 w-28 h-28 bg-[#ff0000]/10 rounded-full blur-xl"></div>
+          <div>
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#fa0f00] to-[#ff9d00] flex items-center justify-center text-white text-xl shadow-lg">
+                <i class="fas fa-bezier-curve"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-extrabold text-white text-lg leading-tight">Adobe Firefly</h3>
+                <span class="text-[10px] font-mono text-[#ff9d00] uppercase tracking-wider">AI Vektor & Komponen Sijil</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-6">
+              AI komersial bersepadu dalam Adobe Illustrator dan Photoshop. Hebat untuk "Generative Match" bagi melukis sempadan vektor (vector border) dan reben pingat emas (gold seals/ribbons) komersial tanpa isu hak cipta.
+            </p>
+            <ul class="text-xs space-y-2 font-mono text-slate-300 border-t border-slate-900 pt-4 mb-4">
+              <li><i class="fas fa-plus-circle text-brand-emerald mr-1.5"></i> <strong>Kelebihan:</strong> Output berformat vektor (SVG/EPS), selamat untuk kegunaan hak cipta komersial.</li>
+              <li><i class="fas fa-minus-circle text-brand-rose mr-1.5"></i> <strong>Kekurangan:</strong> Memerlukan langganan berbayar Adobe Creative Cloud.</li>
+            </ul>
+          </div>
+          
+          <div class="flex items-center justify-between border-t border-slate-900 pt-4 mt-auto">
+            <span class="text-[10px] text-slate-500 font-mono">Difficulty: <span class="text-brand-amber">Tinggi</span></span>
+            <span class="text-[10px] text-slate-500 font-mono">Sesuai untuk: <span class="text-white">Pereka Grafik Profesional</span></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive AI Prompt Simulator Widget -->
+  <section id="prompt-generator" class="py-16 bg-slate-900/30 border-y border-slate-900 relative">
+    <div class="absolute inset-0 mesh-glow-1 opacity-50 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-bold tracking-widest text-brand-cyan font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-terminal"></i> Prompt Generator
+        </span>
+        <h2 class="text-3xl font-extrabold font-display text-white mt-4 tracking-tight">Simulator Penjana Prompt AI Pintar</h2>
+        <p class="text-slate-400 mt-2">Pilih gaya kegemaran anda di bawah, dan AI kami akan menjana teks arahan (Prompt) berprestasi tinggi untuk ditampal ke dalam Midjourney atau DALL-E 3!</p>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-8 max-w-5xl mx-auto">
+        
+        <!-- Left Selection Box -->
+        <div class="lg:col-span-5 bg-slate-950/80 border border-slate-800 rounded-3xl p-6 flex flex-col gap-5 shadow-xl">
+          <h3 class="text-base font-bold font-display text-white flex items-center gap-2 pb-3 border-b border-slate-900">
+            <i class="fas fa-sliders text-brand-cyan"></i> Tetapan Gaya Sijil
+          </h3>
+
+          <!-- Selection 1: Style -->
+          <div class="flex flex-col gap-2">
+            <label class="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">Pilih Gaya Utama (Style)</label>
+            <select id="select-style" onchange="generatePrompt()" class="w-full bg-slate-900 border border-slate-800 focus:border-brand-cyan text-slate-200 text-sm rounded-xl p-3.5 outline-none cursor-pointer">
+              <option value="luxury">Mewah / Korporat (Luxury Corporate)</option>
+              <option value="academic">Akademik / Sekolah (Classic Academic)</option>
+              <option value="minimalist">Moden / Minimalis (Clean Modern)</option>
+              <option value="artistic">Kreatif / Seni (Abstract Artistic)</option>
+            </select>
+          </div>
+
+          <!-- Selection 2: Color -->
+          <div class="flex flex-col gap-2">
+            <label class="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">Tema Warna (Colors)</label>
+            <select id="select-color" onchange="generatePrompt()" class="w-full bg-slate-900 border border-slate-800 focus:border-brand-cyan text-slate-200 text-sm rounded-xl p-3.5 outline-none cursor-pointer">
+              <option value="gold-blue">Biru Gelap & Kerawang Emas (Navy & Gold)</option>
+              <option value="emerald-gold">Hijau Zamrud & Sempadan Emas (Emerald & Gold)</option>
+              <option value="rose-gold">Rose Gold & Perak (Rose Gold & Silver)</option>
+              <option value="black-gold">Monokrom Hitam & Emas Mewah (Black & Gold)</option>
+            </select>
+          </div>
+
+          <!-- Selection 3: Platform -->
+          <div class="flex flex-col gap-2">
+            <label class="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">Platform AI Sasaran</label>
+            <select id="select-target" onchange="generatePrompt()" class="w-full bg-slate-900 border border-slate-800 focus:border-brand-cyan text-slate-200 text-sm rounded-xl p-3.5 outline-none cursor-pointer">
+              <option value="midjourney">Midjourney v6 (--ar 4:3)</option>
+              <option value="dalle3">DALL-E 3 (ChatGPT)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Right Visual Prompt Display terminal -->
+        <div class="lg:col-span-7 bg-[#0b0f19] border border-brand-cyan/20 rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between">
+          <!-- Terminal Header -->
+          <div class="bg-[#121826] px-5 py-4 border-b border-slate-850 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="w-3 h-3 rounded-full bg-red-500"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500"></span>
+              <div class="h-4 w-[1px] bg-slate-800 mx-1"></div>
+              <span class="text-[10px] text-slate-400 font-mono flex items-center gap-1.5"><i class="fas fa-terminal text-brand-cyan"></i> Prompt_Hasil_Janaan.txt</span>
+            </div>
+            <!-- Copy button -->
+            <button id="copy-prompt-btn" onclick="copyPromptToClipboard()" class="bg-slate-800 hover:bg-brand-cyan text-slate-200 hover:text-slate-950 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-1.5">
+              <i class="fas fa-copy"></i> Salin Prompt
+            </button>
+          </div>
+
+          <!-- Terminal content output -->
+          <div class="p-6 flex-1 flex flex-col justify-center min-h-[180px]">
+            <p id="prompt-output" class="text-xs sm:text-sm font-mono text-brand-cyan leading-relaxed select-all">
+              <!-- Dynamically Populated -->
+            </p>
+          </div>
+
+          <!-- Terminal Status Footer -->
+          <div class="bg-[#121826] px-6 py-3 border-t border-slate-800 text-[10px] text-slate-500 flex items-center gap-1.5">
+            <i class="fas fa-info-circle text-brand-cyan"></i> Tampalkan hasil salinan ini terus ke tetingkap arahan penjana AI imej anda.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Step-by-Step Workflow Integration Guide -->
+  <section class="py-16 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-brand-cyan font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-project-diagram"></i> Aliran Kerja Integrasi
+        </span>
+        <h2 class="text-3xl font-extrabold font-display text-white mt-4 tracking-tight">Cara Menggunakan Output AI ke Google Slides</h2>
+        <p class="text-slate-400 mt-2">Ikuti 4 langkah ini untuk menukar fail imej AI menjadi templat dinamik sedia-pakai dengan Google Apps Script.</p>
+      </div>
+
+      <!-- Process Pipeline Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        
+        <!-- Step 1 -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div>
+            <span class="text-2xl font-black text-brand-cyan font-display">01</span>
+            <h4 class="font-bold text-white font-display mt-3">Jana & Muat Turun</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mt-2">
+              Jana imej bingkai latar belakang menggunakan prompt simulasi di atas. Muat turun fail imej dalam format berkualiti tinggi (PNG atau JPG).
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-900/60 text-[10px] text-slate-500 font-mono"><i class="fas fa-cloud-download-alt text-brand-cyan"></i> Format 4:3 Landscape</div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div>
+            <span class="text-2xl font-black text-brand-purple font-display">02</span>
+            <h4 class="font-bold text-white font-display mt-3">Set Slide Background</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mt-2">
+              Buka slaid persembahan di Google Slides. Klik menu <strong>Background ➔ Choose Image</strong>, pilih fail imej AI tadi. Ini menghalang latar belakang daripada bergerak apabila disunting.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-900/60 text-[10px] text-slate-500 font-mono"><i class="fas fa-image text-brand-purple"></i> Static Lock Template</div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div>
+            <span class="text-2xl font-black text-brand-indigo font-display">03</span>
+            <h4 class="font-bold text-white font-display mt-3">Tambah Placeholder</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mt-2">
+              Letakkan tetingkap teks (Text Box) lutsinar di atas reka bentuk slaid. Taipkan tag placeholder automasi seperti <code>{{Nama}}</code>, <code>{{Program}}</code>, dan <code>{{Tarikh}}</code>.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-900/60 text-[10px] text-slate-500 font-mono"><i class="fas fa-font text-brand-indigo"></i> Tag Kurungan Berkembar</div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+          <div>
+            <span class="text-2xl font-black text-brand-emerald font-display">04</span>
+            <h4 class="font-bold text-white font-display mt-3">Hubungkan Apps Script</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mt-2">
+              Salin kod automasi dari <strong>Note 2</strong> dan masukkan ID fail Google Slides anda ke dalam parameter `SLIDES_ID`. Larian skrip kini akan menghasilkan sijil dinamik menggunakan reka bentuk AI anda!
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-900/60 text-[10px] text-slate-500 font-mono"><i class="fas fa-cogs text-brand-emerald"></i> Automasi Mula Beroperasi</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-slate-950 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto px-6 text-center text-xs text-slate-500">
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fas fa-wand-magic-sparkles"></i></span>
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fas fa-robot"></i></span>
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fas fa-palette"></i></span>
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fas fa-border-all"></i></span>
+      </div>
+      <p class="mb-2">
+        <i class="far fa-copyright"></i> 2026 Reka Bentuk E-Sijil Generatif AI — Modul SandBox Reka Bentuk Digital.
+      </p>
+      <p class="text-[10px] text-slate-600 leading-relaxed max-w-xl mx-auto">
+        Midjourney, DALL-E, Canva, Microsoft Designer, dan Adobe Firefly adalah tanda dagangan berdaftar milik entiti pengurusan korporat masing-masing. Panduan ini dibangunkan bagi tujuan sokongan pembelajaran akademik semata-mata.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Embedded Premium Interactivity (Vanilla JS) -->
+  <script>
+    // Database for prompts based on selections
+    const promptDatabase = {
+      luxury: {
+        'gold-blue': {
+          midjourney: '/imagine prompt: A ultra-luxury professional certificate of appreciation template background, deep navy blue backdrop, highly intricate gold filigree border patterns, radial gradient glow in the center, modern geometric details, empty space for certificate text, space for a gold seal, elegant, vector look, photorealistic, 8k resolution, aspect ratio 4:3 --ar 4:3 --v 6.0',
+          dalle3: 'A high-fidelity luxury professional certificate of appreciation template background. Deep navy blue textured paper background, highly detailed and intricate gold foil filigree border patterns. Subtle glowing center, clean corporate layout with empty space for typing certificate name and content, placeholder space for gold emblem seal. Elegant vector style, premium design, 4:3 aspect ratio.'
+        },
+        'emerald-gold': {
+          midjourney: '/imagine prompt: A premium corporate certificate template, dark emerald green background, rich ornate gold borders with geometric lines, luxury royal aesthetic, glowing center, no text, clean space for printing certificate information, hyper-detailed vector art, 8k, aspect ratio 4:3 --ar 4:3 --v 6.0',
+          dalle3: 'A premium corporate certificate of appreciation background. Dark imperial emerald green textured background, decorated with rich, shiny gold foil borders and geometric art-deco patterns. High-end royal aesthetic, glowing spotlight in the center, completely blank center for custom text insertion, elegant 4:3 layout.'
+        },
+        'rose-gold': {
+          midjourney: '/imagine prompt: An elegant fashion certificate template background, matte dusty rose and white background, premium metallic rose gold border details, subtle platinum metallic sparkles, minimal and luxury, blank center, high-end vector look, 8k, --ar 4:3 --v 6.0',
+          dalle3: 'An elegant contemporary certificate background design. Dusty rose pink background mixed with clean white, detailed with delicate rose gold metallic foil borders and thin silver accents. Luxurious minimal modern layout, completely blank space for certificate text, photorealistic vector art.'
+        },
+        'black-gold': {
+          midjourney: '/imagine prompt: A modern prestige certificate background, obsidian black matte paper texture, glowing gold wave borders, luxury minimalist pattern, highly corporate, elegant luxury, empty center, 8k resolution, aspect ratio 4:3 --ar 4:3 --v 6.0',
+          dalle3: 'A modern prestige certificate template backdrop. Obsidian black matte premium cardstock texture, glowing metallic gold wavy border patterns on the sides. Minimalist elegant luxury style, clean dark corporate aesthetic, perfectly blank center for certificate layout.'
+        }
+      },
+      academic: {
+        'gold-blue': {
+          midjourney: '/imagine prompt: A classic academic graduation certificate template background, royal blue border, intricate traditional guilloche security scrollwork borders in gold and silver, empty paper texture center, elegant high-end vector, 8k --ar 4:3',
+          dalle3: 'A classic traditional academic graduation certificate background. Royal blue thick border, decorated with complex, secure guilloche scrollwork patterns in metallic gold and silver foil. Cream-colored paper texture center, completely blank, vintage crest placement.'
+        },
+        'emerald-gold': {
+          midjourney: '/imagine prompt: Traditional university diploma certificate background, emerald green and gold classic borders, elegant vintage scrollwork border patterns, empty parchment paper texture, 8k, aspect ratio 4:3 --ar 4:3',
+          dalle3: 'A traditional university diploma certificate background template. Rich emerald green borders, decorated with classic gold vintage scrollwork and secure security line patterns. Blank light parchment paper texture in the center for custom academic details.'
+        },
+        'rose-gold': {
+          midjourney: '/imagine prompt: Academic achievement award certificate background, soft pastel pink and metallic copper scroll borders, classic traditional look, empty canvas center, 8k, --ar 4:3',
+          dalle3: 'A classic achievement award certificate template. Soft pink pastel theme, adorned with elegant copper foil scrollwork border patterns. Very clean and traditional layout, empty cream-colored canvas center for typing name and event.'
+        },
+        'black-gold': {
+          midjourney: '/imagine prompt: A vintage graduation certificate backdrop, pure black borders, complex traditional gold crest and guilloche scroll lines, ancient classic paper texture in center, 8k, --ar 4:3',
+          dalle3: 'A vintage prestigious graduation diploma certificate backdrop. Deep solid black borders, complex traditional gold foil crests, and traditional security guilloche scroll lines. Light antique paper texture in the center, blank layout.'
+        }
+      },
+      minimalist: {
+        'gold-blue': {
+          midjourney: '/imagine prompt: A modern minimalist certificate border background, clean white layout, ultra-thin gold metallic linear geometric frames, subtle navy blue abstract watercolor block on the corner, elegant modern, 8k --ar 4:3',
+          dalle3: 'A clean minimalist modern certificate frame. Matte white canvas background, decorated with ultra-thin metallic gold linear geometric borders. Subtle navy blue abstract block on one corner, elegant premium layout with maximum blank space.'
+        },
+        'emerald-gold': {
+          midjourney: '/imagine prompt: A sleek contemporary certificate background, off-white cardstock, modern thin gold borders, emerald green minimalist curves in corners, scandinavian clean design, empty, 8k --ar 4:3',
+          dalle3: 'A sleek contemporary certificate background template. Off-white heavy cardstock paper, thin elegant gold borderlines, minimalist emerald green geometric curved shapes in opposite corners. Clean scandinavian look, empty layout.'
+        },
+        'rose-gold': {
+          midjourney: '/imagine prompt: A chic minimal aesthetic certificate background, soft marble texture background, thin rose gold linear borders, extremely simple luxury, blank center, 8k --ar 4:3',
+          dalle3: 'A chic minimal aesthetic certificate backdrop. Pale pink marble texture background, featuring very thin rose gold linear borders. High-end simple luxury style, clean empty center for a minimalist typography layout.'
+        },
+        'black-gold': {
+          midjourney: '/imagine prompt: A high-end minimalist corporate certificate background, clean white paper texture, modern sharp black thin borders, subtle gold foil geometric lines, blank center, --ar 4:3',
+          dalle3: 'A high-end minimalist corporate certificate background. Clean textured white paper, modern sharp thin black borders, accented with subtle gold foil geometric intersecting lines. Minimalist design, perfectly blank center.'
+        }
+      },
+      artistic: {
+        'gold-blue': {
+          midjourney: '/imagine prompt: An abstract creative certificate template background, modern navy blue ink wash splash, elegant flowing gold foil vein accents, artistic fluid dynamics, blank center, highly elegant and unique, 8k --ar 4:3',
+          dalle3: 'An abstract creative certificate template background. Rich navy blue alcohol ink wash splash with elegant, organic flowing metallic gold foil vein accents. Artistic fluid dynamics style, luxurious clean white center for certificate information.'
+        },
+        'emerald-gold': {
+          midjourney: '/imagine prompt: A fluid art certificate frame, emerald green and gold fluid marble ink swirls, organic creative patterns on the border, glowing center, no text, artistic vector style, --ar 4:3',
+          dalle3: 'A fluid art certificate frame. Border decorated with stunning emerald green and shiny gold fluid marble ink swirls. Creative organic abstract pattern, blank white center area for custom text, beautiful contrast.'
+        },
+        'rose-gold': {
+          midjourney: '/imagine prompt: A creative artistic certificate background, rose quartz marble textures, elegant gold leaf splatters and waves, abstract luxury flow, empty center, 8k --ar 4:3',
+          dalle3: 'A creative artistic certificate backdrop. Rose quartz pink marble textures, decorated with elegant gold leaf splatters and fluid waves. Abstract luxury flow style, empty white center for dynamic layout.'
+        },
+        'black-gold': {
+          midjourney: '/imagine prompt: An abstract dark luxury certificate template, charcoal black background, dynamic gold foil paintbrush strokes on the borders, artistic creative premium texture, blank, --ar 4:3',
+          dalle3: 'An abstract dark luxury certificate template. Textured charcoal black canvas, with dynamic metallic gold foil paintbrush strokes and fine splatters framing the borders. Artistic creative premium look, empty center.'
+        }
+      }
+    };
+
+    // Prompt Generation Logic
+    function generatePrompt() {
+      const style = document.getElementById('select-style').value;
+      const color = document.getElementById('select-color').value;
+      const target = document.getElementById('select-target').value;
+
+      // Extract from database
+      const generatedPrompt = promptDatabase[style][color][target];
+
+      // Update text in output container
+      document.getElementById('prompt-output').innerText = generatedPrompt;
+    }
+
+    // Copy Prompt text to clipboard
+    function copyPromptToClipboard() {
+      const promptText = document.getElementById('prompt-output').innerText;
+      const copyBtn = document.getElementById('copy-prompt-btn');
+
+      navigator.clipboard.writeText(promptText).then(() => {
+        // Copy visual feedback
+        const originalHtml = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Disalin!';
+        copyBtn.classList.remove('bg-slate-800', 'hover:bg-brand-cyan');
+        copyBtn.classList.add('bg-brand-emerald', 'text-slate-950');
+        
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHtml;
+          copyBtn.classList.add('bg-slate-800', 'hover:bg-brand-cyan');
+          copyBtn.classList.remove('bg-brand-emerald', 'text-slate-950');
+        }, 2000);
+      }).catch(err => {
+        alert('Gagal menyalin prompt.');
+      });
+    }
+
+    // Initialize prompt on load
+    window.onload = function() {
+      generatePrompt();
+    };
+  </script>
+</body>
+
+</html>

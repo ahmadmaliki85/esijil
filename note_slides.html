@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panduan Google Slides | Reka Bentuk Templat Sijil Pintar</title>
+  
+  <!-- Fonts & Icon Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Fira+Code:wght@400;500;600&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              950: '#020617',
+            },
+            brand: {
+              purple: '#a855f7',
+              indigo: '#6366f1',
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              rose: '#f43f5e'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Premium Custom Styling (Vanilla CSS) -->
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    /* Mesh Gradients */
+    .mesh-glow-1 {
+      background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 50%);
+    }
+    .mesh-glow-2 {
+      background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.12) 0%, transparent 60%);
+    }
+
+    /* Grid Overlay Pattern */
+    .grid-bg {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    /* Glassmorphism Styles */
+    .glass-nav {
+      background: rgba(2, 6, 23, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(6, 182, 212, 0.35);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+      transform: translateY(-4px);
+    }
+
+    /* Canvas Mockup Alignments */
+    .alignment-line-y {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      border-left: 1px dashed rgba(239, 68, 68, 0.4);
+      pointer-events: none;
+    }
+    .alignment-line-x {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      border-top: 1px dashed rgba(239, 68, 68, 0.4);
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-200 font-sans antialiased overflow-x-hidden">
+
+  <!-- Glassmorphic Navigation -->
+  <nav class="sticky top-0 z-50 glass-nav">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-cyan to-brand-indigo flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+          <i class="fas fa-file-powerpoint text-white text-lg"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-extrabold text-lg tracking-tight">e-Sijil<span class="bg-gradient-to-r from-brand-cyan to-brand-indigo bg-clip-text text-transparent ml-1">Moden</span></span>
+          <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">Panduan Google Slides</span>
+        </div>
+      </a>
+      
+      <!-- Nav Links -->
+      <div class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
+        <a href="index.html" class="hover:text-brand-cyan transition-colors"><i class="fas fa-home mr-1"></i> Utama</a>
+        <a href="note1.html" class="hover:text-brand-cyan transition-colors">Skrip Bulk (Note 1)</a>
+        <a href="note2.html" class="hover:text-brand-cyan transition-colors">PDF & Emel (Note 2)</a>
+        <a href="note3.html" class="hover:text-brand-cyan transition-colors">Reka AI (Note 3)</a>
+        <a href="hebahan.html" class="hover:text-brand-cyan transition-colors">Hebahan KPT/UUM</a>
+        <a href="#setup-guide" class="hover:text-brand-cyan transition-colors">Set Dimensi</a>
+        <a href="#canvas-editor" class="hover:text-brand-cyan transition-colors">Editor Slaid</a>
+      </div>
+
+      <!-- Action Button -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all flex items-center gap-1.5">
+          <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <header class="relative overflow-hidden pt-12 pb-16 lg:py-20 grid-bg border-b border-slate-900">
+    <div class="absolute top-20 right-[-10%] w-[500px] h-[500px] rounded-full mesh-glow-1 -z-10"></div>
+    <div class="absolute bottom-10 left-[-10%] w-[500px] h-[500px] rounded-full mesh-glow-2 -z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <span class="inline-flex items-center gap-2 bg-brand-cyan/10 border border-brand-cyan/30 px-4 py-2 rounded-full text-xs font-semibold text-brand-cyan tracking-wider uppercase font-display mb-6">
+        <i class="fas fa-edit"></i> Masterclass Templat Sijil
+      </span>
+      
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black font-display tracking-tight leading-[1.15] text-white max-w-5xl mx-auto">
+        Reka Bentuk Canvas Sijil Pintar<br>
+        <span class="bg-gradient-to-r from-brand-cyan via-brand-indigo to-brand-purple bg-clip-text text-transparent">Menggunakan Google Slides</span>
+      </h1>
+      
+      <p class="text-sm sm:text-base md:text-lg text-slate-400 mt-6 max-w-3xl mx-auto leading-relaxed">
+        Ketahui teknik meletakkan pemegang tempat (placeholder tags), memilih tipografi profesional, menyelaraskan kedudukan teks secara menegak/mendatar, serta mengunci imej latar belakang agar sijil dijana secara konsisten tanpa ralat susun atur.
+      </p>
+    </div>
+  </header>
+
+  <!-- Section 1: Set Dimensi & Background Lock -->
+  <section id="setup-guide" class="py-16 relative border-b border-slate-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- LHS: Visual steps and instructions -->
+        <div class="lg:col-span-6 space-y-6">
+          <span class="text-xs font-bold tracking-widest text-brand-cyan font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+            <i class="fas fa-sliders"></i> Langkah Konfigurasi
+          </span>
+          <h2 class="text-3xl font-extrabold font-display text-white tracking-tight">Langkah 1: Sediakan Lembaran Master Slaid</h2>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Sebelum anda menaip placeholder atau memasukkan imej, pastikan nisbah dimensi slaid dan tetapan latar belakang dikonfigurasikan mengikut standard industri bagi mengelakkan herotan grafik sijil.
+          </p>
+
+          <!-- Steps Accordion-like cards -->
+          <div class="space-y-4 font-sans">
+            <!-- Step A -->
+            <div class="bg-slate-900/30 border border-slate-850 p-4.5 rounded-2xl flex gap-4">
+              <div class="w-9 h-9 rounded-lg bg-brand-cyan/15 text-brand-cyan flex items-center justify-center font-bold font-mono text-sm flex-shrink-0 mt-0.5">A</div>
+              <div>
+                <strong class="text-sm text-white font-display">Tukar Page Setup kepada '4:3 Standard'</strong>
+                <p class="text-xs text-slate-400 mt-1">
+                  Layari <strong>File ➔ Page setup</strong>, pilih **Custom**, kemudian tetapkan **Width: 10 inches** dan **Height: 7.5 inches**. Nisbah 4:3 amat sesuai untuk cetakan sijil fizikal mahupun simpanan fail PDF digital.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step B -->
+            <div class="bg-slate-900/30 border border-slate-850 p-4.5 rounded-2xl flex gap-4">
+              <div class="w-9 h-9 rounded-lg bg-brand-purple/15 text-brand-purple flex items-center justify-center font-bold font-mono text-sm flex-shrink-0 mt-0.5">B</div>
+              <div>
+                <strong class="text-sm text-white font-display">TETAPKAN Latar Belakang Slaid (Locked Background)</strong>
+                <p class="text-xs text-slate-400 mt-1">
+                  <strong>PENTING:</strong> Jangan masukkan imej background menggunakan <em>Insert ➔ Image</em>! Klik kanan slaid, pilih <strong>Change background ➔ Choose Image</strong>. Ini mengunci imej latar belakang supaya ia tidak akan bergerak atau terpilih secara tidak sengaja semasa proses penyuntingan placeholder teks.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RHS: Dynamic comparison table -->
+        <div class="lg:col-span-6">
+          <div class="glass-card rounded-3xl p-6.5 bg-[#0b0f19] border border-slate-850 shadow-xl">
+            <h3 class="font-display font-extrabold text-white text-base mb-4 flex items-center gap-2">
+              <i class="fas fa-check-double text-brand-cyan"></i> Checklist Perbandingan Reka Bentuk
+            </h3>
+            
+            <div class="overflow-x-auto text-xs font-mono">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-900 text-slate-500 uppercase text-[9px] tracking-wider">
+                    <th class="py-3 pr-2">Ciri-Ciri Slaid</th>
+                    <th class="py-3 px-2 text-brand-emerald">Kaedah Yang Betul</th>
+                    <th class="py-3 pl-2 text-brand-rose">Amalan Salah</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-900 text-slate-300">
+                  <tr>
+                    <td class="py-3 pr-2 font-bold text-slate-200">Imej Bingkai/Latar</td>
+                    <td class="py-3 px-2 text-brand-emerald">Set via Background Lock</td>
+                    <td class="py-3 pl-2 text-brand-rose">Insert Image Rata</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 pr-2 font-bold text-slate-200">Dimensi Slaid</td>
+                    <td class="py-3 px-2 text-brand-emerald">Nisbah 4:3 (Landscape)</td>
+                    <td class="py-3 pl-2 text-brand-rose">16:9 Biasa / Potret</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 pr-2 font-bold text-slate-200">Kedudukan Placeholder</td>
+                    <td class="py-3 px-2 text-brand-emerald">Center Horiz & Vertikal</td>
+                    <td class="py-3 pl-2 text-brand-rose">Rapat Kiri / Tanpa Bounding</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 pr-2 font-bold text-slate-200">Tag Placeholder</td>
+                    <td class="py-3 px-2 text-brand-emerald"><code>{{Nama}}</code> (2 kurungan)</td>
+                    <td class="py-3 pl-2 text-brand-rose"><code>[Nama]</code> atau <code>{Nama}</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Caution note -->
+            <div class="bg-brand-rose/5 border border-brand-rose/20 rounded-2xl p-4 flex gap-3 mt-5">
+              <i class="fas fa-triangle-exclamation text-brand-rose text-sm mt-0.5 flex-shrink-0"></i>
+              <div class="text-[10px] text-slate-400 leading-relaxed">
+                <strong class="text-brand-rose font-display">Awas Ralat Pertindihan!</strong> Jika anda tidak menetapkan penjajaran teks secara **menengah (vertically aligned middle)**, nama peserta yang panjang akan melimpah keluar dari sempadan sijil dan merosakkan visual keseluruhannya.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Interactive Google Slides Editor Widget -->
+  <section id="canvas-editor" class="py-16 relative bg-slate-900/10 border-b border-slate-900">
+    <div class="absolute inset-0 mesh-glow-2 opacity-35 pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-bold tracking-widest text-brand-indigo font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-terminal"></i> Interactive Simulator
+        </span>
+        <h2 class="text-3xl font-extrabold font-display text-white mt-4 tracking-tight">Simulator Editor Google Slides</h2>
+        <p class="text-slate-400 mt-2">Gunakan toolbar simulasi di bawah untuk menguji penyesuaian font, saiz, dan penjajaran placeholder `{{Nama}}` secara visual.</p>
+      </div>
+
+      <!-- Google Slides Editor Sandbox Grid -->
+      <div class="max-w-5xl mx-auto bg-[#0b0f19] border border-slate-850 rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+        
+        <!-- Editor Menu Toolbar -->
+        <div class="bg-[#121826] px-5 py-3 border-b border-slate-900 flex flex-wrap items-center justify-between gap-3 text-xs">
+          
+          <!-- Left: File options dummy -->
+          <div class="flex items-center gap-4 text-slate-400 font-mono text-[10px]">
+            <span class="hover:text-white cursor-pointer"><i class="fas fa-file-powerpoint text-brand-cyan mr-1.5"></i> File</span>
+            <span class="hover:text-white cursor-pointer">Edit</span>
+            <span class="hover:text-white cursor-pointer">Insert</span>
+            <span class="hover:text-white cursor-pointer">Format</span>
+            <span class="hover:text-white cursor-pointer text-brand-cyan">Slide</span>
+          </div>
+
+          <!-- Center Tools: Font, Size, Align, Color -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Font Selection -->
+            <select id="editor-font" onchange="applyCanvasChanges()" class="bg-slate-900 border border-slate-850 focus:border-brand-cyan text-slate-200 text-[11px] rounded-lg px-2.5 py-1.5 outline-none font-mono cursor-pointer">
+              <option value="Cormorant Garamond">Cormorant Garamond (Mewah)</option>
+              <option value="Great Vibes">Great Vibes (Tulisan Berangkai)</option>
+              <option value="Montserrat">Montserrat (Moden & Bold)</option>
+              <option value="Inter">Inter (Sleek Minimalist)</option>
+            </select>
+
+            <!-- Font Size -->
+            <div class="flex items-center bg-slate-900 border border-slate-850 rounded-lg overflow-hidden">
+              <button onclick="changeFontSize(-4)" class="px-2.5 py-1.5 hover:bg-slate-850 text-slate-400 hover:text-white transition-colors"><i class="fas fa-minus"></i></button>
+              <span id="editor-font-size-text" class="px-3 py-1 text-[11px] font-mono text-slate-200 min-w-[32px] text-center border-x border-slate-850">32px</span>
+              <button onclick="changeFontSize(4)" class="px-2.5 py-1.5 hover:bg-slate-850 text-slate-400 hover:text-white transition-colors"><i class="fas fa-plus"></i></button>
+            </div>
+
+            <!-- Alignment Selection -->
+            <div class="flex items-center bg-slate-900 border border-slate-850 rounded-lg overflow-hidden">
+              <button id="btn-align-left" onclick="changeAlignment('left')" class="px-2.5 py-1.5 hover:bg-slate-850 text-slate-400 transition-colors"><i class="fas fa-align-left"></i></button>
+              <button id="btn-align-center" onclick="changeAlignment('center')" class="px-2.5 py-1.5 bg-brand-cyan/25 text-brand-cyan"><i class="fas fa-align-center"></i></button>
+              <button id="btn-align-right" onclick="changeAlignment('right')" class="px-2.5 py-1.5 hover:bg-slate-850 text-slate-400 transition-colors"><i class="fas fa-align-right"></i></button>
+            </div>
+
+            <!-- Color picker -->
+            <select id="editor-color" onchange="applyCanvasChanges()" class="bg-slate-900 border border-slate-850 text-slate-200 text-[11px] rounded-lg px-2.5 py-1.5 outline-none cursor-pointer font-mono">
+              <option value="#f59e0b" class="text-brand-amber">Gold Accent</option>
+              <option value="#ffffff" class="text-white">Pure White</option>
+              <option value="#06b6d4" class="text-brand-cyan">Cyan Modern</option>
+              <option value="#10b981" class="text-brand-emerald">Emerald Clean</option>
+            </select>
+          </div>
+
+          <!-- Right: Grid line toggle -->
+          <button id="toggle-grid-btn" onclick="toggleCanvasGrid()" class="bg-slate-900 hover:bg-slate-850 border border-slate-850 hover:text-white text-slate-400 px-3 py-1.5 rounded-lg text-[10px] font-semibold transition-all flex items-center gap-1.5">
+            <i class="fas fa-border-none"></i> Tunjuk Garisan Grid
+          </button>
+        </div>
+
+        <!-- Simulated Active Slide Canvas -->
+        <div class="relative overflow-hidden aspect-[4/3] bg-[#02040a] border border-slate-950 flex flex-col justify-center items-center p-8 select-none">
+          <!-- Slide Background (Locked representation with high-end aesthetic) -->
+          <div class="absolute inset-4 border border-slate-900 rounded-2xl flex flex-col justify-between p-8 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900/60 via-slate-950 to-slate-950/80 shadow-inner">
+            
+            <!-- Dynamic Grid Guides (Toggled by user) -->
+            <div id="canvas-grid-y" class="alignment-line-y hidden"></div>
+            <div id="canvas-grid-x" class="alignment-line-x hidden"></div>
+
+            <!-- Top Header dummy -->
+            <div class="text-center">
+              <span class="text-[9px] font-mono tracking-[0.25em] text-brand-cyan/60 uppercase">Sijil Penghargaan Korporat</span>
+              <div class="w-8 h-[1px] bg-slate-900 mx-auto mt-2"></div>
+            </div>
+
+            <!-- Active Centered Name Placeholder Box (Target of edits) -->
+            <div id="slides-placeholder-box" class="w-full border border-dashed border-slate-800 rounded-lg p-4 py-8 flex flex-col justify-center items-center text-center transition-all bg-slate-900/10">
+              <span class="text-[8px] font-mono text-slate-500 uppercase tracking-widest absolute top-1.5 left-2"><i class="fas fa-arrows-left-right-to-line"></i> Bounding Box: Nama Peserta</span>
+              
+              <!-- Placeholder tag inside simulator -->
+              <h2 id="slides-text-name" class="w-full text-3xl font-semibold leading-normal select-all" style="font-family: 'Cormorant Garamond', serif; color: #f59e0b; text-align: center;">
+                {{Nama}}
+              </h2>
+              
+              <!-- Description tag -->
+              <p id="slides-text-sub" class="text-[10px] text-slate-500 font-mono mt-3 max-w-md">
+                telah menghadiri dan menyelesaikan bengkel digital dengan jayanya.
+              </p>
+            </div>
+
+            <!-- Bottom dummy credentials -->
+            <div class="flex justify-between items-end border-t border-slate-900/50 pt-4 text-[7px] font-mono text-slate-600">
+              <div class="flex flex-col gap-0.5">
+                <span>Tarikh Bengkel:</span>
+                <span class="text-slate-500">{{Tarikh}}</span>
+              </div>
+              <div class="text-center flex flex-col gap-1 items-center">
+                <div class="w-8 h-8 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-[8px] text-brand-amber"><i class="fas fa-ribbon"></i></div>
+                <span>UUM Verification</span>
+              </div>
+              <div class="flex flex-col gap-0.5 text-right">
+                <span>Kod Pengesahan:</span>
+                <span class="text-slate-500">ID: {{NoSijil}}</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Simulated Slides Footer info -->
+        <div class="bg-[#121826] px-6 py-3 border-t border-slate-900/80 text-[10px] text-slate-500 flex items-center gap-1.5">
+          <i class="fas fa-circle-info text-brand-cyan"></i> <strong>Tips Tipografi:</strong> Gunakan butang di atas untuk memformat tag `{{Nama}}` secara masa nyata.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Curated Fonts Pairings & Checklists -->
+  <section class="py-16 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-brand-cyan font-mono uppercase bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-800 inline-block">
+          <i class="fas fa-font"></i> Tipografi Profesional
+        </span>
+        <h2 class="text-3xl font-extrabold font-display text-white mt-4 tracking-tight">Kombinasi Font Sijil Terpilih</h2>
+        <p class="text-slate-400 mt-2">Padanan font Google Slides yang serasi bagi mewujudkan reka bentuk yang kemas, eksklusif, dan profesional.</p>
+      </div>
+
+      <!-- Fonts Showcase Grid -->
+      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        
+        <!-- Style 1 -->
+        <div class="glass-card rounded-2xl p-6.5 flex flex-col justify-between">
+          <div>
+            <span class="text-[9px] font-mono text-brand-cyan uppercase tracking-widest bg-brand-cyan/10 border border-brand-cyan/20 px-2 py-0.5 rounded">Gaya Mewah Korporat</span>
+            <h4 class="font-display font-extrabold text-white text-base mt-4">Cormorant Garamond + Montserrat</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mt-2">
+              Padanan cemerlang untuk sijil profesional. Tulisan serif mewah Cormorant Garamond memberikan impak berprestij tinggi pada nama penerima, dipadankan dengan sans-serif Montserrat yang kemas untuk deskripsi.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-900 text-xs font-mono text-slate-400">
+            <div>Nama: <span class="text-brand-amber">Cormorant Garamond</span></div>
+            <div class="mt-1">Deskripsi: <span class="text-white">Montserrat (Light)</span></div>
+          </div>
+        </div>
+
+        <!-- Style 2 -->
+        <div class="glass-card rounded-2xl p-6.5 flex flex-col justify-between">
+          <div>
+            <span class="text-[9px] font-mono text-brand-purple uppercase tracking-widest bg-brand-purple/10 border border-brand-purple/20 px-2 py-0.5 rounded">Gaya Tradisional</span>
+            <h4 class="font-display font-extrabold text-white text-base mt-4">Great Vibes + Inter</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mt-2">
+              Bagi sijil tradisional, gaya tulisan berangkai halus Great Vibes menonjolkan sentuhan artistik klasik. Dipadankan dengan font Inter untuk mengekalkan kejelasan pembacaan bagi baris tarikh dan tajuk bengkel.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-900 text-xs font-mono text-slate-400">
+            <div>Nama: <span class="text-brand-amber">Great Vibes (Cursive)</span></div>
+            <div class="mt-1">Deskripsi: <span class="text-white">Inter (Regular)</span></div>
+          </div>
+        </div>
+
+        <!-- Style 3 -->
+        <div class="glass-card rounded-2xl p-6.5 flex flex-col justify-between">
+          <div>
+            <span class="text-[9px] font-mono text-brand-emerald uppercase tracking-widest bg-brand-emerald/10 border border-brand-emerald/20 px-2 py-0.5 rounded">Gaya Moden Minimalis</span>
+            <h4 class="font-display font-extrabold text-white text-base mt-4">Montserrat (Bold) + Lato</h4>
+            <p class="text-xs text-slate-400 leading-relaxed mt-2">
+              Sesuai untuk acara kreatif dan bengkel teknologi moden. Menggunakan font sans-serif Montserrat dengan saiz tebal untuk memberikan impak futuristik yang segar dan kemas pada nama peserta.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-900 text-xs font-mono text-slate-400">
+            <div>Nama: <span class="text-brand-amber">Montserrat (700 Bold)</span></div>
+            <div class="mt-1">Deskripsi: <span class="text-white">Lato (Regular)</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-slate-950 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto px-6 text-center text-xs text-slate-500">
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fas fa-file-powerpoint"></i></span>
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fas fa-sliders"></i></span>
+        <span class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><i class="fas fa-font"></i></span>
+      </div>
+      <p class="mb-2">
+        <i class="far fa-copyright"></i> 2026 Reka Bentuk E-Sijil Digital — Modul Panduan Masterclass Google Slides.
+      </p>
+      <p class="text-[10px] text-slate-600 leading-relaxed max-w-xl mx-auto">
+        Google Slides, Google Drive, dan Apps Script adalah tanda dagangan berdaftar Google LLC. Modul panduan ini dibangunkan bagi tujuan penyampaian teknikal automasi pendidikan peringkat universiti.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Embedded Premium Interactivity (Vanilla JS) -->
+  <script>
+    // Global editor state variables
+    let currentFontSize = 32;
+    let currentAlignment = 'center';
+
+    // Apply properties to the simulated slide representation
+    function applyCanvasChanges() {
+      const selectedFont = document.getElementById('editor-font').value;
+      const selectedColor = document.getElementById('editor-color').value;
+      
+      const nameTextEl = document.getElementById('slides-text-name');
+      const placeholderBox = document.getElementById('slides-placeholder-box');
+
+      // Update font family
+      nameTextEl.style.fontFamily = `'${selectedFont}', sans-serif`;
+      
+      // Handle Great Vibes script size correction
+      if (selectedFont === 'Great Vibes') {
+        nameTextEl.style.fontSize = (currentFontSize + 14) + 'px';
+      } else {
+        nameTextEl.style.fontSize = currentFontSize + 'px';
+      }
+
+      // Update color and alignment
+      nameTextEl.style.color = selectedColor;
+      nameTextEl.style.textAlign = currentAlignment;
+      
+      // Update container flex justification alignment based on selected alignment
+      if (currentAlignment === 'left') {
+        placeholderBox.style.alignItems = 'flex-start';
+        nameTextEl.style.justifyContent = 'flex-start';
+      } else if (currentAlignment === 'right') {
+        placeholderBox.style.alignItems = 'flex-end';
+        nameTextEl.style.justifyContent = 'flex-end';
+      } else {
+        placeholderBox.style.alignItems = 'center';
+        nameTextEl.style.justifyContent = 'center';
+      }
+    }
+
+    // Font Size modification incrementer
+    function changeFontSize(delta) {
+      currentFontSize += delta;
+      
+      // Constrain sizing boundaries
+      if (currentFontSize < 16) currentFontSize = 16;
+      if (currentFontSize > 64) currentFontSize = 64;
+
+      document.getElementById('editor-font-size-text').innerText = currentFontSize + 'px';
+      applyCanvasChanges();
+    }
+
+    // Text Alignment switcher
+    function changeAlignment(align) {
+      currentAlignment = align;
+
+      // Reset align button styles
+      document.getElementById('btn-align-left').className = "px-2.5 py-1.5 hover:bg-slate-850 text-slate-400 transition-colors";
+      document.getElementById('btn-align-center').className = "px-2.5 py-1.5 hover:bg-slate-850 text-slate-400 transition-colors";
+      document.getElementById('btn-align-right').className = "px-2.5 py-1.5 hover:bg-slate-850 text-slate-400 transition-colors";
+
+      // Set active align style
+      document.getElementById('btn-align-' + align).className = "px-2.5 py-1.5 bg-brand-cyan/25 text-brand-cyan";
+
+      applyCanvasChanges();
+    }
+
+    // Toggle alignment red guides on slide canvas
+    function toggleCanvasGrid() {
+      const yGrid = document.getElementById('canvas-grid-y');
+      const xGrid = document.getElementById('canvas-grid-x');
+      const gridBtn = document.getElementById('toggle-grid-btn');
+
+      if (yGrid.classList.contains('hidden')) {
+        yGrid.classList.remove('hidden');
+        xGrid.classList.remove('hidden');
+        gridBtn.innerHTML = '<i class="fas fa-border-all text-brand-cyan"></i> Garisan Grid Aktif';
+        gridBtn.className = "bg-brand-cyan/15 hover:bg-brand-cyan/25 border border-brand-cyan/30 text-brand-cyan px-3 py-1.5 rounded-lg text-[10px] font-semibold transition-all flex items-center gap-1.5";
+      } else {
+        yGrid.classList.add('hidden');
+        xGrid.classList.add('hidden');
+        gridBtn.innerHTML = '<i class="fas fa-border-none"></i> Tunjuk Garisan Grid';
+        gridBtn.className = "bg-slate-900 hover:bg-slate-850 border border-slate-850 hover:text-white text-slate-400 px-3 py-1.5 rounded-lg text-[10px] font-semibold transition-all flex items-center gap-1.5";
+      }
+    }
+
+    // Run initializer on load
+    window.onload = function() {
+      applyCanvasChanges();
+    };
+  </script>
+</body>
+
+</html>
